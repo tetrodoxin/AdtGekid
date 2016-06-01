@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.gekid.de/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.gekid.de/namespace" targetNamespace="http://www.gekid.de/namespace" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.5 vom 01.04.2016">
+	<xs:element name="ADT_GEKID">
+		<xs:annotation>
+			<xs:documentation>Root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Absender" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Absender_Bezeichnung" type="xs:string" minOccurs="0"/>
+							<xs:element name="Absender_Ansprechpartner" type="xs:string" minOccurs="0"/>
+							<xs:element name="Absender_Anschrift" type="xs:string" minOccurs="0"/>
+							<xs:element name="Absender_Telefon" type="xs:string" minOccurs="0"/>
+							<xs:element name="Absender_EMail" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+						<xs:attribute name="Absender_ID" type="xs:string" use="optional"/>
+						<xs:attribute name="Software_ID" type="xs:string" use="optional"/>
+						<xs:attribute name="Installations_ID" type="xs:string" use="optional"/>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Menge_Patient">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Patient" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Patienten_Stammdaten">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="KrankenversichertenNr" type="xs:string" minOccurs="0"/>
+													<xs:element name="FamilienangehoerigenNr" nillable="false" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:length value="10"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="KrankenkassenNr" nillable="false" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:length value="9"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Patienten_Nachname" type="xs:string"/>
+													<xs:element name="Patienten_Titel" type="xs:string" minOccurs="0"/>
+													<xs:element name="Patienten_Namenszusatz" type="xs:string" minOccurs="0"/>
+													<xs:element name="Patienten_Vornamen" type="xs:string"/>
+													<xs:element name="Patienten_Geburtsname" type="xs:string" minOccurs="0"/>
+													<xs:element name="Menge_Frueherer_Name" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="Patienten_Frueherer_Name" type="xs:string" maxOccurs="unbounded"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="Patienten_Geschlecht" minOccurs="0">
+														<xs:simpleType>
+															<xs:restriction base="xs:string">
+																<xs:length value="1"/>
+																<xs:pattern value="[MWSU]"/>
+															</xs:restriction>
+														</xs:simpleType>
+													</xs:element>
+													<xs:element name="Patienten_Geburtsdatum" type="Datum_Typ"/>
+													<xs:element name="Menge_Adresse" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="Adresse" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Patienten_Strasse" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Patienten_Hausnummer" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Patienten_Land" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Patienten_PLZ" type="PLZ_Typ" minOccurs="0"/>
+																			<xs:element name="Patienten_Ort" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Gueltig_von" type="Datum_Typ" minOccurs="0"/>
+																			<xs:element name="Gueltig_bis" type="Datum_Typ" minOccurs="0"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="Patient_ID" type="xs:string" use="optional"/>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Menge_Meldung">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Meldung" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="Meldedatum" type="Datum_Typ" minOccurs="0"/>
+																<xs:element name="Meldebegruendung" minOccurs="0">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:length value="1"/>
+																			<xs:pattern value="[IADWV]"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="Meldeanlass" minOccurs="0">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:enumeration value="diagnose"/>
+																			<xs:enumeration value="behandlungsbeginn"/>
+																			<xs:enumeration value="behandlungsende"/>
+																			<xs:enumeration value="statusaenderung"/>
+																			<xs:enumeration value="statusmeldung"/>
+																			<xs:enumeration value="tod"/>
+																			<xs:enumeration value="histologie_zytologie"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="Tumorzuordnung" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Primaertumor_ICD_Code" type="ICD_Typ" minOccurs="0"/>
+																			<xs:element name="Diagnosedatum" type="Datum_Typ" minOccurs="0"/>
+																			<xs:element name="Seitenlokalisation" minOccurs="0">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:length value="1"/>
+																						<xs:pattern value="[LRBMTU]"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="Tumor_ID" type="xs:string" use="optional"/>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Diagnose" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Primaertumor_ICD_Code" minOccurs="0">
+																				<xs:simpleType>
+																					<xs:restriction base="ICD_Typ"/>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="Primaertumor_ICD_Version" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Primaertumor_Diagnosetext" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Primaertumor_Topographie_ICD_O" minOccurs="0">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:pattern value="C\d\d\.\d(\d)?"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="Primaertumor_Topographie_ICD_O_Version" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Primaertumor_Topographie_ICD_O_Freitext" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Diagnosedatum" type="Datum_Typ" minOccurs="0"/>
+																			<xs:element name="Diagnosesicherung" minOccurs="0">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:length value="1"/>
+																						<xs:pattern value="[124-79]"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="Seitenlokalisation" minOccurs="0">
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:length value="1"/>
+																						<xs:pattern value="[LRBMTU]"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="Fruehere_Tumorerkrankungen" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Menge_Histologie" minOccurs="0">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="Histologie" type="Histologie_Typ" maxOccurs="unbounded"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="Menge_FM" type="Menge_FM_Typ" minOccurs="0"/>
+																			<xs:element name="Menge_TNM" type="Menge_TNM_Typ" minOccurs="0"/>
+																			<xs:element name="Menge_Weitere_Klassifikation" type="Menge_Weitere_Klassifikation_Typ" minOccurs="0"/>
+																			<xs:element name="Allgemeiner_Leistungszustand" type="xs:string" minOccurs="0"/>
+																			<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+																		</xs:sequence>
+																		<xs:attribute name="Tumor_ID" type="xs:string" use="optional"/>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Menge_OP" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="OP" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="OP_Intention" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[KPDRSX]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="OP_Datum" type="Datum_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_OPS" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="OP_OPS" type="xs:string" maxOccurs="unbounded"/>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="OP_OPS_Version" type="xs:string" minOccurs="0"/>
+																						<xs:element name="Histologie" type="Histologie_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_TNM" type="Menge_TNM_Typ" minOccurs="0"/>
+																						<xs:element name="Residualstatus" type="Residualstatus_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_Komplikation" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="OP_Komplikation" maxOccurs="unbounded">
+																										<xs:simpleType>
+																											<xs:restriction base="xs:string">
+																												<xs:maxLength value="3"/>
+																												<xs:pattern value="N|U|ABD|ABS|ASF|ANI|AEP|ALR|ANS|AEE|API|BIF|BOG|BOE|BSI|CHI|DAI|DPS|DIC|DEP|DLU|DSI|ENF|GER|HEM|HUR|HAE|HFI|HNK|HZI|HRS|HNA|HOP|HYP|HYF|IFV|KAS|KES|KIM|KRA|KDS|LEV|LOE|LYF|LYE|MES|MIL|MED|MAT|MYI|RNB|NAB|NIN|OES|OSM|PAF|PIT|PAB|PPA|PAV|PER|PLB|PEY|PLE|PMN|PNT|PDA|PAE|RPA|RIN|SKI|SES|SFH|STK|TZP|TIA|TRZ|WUH|WSS|SON"/>
+																											</xs:restriction>
+																										</xs:simpleType>
+																									</xs:element>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="Menge_Operateur" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="Name_Operateur" type="xs:string" maxOccurs="unbounded"/>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+																					</xs:sequence>
+																					<xs:attribute name="OP_ID" type="xs:string" use="optional"/>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Menge_ST" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="ST" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="ST_Intention" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[KPSX]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="ST_Stellung_OP" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[OANIS]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Menge_Bestrahlung" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="Bestrahlung" maxOccurs="unbounded">
+																										<xs:complexType>
+																											<xs:sequence>
+																												<xs:element name="ST_Zielgebiet" minOccurs="0">
+																													<xs:simpleType>
+																														<xs:restriction base="xs:string">
+																															<xs:pattern value="(1\.[1-3]\.)|(2\.[1-9]\.[\+\-]?)|(3\.[1-7]\.[\+\-]?)|(4\.[1-9]\.[\+\-]?)|(5\.([2-9]|1[0-2]?)\.[\+\-]?)|(6\.([2-9]|1[0-6]?)\.[\+\-]?)?|([78]\.[12]\.)"/>
+																														</xs:restriction>
+																													</xs:simpleType>
+																												</xs:element>
+																												<xs:element name="ST_Seite_Zielgebiet" minOccurs="0">
+																													<xs:simpleType>
+																														<xs:restriction base="xs:string">
+																															<xs:length value="1"/>
+																															<xs:pattern value="[LRBMU]"/>
+																														</xs:restriction>
+																													</xs:simpleType>
+																												</xs:element>
+																												<xs:element name="ST_Beginn_Datum" type="Datum_Typ" minOccurs="0"/>
+																												<xs:element name="ST_Ende_Datum" type="Datum_Typ" minOccurs="0"/>
+																												<xs:element name="ST_Applikationsart" minOccurs="0">
+																													<xs:simpleType>
+																														<xs:restriction base="xs:string">
+																															<xs:pattern value="P(RCJ|RCN)?|[KI](HDR|PDR|LDR)?|M(SIRT|PRRT)?|S"/>
+																														</xs:restriction>
+																													</xs:simpleType>
+																												</xs:element>
+																												<xs:element name="ST_Gesamtdosis" type="xs:string" minOccurs="0"/>
+																												<xs:element name="ST_Einzeldosis" type="xs:string" minOccurs="0"/>
+																											</xs:sequence>
+																										</xs:complexType>
+																									</xs:element>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="ST_Ende_Grund" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[AEVPSU]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Residualstatus" type="Residualstatus_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_Nebenwirkung" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="ST_Nebenwirkung" type="Nebenwirkung_Typ" maxOccurs="unbounded"/>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+																					</xs:sequence>
+																					<xs:attribute name="ST_ID" type="xs:string" use="optional"/>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Menge_SYST" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="SYST" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="SYST_Intention" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[KPSX]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="SYST_Stellung_OP" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[OANIS]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Menge_Therapieart" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="SYST_Therapieart" maxOccurs="unbounded">
+																										<xs:simpleType>
+																											<xs:restriction base="xs:string">
+																												<xs:length value="2"/>
+																												<xs:pattern value="CH|HO|IM|KM|WS|AS|ZS|SO"/>
+																											</xs:restriction>
+																										</xs:simpleType>
+																									</xs:element>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="SYST_Therapieart_Anmerkung" type="xs:string" minOccurs="0"/>
+																						<xs:element name="SYST_Protokoll" type="xs:string" minOccurs="0"/>
+																						<xs:element name="SYST_Beginn_Datum" type="Datum_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_Substanz" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="SYST_Substanz" type="xs:string" maxOccurs="unbounded"/>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="SYST_Ende_Grund" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[AEVRPSU]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="SYST_Ende_Datum" type="Datum_Typ" minOccurs="0"/>
+																						<xs:element name="Residualstatus" type="Residualstatus_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_Nebenwirkung" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="SYST_Nebenwirkung" type="Nebenwirkung_Typ" maxOccurs="unbounded"/>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+																					</xs:sequence>
+																					<xs:attribute name="SYST_ID" type="xs:string" use="optional"/>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Menge_Verlauf" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Verlauf" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="Histologie" type="Histologie_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_TNM" type="Menge_TNM_Typ" minOccurs="0"/>
+																						<xs:element name="Menge_Weitere_Klassifikation" type="Menge_Weitere_Klassifikation_Typ" minOccurs="0"/>
+																						<xs:element name="Untersuchungsdatum_Verlauf" type="Datum_Typ" minOccurs="0"/>
+																						<xs:element name="Gesamtbeurteilung_Tumorstatus" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[VTKPDBRUX]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Verlauf_Lokaler_Tumorstatus" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[KTPNRFUX]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Verlauf_Tumorstatus_Lymphknoten" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[KRTPNFUX]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Verlauf_Tumorstatus_Fernmetastasen" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:length value="1"/>
+																									<xs:pattern value="[KMRTPNFUX]"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Menge_FM" type="Menge_FM_Typ" minOccurs="0"/>
+																						<xs:element name="Allgemeiner_Leistungszustand" type="xs:string" minOccurs="0"/>
+																						<xs:element name="Tod" minOccurs="0">
+																							<xs:complexType>
+																								<xs:sequence>
+																									<xs:element name="Sterbedatum" type="Datum_Typ" minOccurs="0"/>
+																									<xs:element name="Tod_tumorbedingt" minOccurs="0">
+																										<xs:simpleType>
+																											<xs:restriction base="JNU_Typ"/>
+																										</xs:simpleType>
+																									</xs:element>
+																									<xs:element name="Menge_Todesursache" minOccurs="0">
+																										<xs:complexType>
+																											<xs:sequence>
+																												<xs:element name="Todesursache_ICD" maxOccurs="unbounded">
+																													<xs:simpleType>
+																														<xs:restriction base="xs:string">
+																															<xs:pattern value="[A-Z]\d\d(\.\d(\d)?)?"/>
+																														</xs:restriction>
+																													</xs:simpleType>
+																												</xs:element>
+																											</xs:sequence>
+																										</xs:complexType>
+																									</xs:element>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																						<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+																					</xs:sequence>
+																					<xs:attribute name="Verlauf_ID" type="xs:string" use="optional"/>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Menge_Tumorkonferenz" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Tumorkonferenz" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="Tumorkonferenz_Datum" type="Datum_Typ" minOccurs="0"/>
+																						<xs:element name="Tumorkonferenz_Typ" minOccurs="0">
+																							<xs:simpleType>
+																								<xs:restriction base="xs:string">
+																									<xs:pattern value="praeth|postop|postth"/>
+																								</xs:restriction>
+																							</xs:simpleType>
+																						</xs:element>
+																						<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+																					</xs:sequence>
+																					<xs:attribute name="Tumorkonferenz_ID" type="xs:string" use="optional"/>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Menge_Zusatzitem" minOccurs="0">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="Zusatzitem" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="Datum" type="Datum_Typ" minOccurs="0"/>
+																						<xs:element name="Art" type="xs:string" minOccurs="0"/>
+																						<xs:element name="Wert" type="xs:string" minOccurs="0"/>
+																						<xs:element name="Bemerkung" type="xs:string" minOccurs="0"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+																<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+															</xs:sequence>
+															<xs:attribute name="Meldung_ID" type="xs:string" use="optional"/>
+															<xs:attribute name="Melder_ID" type="xs:string" use="optional"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Menge_Melder" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Melder" type="Melder_Typ" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+		<xs:unique name="ID_Patient">
+			<xs:selector xpath="tns:Menge_Patient/tns:Patient/tns:Patienten_Stammdaten"/>
+			<xs:field xpath="@Patient_ID"/>
+		</xs:unique>
+		<xs:unique name="ID_Meldung">
+			<xs:selector xpath="tns:Menge_Patient/tns:Patient/tns:Menge_Meldung/tns:Meldung"/>
+			<xs:field xpath="@Meldung_ID"/>
+		</xs:unique>
+		<xs:unique name="ID_Melder">
+			<xs:selector xpath="tns:Menge_Melder/tns:Melder"/>
+			<xs:field xpath="@Melder_ID"/>
+		</xs:unique>
+		<xs:keyref name="Ref_Melder" refer="ID_Melder">
+			<xs:selector xpath="tns:Menge_Patient/tns:Patient/tns:Menge_Meldung/tns:Meldung"/>
+			<xs:field xpath="@Melder_ID"/>
+		</xs:keyref>
+	</xs:element>
+	<xs:simpleType name="Datum_Typ">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(([0-2]\d)|(3[01]))\.((0\d)|(1[0-2]))\.(18|19|20)\d\d"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JNU_Typ">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:pattern value="[JNU]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PLZ_Typ">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="ICD_Typ">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[CD]\d\d(\.\d(\d)?)?"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Melder_Typ">
+		<xs:sequence>
+			<xs:element name="Melder_IKNR" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_LANR" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_BSNR" type="xs:string" minOccurs="0"/>
+			<xs:element name="Meldende_Stelle" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_KH_Abt_Station_Praxis" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_Arztname" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_Anschrift" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_PLZ" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="(\d{5})?"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Melder_Ort" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_Bankname" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_Kontoinhaber" type="xs:string" minOccurs="0"/>
+			<xs:element name="Melder_BIC" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="11"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Melder_IBAN" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Melder_ID" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Histologie_Typ">
+		<xs:sequence>
+			<xs:element name="Tumor_Histologiedatum" type="Datum_Typ" minOccurs="0"/>
+			<xs:element name="Histologie_EinsendeNr" type="xs:string" minOccurs="0"/>
+			<xs:element name="Morphologie_Code" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="\d\d\d\d/\d"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Morphologie_ICD_O_Version" type="xs:string" minOccurs="0"/>
+			<xs:element name="Morphologie_Freitext" type="xs:string" minOccurs="0"/>
+			<xs:element name="Grading" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="1"/>
+						<xs:pattern value="[01-4XLMHBUT]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LK_untersucht" type="xs:nonNegativeInteger" minOccurs="0"/>
+			<xs:element name="LK_befallen" type="xs:nonNegativeInteger" minOccurs="0"/>
+			<xs:element name="Sentinel_LK_untersucht" type="xs:nonNegativeInteger" minOccurs="0"/>
+			<xs:element name="Sentinel_LK_befallen" type="xs:nonNegativeInteger" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Histologie_ID" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Menge_TNM_Typ">
+		<xs:sequence>
+			<xs:element name="TNM" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TNM_Datum" type="Datum_Typ" minOccurs="0"/>
+						<xs:element name="TNM_Version" type="xs:string" minOccurs="0"/>
+						<xs:element name="TNM_y_Symbol" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="1"/>
+									<xs:pattern value="(y)?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_r_Symbol" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="1"/>
+									<xs:pattern value="(r)?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_a_Symbol" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="1"/>
+									<xs:pattern value="(a)?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_c_p_u_Praefix_T" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="1"/>
+									<xs:pattern value="([cpu])?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_T" type="xs:string" minOccurs="0"/>
+						<xs:element name="TNM_m_Symbol" type="xs:string" minOccurs="0"/>
+						<xs:element name="TNM_c_p_u_Praefix_N" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="1"/>
+									<xs:pattern value="([cpu])?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_N" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_c_p_u_Praefix_M" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:maxLength value="1"/>
+									<xs:pattern value="([cpu])?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_M" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_L" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+									<xs:pattern value="L[X01]"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_V" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+									<xs:pattern value="V[X012]"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_Pn" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="3"/>
+									<xs:pattern value="Pn[X01]"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="TNM_S" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="2"/>
+									<xs:pattern value="S[0123X]"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="TNM_ID" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Menge_FM_Typ">
+		<xs:sequence>
+			<xs:element name="Fernmetastase" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FM_Diagnosedatum" type="Datum_Typ" minOccurs="0"/>
+						<xs:element name="FM_Lokalisation" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:length value="3"/>
+									<xs:pattern value="PUL|OSS|HEP|BRA|LYM|MAR|PLE|PER|ADR|SKI|OTH|GEN"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Nebenwirkung_Typ">
+		<xs:sequence>
+			<xs:element name="Nebenwirkung_Grad" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="1"/>
+						<xs:pattern value="[K345U]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Nebenwirkung_Art" type="xs:string" minOccurs="0"/>
+			<xs:element name="Nebenwirkung_Version" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Residualstatus_Typ">
+		<xs:sequence>
+			<xs:element name="Lokale_Beurteilung_Residualstatus" type="R_Typ" minOccurs="0"/>
+			<xs:element name="Gesamtbeurteilung_Residualstatus" type="R_Typ" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Menge_Weitere_Klassifikation_Typ">
+		<xs:sequence>
+			<xs:element name="Weitere_Klassifikation" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Datum" type="Datum_Typ" minOccurs="0"/>
+						<xs:element name="Name" type="xs:string" minOccurs="0"/>
+						<xs:element name="Stadium" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="R_Typ">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="R0"/>
+			<xs:enumeration value="R1"/>
+			<xs:enumeration value="R1(is)"/>
+			<xs:enumeration value="R1(cy+)"/>
+			<xs:enumeration value="R2"/>
+			<xs:enumeration value="RX"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
