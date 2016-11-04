@@ -22,9 +22,12 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-#endregion 
+#endregion license
+
 using System;
+
 using System.Globalization;
+using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -32,7 +35,7 @@ using System.Xml.Serialization;
 namespace AdtGekid
 {
     /// <summary>
-    /// Datentyp für Datumsangaben nach ADT_GEKID. 
+    /// Datentyp für Datumsangaben nach ADT_GEKID.
     /// Dient der geforderten Formatierung und der Vermeidung
     /// des Verwendens von <see cref="string"/> für Daten.
     /// </summary>
@@ -43,10 +46,23 @@ namespace AdtGekid
         private const string DateFormatString = "dd.MM.yyyy";
         private DateTime? _date;
 
+        private bool _monthUnknown = false;
+        private bool _dayUnknown = false;
+
         /// <summary>
         /// Gibt an, ob das Datum einen Wert enthält.
         /// </summary>
         public bool HasValue => _date.HasValue;
+
+        /// <summary>
+        /// Gibt an, ob der Monat unbekannt ist.
+        /// </summary>
+        public bool MonthUnknown => _monthUnknown;
+
+        /// <summary>
+        /// Gibt an, ob der Tag unbekannt ist.
+        /// </summary>
+        public bool DayUnknown => _dayUnknown;
 
         /// <summary>
         /// Erstellt eine leere Instanz von <see cref="DatumTyp"/>.
@@ -68,11 +84,25 @@ namespace AdtGekid
         /// <summary>
         /// Erstellt eine neue Instanz von <see cref="DatumTyp"/> mit gegebenem Datum.
         /// </summary>
+        /// <param name="date">Der zu verwendende Datumswert.</param>
+        public DatumTyp(DateTime date, bool monthUnknown, bool dayUnknown) : this()
+        {
+            _date = date;
+            _monthUnknown = monthUnknown;
+            _dayUnknown = dayUnknown;
+        }
+
+        /// <summary>
+        /// Erstellt eine neue Instanz von <see cref="DatumTyp"/> mit gegebenem Datum.
+        /// </summary>
         /// <param name="year">Das Jahr des Datums.</param>
-        /// <param name="month">Der Monat des Datums.</param>
-        /// <param name="day">´Der Tag des Datums.</param>
-        public DatumTyp(int year, int month, int day) : this(new DateTime(year, month, day))
-        { }
+        /// <param name="month">Der Monat des Datums (0 für unbekannt).</param>
+        /// <param name="day">Der Tag des Datums (0 für geschätzt).</param>
+        public DatumTyp(int year, int month, int day) : this(new DateTime(year, Math.Max(1, month), Math.Max(1, day)))
+        {
+            _monthUnknown = month == 0;
+            _dayUnknown = day == 0;
+        }
 
         /// <summary>
         /// Erstellt eine neue Instanz von <see cref="DatumTyp" /> mit gegebenem Datum,
@@ -83,15 +113,7 @@ namespace AdtGekid
         {
             if (!string.IsNullOrEmpty(datumString))
             {
-                var d = getDateFromString(datumString);
-                if (d.HasValue)
-                {
-                    _date = d;
-                }
-                else
-                {
-                    throwFormatException();
-                }
+                setDateFromString(datumString, true);
             }
         }
 
@@ -115,7 +137,9 @@ namespace AdtGekid
 
             if (x._date.HasValue && y._date.HasValue)
             {
-                return x._date.Value == y._date.Value;
+                return x._date.Value == y._date.Value
+                    && x._dayUnknown == y._dayUnknown
+                    && x._monthUnknown == y._monthUnknown;
             }
             else
             {
@@ -208,15 +232,7 @@ namespace AdtGekid
         {
             if (!string.IsNullOrEmpty(datumString))
             {
-                var d = getDateFromString(datumString);
-                if (d.HasValue)
-                {
-                    return new DatumTyp(d.Value);
-                }
-                else
-                {
-                    throwFormatException();
-                }
+                return new DatumTyp(datumString);
             }
 
             return null;
@@ -277,21 +293,13 @@ namespace AdtGekid
                 }
                 else
                 {
-                    var d = getDateFromString(datumString);
-                    if (d.HasValue)
-                    {
-                        _date = d.Value;
-                        return;
-                    }
+                    setDateFromString(datumString, true);
                 }
-
-                throwFormatException();
             }
             else
             {
                 reader.Read();
             }
-
         }
 
         /// <summary>
@@ -321,31 +329,87 @@ namespace AdtGekid
             }
         }
 
-        private static void throwFormatException()
+        private static void throwFormatException(string str = null)
         {
-            throw new FormatException("Nicht unterstütztes Datumsformat. Erwartet [dd.MM.yyyy]");
-        }
-
-        private static DateTime? getDateFromString(string datumString)
-        {
-            if (datumString == null)
+            if (string.IsNullOrEmpty(str))
             {
-                return null;
-            }
-
-            datumString = datumString.Trim();
-
-            DateTime d;
-            if (datumString.Length == 10 && DateTime.TryParseExact(datumString, DateFormatString, CultureInfo.CurrentCulture, DateTimeStyles.None, out d))
-            {
-                return d;
+                throw new FormatException("Nicht unterstütztes Datumsformat. Erwartet [dd.MM.yyyy]");
             }
             else
             {
-                return null;
+                throw new FormatException($"Nicht unterstütztes Datumsformat. Erwartet [dd.MM.yyyy]. Bekommen '{str}'");
             }
         }
 
-        private string getDateString() => _date.Value.ToString(DateFormatString);
+        private bool returnNullOrThrow(bool throwExpections, string datumString)
+        {
+            _date = null;
+            _dayUnknown = false;
+            _monthUnknown = false;
+
+            if (throwExpections) throwFormatException(datumString);
+            return false;
+        }
+
+        private bool setDateFromString(string datumString, bool throwExceptions)
+        {
+            if (datumString == null)
+            {
+                _date = null;
+                _dayUnknown = false;
+                _monthUnknown = false;
+                return true;
+            }
+
+            datumString = datumString.Trim();
+            var parts = datumString.Split('.');
+
+            if (parts.Length != 3) return returnNullOrThrow(throwExceptions, datumString);
+
+            var nums = parts.Select(p => parsePositiveInt(p))
+                .Where(p => p >= 0)
+                .ToList();
+
+            if (nums.Count != 3) return returnNullOrThrow(throwExceptions, datumString);
+            if (nums[2] == 0) return returnNullOrThrow(throwExceptions, datumString);
+
+            try
+            {
+                _date = new DateTime(nums[2], Math.Max(nums[1], 1), Math.Max(nums[0], 1));
+                _monthUnknown = nums[1] == 0;
+                _dayUnknown = nums[0] == 0;
+                return true;
+            }
+            catch
+            {
+                return returnNullOrThrow(throwExceptions, datumString);
+            }
+        }
+
+        private static int parsePositiveInt(string str)
+        {
+            int r = 0;
+            if (int.TryParse(str, out r))
+            {
+                return r;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        private string getDateString()
+        {
+            if (!_dayUnknown && !_monthUnknown)
+            {
+                return _date.Value.ToString(DateFormatString);
+            }
+            else
+            {
+                var d = _date.Value;
+                return $"{(_dayUnknown ? 0 : d.Day):D2}.{(_monthUnknown ? 0 : d.Month):D2}.{d.Year:D4}";
+            }
+        }
     }
 }
