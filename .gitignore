@@ -21,6 +21,7 @@ lib/*/*
 *.nupkg
 *.nuspec
 /.nuget/*
+nuget.exe
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

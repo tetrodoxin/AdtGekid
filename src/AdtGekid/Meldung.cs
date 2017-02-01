@@ -39,8 +39,8 @@ namespace AdtGekid
         private static char[] AllowedReasonCodes = "IADWV".ToCharArray();
         private string _begruendung;
         private string _anmerkung;
-        private string _id;
-        private string _melderId;
+        private string _id;        
+        private string _melderId;     
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
@@ -63,10 +63,14 @@ namespace AdtGekid
         /// Anlass der Meldung
         /// </summary>
         [XmlElement("Meldeanlass", Order = 3)]
-        public Meldeanlass? Anlass { get; set; }
+        public Meldeanlass? Anlass
+        {
+            get; set;
+        }
 
         [XmlIgnore()]
-        public bool MeldeanlassSpecified => Anlass.HasValue;
+        public bool AnlassSpecified => Anlass.HasValue;
+        
 
         /// <summary>
         /// Widerspruch/Einwilligung des Patienten

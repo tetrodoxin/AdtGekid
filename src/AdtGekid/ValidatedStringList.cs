@@ -100,7 +100,7 @@ namespace AdtGekid
         {
             if (c == null)
             {
-                return new ValidatedStringList();
+                return null;
             }
             else
             {
