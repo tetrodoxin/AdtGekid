@@ -37,10 +37,10 @@ namespace AdtGekid
     /// <see cref="ToString"/> hingegen die Erläuterung des Zustands.
     /// </summary>
     public struct JnuTyp : IXmlSerializable, IEquatable<JnuTyp>
-    {
-        private static Lazy<JnuTyp> _lazyNo = new Lazy<JnuTyp>(() => new JnuTyp(2, "N", "Nein"));
-        private static Lazy<JnuTyp> _lazyUnknown = new Lazy<JnuTyp>(() => new JnuTyp(-1, "U", "Unbekannt"));
+    {                
         private static Lazy<JnuTyp> _lazyYes = new Lazy<JnuTyp>(() => new JnuTyp(1, "J", "Ja"));
+        private static Lazy<JnuTyp> _lazyNo = new Lazy<JnuTyp>(() => new JnuTyp(2, "N", "Nein"));
+        private static Lazy<JnuTyp> _lazyUnknown = new Lazy<JnuTyp>(() => new JnuTyp(3, "U", "Unbekannt"));
         private string _code;
 
         /// <summary>
