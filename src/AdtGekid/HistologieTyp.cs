@@ -128,7 +128,8 @@ namespace AdtGekid
         public string Code
         {
             get { return _code; }
-            set { _code = value.ValidateMaxLength(6); }
+            set { _code = value.ValidateOrThrow(@"^\d\d\d\d/\d$"); }
+            
         }
 
         /// <summary>

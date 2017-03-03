@@ -180,7 +180,7 @@ namespace AdtGekid
             }
             set
             {
-                _icdoCode = value.ValidateOrThrow(@"^C\d\d\.\d(\d)?$");
+                _icdoCode = value.ValidateOrThrow(@"^C\d\d\.\d(\d)?$");                
             }
         }
 

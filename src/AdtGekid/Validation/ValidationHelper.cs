@@ -37,7 +37,7 @@ namespace AdtGekid.Validation
     public static class ValidationHelper
     {
         private static Regex alphanumRegex = new Regex("^[a-zA-Z0-9]*$");
-        private static Regex alphaRegex = new Regex("^[a-zA-Z]*$");
+        private static Regex alphaRegex = new Regex("^[a-zA-Z]*$");        
 
         /// <summary>
         /// Validiert einen Wert mit einem gegebenen Validierer. 
