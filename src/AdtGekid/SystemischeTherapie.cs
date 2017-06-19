@@ -65,7 +65,7 @@ namespace AdtGekid
         public Collection<string> Substanzen
         {
             get { return _substanzen; }
-            set { _substanzen = value.EnsureValidatedStringList().WithValidator(TherapieartValidator.Instance); }
+            set { _substanzen = value.EnsureValidatedStringList().WithValidator(StringValidatorByLength.Max255); }
         }
 
         [XmlArrayItem("SYST_Therapieart", IsNullable = false)]

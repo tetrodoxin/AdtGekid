@@ -103,7 +103,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16); }
+            set { _id = value.ValidateMaxLength(16); }
         }
 
         /// <summary>

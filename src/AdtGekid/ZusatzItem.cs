@@ -81,7 +81,7 @@ namespace AdtGekid
         public string Wert
         {
             get { return _wert; }
-            set { _wert = value.ValidateOrThrow("NTBOSDZPSU".ToCharArray()); }
+            set { _wert = value.ValidateOrThrow("NTBOSDZLXU".ToCharArray()); }
         }
     }
 }
