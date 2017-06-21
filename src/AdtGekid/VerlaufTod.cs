@@ -46,6 +46,16 @@ namespace AdtGekid
         }
 
         /// <summary>
+        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
+        /// wenn es leer ist oder keine Elemente enthält
+        /// </summary>
+        [XmlIgnore]
+        public bool UrsachenIcdCodesSpecified =>
+            UrsachenIcdCodes == null || UrsachenIcdCodes.Count == 0 ? false : true;
+
+
+
+        /// <summary>
         /// Tag an dem der Patient verstorben ist.
         /// </summary>
         [XmlElement("Sterbedatum", Order = 1)]

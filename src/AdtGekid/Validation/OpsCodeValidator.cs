@@ -46,7 +46,7 @@ namespace AdtGekid.Validation
         {
             if(stringToValidate.Length > 8)
             {
-                return "Email Adressen dürfen maximal 8 Zeichen lang sein.";
+                return "OPS-Codes dürfen maximal 8 Zeichen lang sein.";
             }
 
             return base.GetErrorTextForNonEmpty(stringToValidate);

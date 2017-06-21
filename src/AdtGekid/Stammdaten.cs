@@ -96,6 +96,17 @@ namespace AdtGekid
             set { _fruehereNamen = value.EnsureValidatedStringList().WithValidator(StringValidatorByLength.Max100); }
         }
 
+
+        /// <summary>
+        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
+        /// wenn es leer ist oder keine Elemente enthält
+        /// </summary>
+        [XmlIgnore]
+        public bool FruehereNamenSpecified => 
+            FruehereNamen == null || FruehereNamen.Count == 0 ? false : true;
+      
+
+
         /// <summary>
         /// Eindeutig pro Patient pro Einrichtung
         /// </summary>

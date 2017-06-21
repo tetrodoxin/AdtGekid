@@ -79,6 +79,14 @@ namespace AdtGekid
         }
 
         /// <summary>
+        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
+        /// wenn es leer ist oder keine Elemente enthält
+        /// </summary>
+        [XmlIgnore]
+        public bool KomplikationenSpecified =>
+            Komplikationen == null || Komplikationen.Count == 0 ? false : true;
+
+        /// <summary>
         /// Liste der Operateure.
         /// </summary>
         [XmlArrayItem("Name_Operateur", IsNullable = false)]
@@ -90,6 +98,14 @@ namespace AdtGekid
         }
 
         /// <summary>
+        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
+        /// wenn es leer ist oder keine Elemente enthält
+        /// </summary>
+        [XmlIgnore]
+        public bool OperateureSpecified =>
+            Operateure == null || Operateure.Count == 0 ? false : true;
+
+        /// <summary>
         /// Liste der OPS-Codes.
         /// </summary>
         [XmlArrayItem("OP_OPS", IsNullable = false)]
@@ -99,6 +115,16 @@ namespace AdtGekid
             get { return _opsCodes; }
             set { _opsCodes = value.EnsureValidatedStringList().WithValidator(OpsCodeValidator.Instance); }
         }
+
+        /// <summary>
+        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
+        /// wenn es leer ist oder keine Elemente enthält
+        /// </summary>
+        [XmlIgnore]
+        public bool OpsCodesSpecified =>
+            OpsCodes == null || OpsCodes.Count == 0 ? false : true;
+
+
 
         /// <summary>
         /// Liste von postoperativen TNM-Klassifizierungen.

@@ -68,6 +68,14 @@ namespace AdtGekid
             set { _substanzen = value.EnsureValidatedStringList().WithValidator(StringValidatorByLength.Max255); }
         }
 
+        /// <summary>
+        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
+        /// wenn es leer ist oder keine Elemente enthält
+        /// </summary>
+        [XmlIgnore]
+        public bool SubstanzenSpecified =>
+            Substanzen == null || Substanzen.Count == 0 ? false : true;
+
         [XmlArrayItem("SYST_Therapieart", IsNullable = false)]
         [XmlArray("Menge_Therapieart", Order = 3)]
         public Collection<string> TherapieArten
@@ -75,6 +83,14 @@ namespace AdtGekid
             get { return _therapieArten; }
             set { _therapieArten = value; }
         }
+
+        /// <summary>
+        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
+        /// wenn es leer ist oder keine Elemente enthält
+        /// </summary>
+        [XmlIgnore]
+        public bool TherapieArtenSpecified =>
+            TherapieArten == null || TherapieArten.Count == 0 ? false : true;
 
         [XmlElement("Residualstatus", Order = 10)]
         public ResidualstatusTyp Residualstatus { get; set; }

@@ -17,13 +17,14 @@ namespace AdtGekid.Tests
         [Fact]
         public void Deserialize()
         {
-            var serializer = createSerializer();            
-            var sampleFile = "sample.xml";
+            var serializer = createSerializer();
+            var sampleFile = "sample.xml";            
             using (var reader = new StreamReader(sampleFile, Encoding.UTF8))
             {
                 var obj = serializer.Deserialize(reader) as Root;
                 Assert.NotNull(obj);
-            }
+                
+           }            
         }
 
         [Fact]
