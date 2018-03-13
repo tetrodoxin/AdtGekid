@@ -61,7 +61,7 @@ namespace AdtGekid
         public string Hausnummer
         {
             get { return _hausnummer; }
-            set { _hausnummer = value.ValidateOrThrow(@"^[a-zA-z0-9\.\-]*$"); }
+            set { _hausnummer = value.ValidateOrThrow(@"^[a-zA-Z0-9\.\-\/]*$"); }
         }
 
         /// <summary>

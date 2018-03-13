@@ -24,3 +24,8 @@ version 1.0.5.12 (Maddogtannen)
 - Name of property MeldeanlassSpecified changed to AnlassSpecified due to correct serialization if Anlass = null
 - Correct serialization of property Stammdaten.FruehereNamen if null
 
+version 1.0.5.12 (Maddogtannen)
+- Possiblity to disable validation of KrankenVersichertenNr/KrankenkassenNr with static property Stammdaten.KrankenversichertenNrValidationEnabled/KrankenkassenNrValidationEnabled for deserialization of invalid or empty field
+- Validation for Adresse.Hausnummer corrected
+
+

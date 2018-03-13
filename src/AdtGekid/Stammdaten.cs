@@ -37,7 +37,7 @@ namespace AdtGekid
     /// </summary>
     [Serializable()]
     [XmlType("ADT_GEKIDPatientPatienten_Stammdaten", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public class Stammdaten
+    public class Stammdaten 
     {
         private static char[] AllowedSexCodes = "MWSU".ToCharArray();
 
@@ -54,6 +54,19 @@ namespace AdtGekid
         private Collection<string> _fruehereNamen;
 
         /// <summary>
+        /// Gibt an, ob der Wert der KrankenkassenNr validiert werden soll oder nicht.
+        /// Default: true
+        /// </summary>
+        public static bool KrankenkassenNrValidationEnabled = true;
+
+        /// <summary>
+        /// Gibt an, ob der Wert der KrankenversichertenNr validiert werden soll oder nicht.
+        /// Default: true
+        /// </summary>
+        public static bool KrankenversichertenNrValidationEnabled = true;        
+       
+
+        /// <summary>
         /// <para>
         /// Der Bezug eines Angehörigen zum Mitglied wird über die 
         /// Familienangehörigennummer hergestellt.
@@ -65,6 +78,7 @@ namespace AdtGekid
         {
             get { return _familienangehoerigenNr; }
             set { _familienangehoerigenNr = value.ValidateOrThrow(new StringValidatorByRegex(StringValidatorBehavior.TrimAllowEmpty, @"[a-zA-Z][0-9]{1,9}")); }
+                
         }
 
         /// <summary>
@@ -75,7 +89,15 @@ namespace AdtGekid
         public string KrankenkassenNr
         {
             get { return _krankenkassenNr; }
-            set { _krankenkassenNr = value.ValidateOrThrow(IkNrValidator.Instance); }
+            set
+            {
+                _krankenkassenNr = (
+                    KrankenkassenNrValidationEnabled 
+                        ? value.ValidateOrThrow(IkNrValidator.Instance)
+                        : value
+                    )
+                ;
+            }
         }
 
         /// <summary>
@@ -85,7 +107,15 @@ namespace AdtGekid
         public string KrankenversichertenNr
         {
             get { return _krankenversichertenNr; }
-            set { _krankenversichertenNr = value.ValidateOrThrow(KvNrValidator.Instance); }
+            set
+            {
+                _krankenversichertenNr = (
+                    KrankenversichertenNrValidationEnabled 
+                    ? value.ValidateOrThrow(KvNrValidator.Instance)
+                    : value
+                   )
+                ;
+            }
         }
 
         [XmlArrayItem("Patienten_Frueherer_Name", IsNullable = false)]
