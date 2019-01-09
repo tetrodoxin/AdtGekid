@@ -47,6 +47,8 @@ namespace AdtGekid
         private string _einzeldosis;
         private string _gesamtdosis;
 
+        private string _entity = typeof(Bestrahlung).Name;
+
         /// <summary>
         /// Gibt an, mit welcher Technik die Strahlentherapie durchgeführt wird.
         /// </summary>
@@ -54,7 +56,7 @@ namespace AdtGekid
         public string Applikationsart
         {
             get { return _applikationsart; }
-            set { _applikationsart = value.ValidateOrThrow(ApplicationTypePattern); }
+            set { _applikationsart = value.ValidateOrThrow(ApplicationTypePattern, _entity, nameof(this.Applikationsart)); }
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace AdtGekid
         public string Einzeldosis
         {
             get { return _einzeldosis; }
-            set { _einzeldosis = value.ValidateAlphanumericalOrThrow(5); }
+            set { _einzeldosis = value.ValidateAlphanumericalOrThrow(5, _entity, nameof(this.Einzeldosis)); }
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace AdtGekid
         public string Gesamtdosis
         {
             get { return _gesamtdosis; }
-            set { _gesamtdosis = value.ValidateAlphanumericalOrThrow(5); }
+            set { _gesamtdosis = value.ValidateAlphanumericalOrThrow(5, _entity, nameof(this.Gesamtdosis)); }
         }
 
         /// <summary>
@@ -97,7 +99,7 @@ namespace AdtGekid
         public string SeiteZielgebiet
         {
             get { return _seiteZielgebiet; }
-            set { _seiteZielgebiet = value.ValidateOrThrow(AllowedTargetSideCodes); }
+            set { _seiteZielgebiet = value.ValidateOrThrow(AllowedTargetSideCodes, _entity, nameof(this.SeiteZielgebiet)); }
         }
 
         /// <summary>
@@ -108,7 +110,7 @@ namespace AdtGekid
         public string Zielgebiet
         {
             get { return _zielgebiet; }
-            set { _zielgebiet = value.ValidateOrThrow(TargetAreaPattern); }
+            set { _zielgebiet = value.ValidateOrThrow(TargetAreaPattern,  _entity, nameof(this.Zielgebiet)); }
         }
     }
 }

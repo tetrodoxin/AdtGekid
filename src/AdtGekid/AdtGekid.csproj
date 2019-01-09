@@ -70,6 +70,7 @@
     <Compile Include="Validation\StringValidatorByChars.cs" />
     <Compile Include="Validation\StringValidatorByStrings.cs" />
     <Compile Include="Validation\StringValidatorByRegex.cs" />
+    <Compile Include="Validation\ValidationArgumentException.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
     <Compile Include="Validation\StringValidatorBehavior.cs" />
     <Compile Include="StringHelper.cs" />

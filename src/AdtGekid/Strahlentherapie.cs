@@ -39,6 +39,8 @@ namespace AdtGekid
         private string _anmerkung;
         private string _id;
 
+        private string _typeName = typeof(Strahlentherapie).Name;
+
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
@@ -47,7 +49,7 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
         }
 
         [XmlArrayItem("Bestrahlung", IsNullable = false)]
@@ -68,7 +70,7 @@ namespace AdtGekid
         public string EndeGrund
         {
             get { return _endeGrund; }
-            set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.StrahlenTherapie); }
+            set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.StrahlenTherapie, _typeName, nameof(this.EndeGrund)); }
         }
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16); }
+            set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -91,7 +93,7 @@ namespace AdtGekid
         public string Intention
         {
             get { return _intention; }
-            set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP); }
+            set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
         }
 
         /// <summary>
@@ -101,7 +103,7 @@ namespace AdtGekid
         public string StellungOp
         {
             get { return _stellungOp; }
-            set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance); }
+            set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
         }
     }
 }

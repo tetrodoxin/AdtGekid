@@ -38,6 +38,9 @@ namespace AdtGekid
     {
         private string _anmerkung;
 
+        private string _typeName = typeof(Patient).Name;
+
+        
         /// <summary>
         /// Die Stammdaten des Patienten.
         /// </summary>
@@ -59,7 +62,7 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
         }
     }
 }

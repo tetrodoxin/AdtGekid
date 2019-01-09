@@ -42,6 +42,18 @@ namespace AdtGekid.Validation
         private OpsCodeValidator() : base(StringValidatorBehavior.LowcaseTrimAllowEmpty, @"^5\-[0-9]{2}[0-9a-z]?(\.[0-9a-z][0-9a-z]?)?$")
         { }
 
+        private OpsCodeValidator(string validatedAdtObject, string validatedAdtField) : this()
+        {
+            base.ValidateAdtObject = validatedAdtObject;
+            base.ValidatedAdtField = validatedAdtField;
+        }
+
+        public static OpsCodeValidator CreateInstance(string validatedAdtObject, string validatedAdtField)
+        {
+            return new OpsCodeValidator(validatedAdtObject, validatedAdtField);
+        }
+
+
         protected override string GetErrorTextForNonEmpty(string stringToValidate)
         {
             if(stringToValidate.Length > 8)

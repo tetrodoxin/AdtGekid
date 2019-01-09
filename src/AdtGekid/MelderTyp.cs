@@ -51,6 +51,8 @@ namespace AdtGekid
         private string _bIC;
         private string _iBAN;
 
+        private string _typeName = "Melder";
+
         /// <summary>
         /// Eindeutig identifizierendes Merkmal des Melders
         /// </summary>
@@ -58,7 +60,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(6); }
+            set { _id = value.ValidateAlphanumericalOrThrow(6, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace AdtGekid
         public string IKNR
         {
             get { return _iKNR; }
-            set { _iKNR = value.ValidateAlphanumericalOrThrow(9); }
+            set { _iKNR = value.ValidateAlphanumericalOrThrow(9, _typeName, nameof(this.IKNR)); }
         }
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace AdtGekid
         public string LANR
         {
             get { return _lANR; }
-            set { _lANR = value.ValidateAlphanumericalOrThrow(9); }
+            set { _lANR = value.ValidateAlphanumericalOrThrow(9, _typeName, nameof(this.LANR)); }
         }
 
         /// <summary>
@@ -88,7 +90,7 @@ namespace AdtGekid
         public string BSNR
         {
             get { return _bSNR; }
-            set { _bSNR = value.ValidateAlphanumericalOrThrow(9); }
+            set { _bSNR = value.ValidateAlphanumericalOrThrow(9, _typeName, nameof(this.BSNR)); }
         }
 
         /// <summary>
@@ -104,7 +106,7 @@ namespace AdtGekid
         public string MeldendeStelle
         {
             get { return _meldendeStelle; }
-            set { _meldendeStelle = value.ValidateAlphanumericalOrThrow(20); }
+            set { _meldendeStelle = value.ValidateAlphanumericalOrThrow(20, _typeName, nameof(this.MeldendeStelle)); }
         }
 
         /// <summary>
@@ -115,7 +117,7 @@ namespace AdtGekid
         public string KlinikStationPraxis
         {
             get { return _klinikStationPraxis; }
-            set { _klinikStationPraxis = value.ValidateMaxLength(70); }
+            set { _klinikStationPraxis = value.ValidateMaxLength(70, _typeName, nameof(this.KlinikStationPraxis)); }
         }
 
         /// <summary>
@@ -125,7 +127,7 @@ namespace AdtGekid
         public string Arztname
         {
             get { return _arztname; }
-            set { _arztname = value.ValidateMaxLength(50); }
+            set { _arztname = value.ValidateMaxLength(50, _typeName, nameof(this.Arztname)); }
         }
 
         /// <summary>
@@ -135,7 +137,7 @@ namespace AdtGekid
         public string Anschrift
         {
             get { return _anschrift; }
-            set { _anschrift = value.ValidateMaxLength(50); }
+            set { _anschrift = value.ValidateMaxLength(50, _typeName, nameof(this.Anschrift)); }
         }
 
         /// <summary>
@@ -145,7 +147,12 @@ namespace AdtGekid
         public string PLZ
         {
             get { return _pLZ; }
-            set { _pLZ = value.ValidateMaxLength(5).ValidateOrThrow("0123456789".ToCharArray()); }
+            set { _pLZ = value.ValidateMaxLength(5)
+                                .ValidateOrThrow("0123456789".ToCharArray()
+                                    , _typeName
+                                    , nameof(this.PLZ)
+                                );
+            }
         }
 
         /// <summary>
@@ -155,7 +162,7 @@ namespace AdtGekid
         public string Ort
         {
             get { return _ort; }
-            set { _ort = value.ValidateMaxLength(50); }
+            set { _ort = value.ValidateMaxLength(50, _typeName, nameof(this.Ort)); }
         }
 
         /// <summary>
@@ -165,7 +172,7 @@ namespace AdtGekid
         public string Bankname
         {
             get { return _bankname; }
-            set { _bankname = value.ValidateMaxLength(50); }
+            set { _bankname = value.ValidateMaxLength(50, _typeName, nameof(this.Bankname)); }
         }
 
         /// <summary>
@@ -175,7 +182,7 @@ namespace AdtGekid
         public string Kontoinhaber
         {
             get { return _kontoinhaber; }
-            set { _kontoinhaber = value.ValidateMaxLength(50); }
+            set { _kontoinhaber = value.ValidateMaxLength(50, _typeName, nameof(this.Kontoinhaber)); }
         }
 
         /// <summary>
@@ -185,7 +192,7 @@ namespace AdtGekid
         public string BIC
         {
             get { return _bIC; }
-            set { _bIC = value.ValidateAlphanumericalOrThrow(11); }
+            set { _bIC = value.ValidateAlphanumericalOrThrow(11, _typeName, nameof(this.BIC)); }
         }
 
         /// <summary>
@@ -196,7 +203,7 @@ namespace AdtGekid
         public string IBAN
         {
             get { return _iBAN; }
-            set { _iBAN = value.ValidateAlphanumericalOrThrow(22); }
+            set { _iBAN = value.ValidateAlphanumericalOrThrow(22, _typeName, nameof(this.IBAN)); }
         }
     }
 }

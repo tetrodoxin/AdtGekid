@@ -120,6 +120,15 @@ namespace AdtGekid.Validation
         private static readonly Lazy<IValueValidator<string>> _instance = new Lazy<IValueValidator<string>>(() => new OpKomplikationValidator());
         public static IValueValidator<string> Instance => _instance.Value;
 
+        public static IValueValidator<string> CreateInstance(string validatedAdtObject, string validatedAdtField)
+        {
+            return new OpKomplikationValidator()
+            {
+                ValidateAdtObject = validatedAdtObject,
+                ValidatedAdtField = validatedAdtField
+            };
+        }
+
         private OpKomplikationValidator() : base(StringValidatorBehavior.UpcaseTrimAllowEmpty, KomplikationenCodes, 3)
         { }
 

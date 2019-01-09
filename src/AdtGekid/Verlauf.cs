@@ -45,6 +45,8 @@ namespace AdtGekid
         private string _anmerkung;
         private string _id;
 
+        private string _typeName = typeof(Verlauf).Name;
+
         /// <summary>
         /// Beurteilung des allgemeinen Leistungszustandes nach ECOG oder Karnofsky in
         /// %
@@ -53,7 +55,7 @@ namespace AdtGekid
         public string AllgemeinerLeistungszustand
         {
             get { return _allgemeinerLeistungszustand; }
-            set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance); }
+            set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _typeName, nameof(this.AllgemeinerLeistungszustand)); }
         }
 
         /// <summary>
@@ -64,7 +66,7 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace AdtGekid
         public string TumorstatusGesamt
         {
             get { return _tumorstatusGesamt; }
-            set { _tumorstatusGesamt = value.ValidateOrThrow(AllowedSummaryStatusCodes); }
+            set { _tumorstatusGesamt = value.ValidateOrThrow(AllowedSummaryStatusCodes, _typeName, nameof(this.TumorstatusGesamt)); }
         }
 
         [XmlElement("Histologie", Order = 1)]
@@ -113,7 +115,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16); }
+            set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -123,14 +125,14 @@ namespace AdtGekid
         public string TumorstatusLokal
         {
             get { return _tumorstatusLokal; }
-            set { _tumorstatusLokal = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes); }
+            set { _tumorstatusLokal = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLokal)); }
         }
 
         [XmlElement("Verlauf_Tumorstatus_Fernmetastasen", Order = 8)]
         public string TumorstatusFernmetastasen
         {
             get { return _tumorstatusFernmetastasen; }
-            set { _tumorstatusFernmetastasen = value.ValidateOrThrow(AllowedMetastasisStatusCodes); }
+            set { _tumorstatusFernmetastasen = value.ValidateOrThrow(AllowedMetastasisStatusCodes, _typeName, nameof(this.TumorstatusFernmetastasen)); }
         }
 
         /// <summary>
@@ -140,7 +142,7 @@ namespace AdtGekid
         public string TumorstatusLymphknoten
         {
             get { return _tumorstatusLymphknoten; }
-            set { _tumorstatusLymphknoten = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes); }
+            set { _tumorstatusLymphknoten = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLymphknoten)); }
         }
     }
 }

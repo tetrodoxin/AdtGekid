@@ -17,7 +17,7 @@ namespace AdtGekid.Tests
         public void Positive_Test(string value)
         {
             var validator = IkNrValidator.Instance;
-            var actual = validator.GetValidatedValueOrThrow(value);
+            var actual = validator.GetValidatedValueOrThrow(value, "Patient","KrankenkassenNr");
 
             Assert.Equal(value, actual);
         }
@@ -28,8 +28,8 @@ namespace AdtGekid.Tests
         public void Negative_Test(string value)
         {
             var validator = IkNrValidator.Instance;
-
-            Assert.ThrowsDelegate p = () => validator.GetValidatedValueOrThrow(value);
+            
+            Assert.ThrowsDelegate p = () => validator.GetValidatedValueOrThrow(value, "Patient", "KrankenkassenNr");
             Assert.Throws<ArgumentException>(p);
         }
     }

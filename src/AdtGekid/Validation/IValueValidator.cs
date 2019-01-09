@@ -32,11 +32,27 @@ namespace AdtGekid.Validation
     public interface IValueValidator<T>
     {
         /// <summary>
+        /// Der Name des ADT-Objekts, die geprüft wird.
+        /// Z.B. Patient, Diagnose, WeitereKlassifikation...
+        /// </summary>
+        string ValidateAdtObject { get; }
+
+        /// <summary>
+        /// Der Name des zu prüfenden Feldes innerhalb der Entität 
+        /// (was auch vom komplexen Typ sein kann)
+        /// </summary>
+        string ValidatedAdtField { get; }
+       
+
+        /// <summary>
         /// Prüft einen Wert und gibt ihn angepasst zurück, sofern er korrekt verarbeitet werden konnte
         /// und löst für falsche Werte eine Ausnahme aus.
         /// </summary>
         /// <param name="value">Der zu validierende Wert.</param>
         /// <returns>Der Datentyp des zu validierenden Werts.</returns>
+        //T GetValidatedValueOrThrow(T value, string validatedEntity, string validatedObject);
         T GetValidatedValueOrThrow(T value);
+
+        T GetValidatedValueOrThrow(T value, string validatedAdtObject, string validatedAdtField);
     }
 }

@@ -36,6 +36,8 @@ namespace AdtGekid
         private string _name;
         private string _stadium;
 
+        private string _typeName = typeof(WeitereKlassifikation).Name;
+
         /// <summary>
         /// Datum der Erhebung der hämatologischen oder sonstigen Klassifikation
         /// </summary>
@@ -49,7 +51,7 @@ namespace AdtGekid
         public string Name
         {
             get { return _name; }
-            set { _name = value.ValidateMaxLength(100); }
+            set { _name = value.ValidateMaxLength(100, _typeName, nameof(this.Name)); }
         }
 
         /// <summary>
@@ -59,7 +61,7 @@ namespace AdtGekid
         public string Stadium
         {
             get { return _stadium; }
-            set { _stadium = value.ValidateMaxLength(15); }
+            set { _stadium = value.ValidateMaxLength(15, _typeName, nameof(this.Stadium)); }
         }
     }
 }

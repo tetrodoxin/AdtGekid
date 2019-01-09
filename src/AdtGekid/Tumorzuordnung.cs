@@ -36,6 +36,8 @@ namespace AdtGekid
         private string _id;
         private IcdTyp _icdCode;
 
+        private string _typeName = typeof(Tumorzuordnung).Name;
+
         /// <summary>
         /// Zeitpunkt, angegeben in Tag, Monat und Jahr, an dem die meldepflichtige Di-
         /// agnose erstmals durch einen Arzt klinisch oder mikroskopisch diagnostiziert
@@ -62,7 +64,7 @@ namespace AdtGekid
         public string Seitenlokalisation
         {
             get { return _seitenlokalisation; }
-            set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance); }
+            set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _typeName, nameof(this.Seitenlokalisation)); }
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateMaxLength(16); }
+            set { _id = value.ValidateMaxLength(16, _typeName, nameof(this.Id)); }
         }
     }
 }

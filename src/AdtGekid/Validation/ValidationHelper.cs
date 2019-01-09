@@ -37,7 +37,8 @@ namespace AdtGekid.Validation
     public static class ValidationHelper
     {
         private static Regex alphanumRegex = new Regex("^[a-zA-Z0-9]*$");
-        private static Regex alphaRegex = new Regex("^[a-zA-Z]*$");        
+        private static Regex alphaRegex = new Regex("^[a-zA-Z]*$");            
+        
 
         /// <summary>
         /// Validiert einen Wert mit einem gegebenen Validierer. 
@@ -48,14 +49,14 @@ namespace AdtGekid.Validation
         /// <param name="validator">Der Validierer, der verwendet werden soll.</param>
         /// <returns>Der (ggf. angepasste/veränderte/korrigierte) Wert, welcher übergeben wurde.</returns>
         /// <exception cref="ArgumentNullException">Falls <c>validator</c> gleich <c>null</c> ist.</exception>
-        public static T ValidateOrThrow<T>(this T valueToValidate, IValueValidator<T> validator)
+        public static T ValidateOrThrow<T>(this T valueToValidate, IValueValidator<T> validator, string validatedAdtObject = null, string validatedAdtField = null)
         {
             if(validator == null)
             {
                 throw new ArgumentNullException(nameof(validator));
             }
 
-            return validator.GetValidatedValueOrThrow(valueToValidate);
+            return validator.GetValidatedValueOrThrow(valueToValidate, validatedAdtObject, validatedAdtField);
         }
 
         /// <summary>
@@ -66,14 +67,14 @@ namespace AdtGekid.Validation
         /// <param name="validator">Der Validierer, der verwendet werden soll.</param>
         /// <returns>Der (ggf. angepasste/veränderte/korrigierte) Wert, welcher übergeben wurde.</returns>
         /// <exception cref="ArgumentNullException">Falls <c>validator</c> gleich <c>null</c> ist.</exception>
-        public static string ValidateOrThrow(this string stringToValidate, IValueValidator<string> validator)
+        public static string ValidateOrThrow(this string stringToValidate, IValueValidator<string> validator, string validatedAdtObject = null, string validatedAdtField = null)
         {
             if (validator == null)
             {
                 throw new ArgumentNullException(nameof(validator));
             }
 
-            return validator.GetValidatedValueOrThrow(stringToValidate);
+            return validator.GetValidatedValueOrThrow(stringToValidate, validatedAdtObject, validatedAdtField);
         }
 
         /// <summary>
@@ -84,10 +85,10 @@ namespace AdtGekid.Validation
         /// <param name="allowedChars">Die zulässigen Werte.</param>
         /// <returns>Einen String in korrekter Form und Schreibweise, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateOrThrow(this string value, StringValidatorBehavior behavior, char[] allowedChars)
+        public static string ValidateOrThrow(this string value, StringValidatorBehavior behavior, char[] allowedChars, string validatedAdtObject = null, string validatedAdtField = null)
         {
             var validator = new StringValidatorByChars(behavior, allowedChars, 0);
-            return validator.GetValidatedValueOrThrow(value);
+            return validator.GetValidatedValueOrThrow(value, validatedAdtObject, validatedAdtField);
         }
 
         /// <summary>
@@ -98,8 +99,8 @@ namespace AdtGekid.Validation
         /// <param name="allowedChars">Die zulässigen Werte.</param>
         /// <returns>Einen String in korrekter Form und Schreibweise, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateOrThrow(this string value, char[] allowedChars)
-            => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, allowedChars);
+        public static string ValidateOrThrow(this string value, char[] allowedChars, string validatedAdtObject = null, string validatedAdtField = null)
+            => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, allowedChars, validatedAdtObject, validatedAdtField);
 
         /// <summary>
         /// Prüft einen String und gibt im Erfolgsfall die gültige (und evt. veränderte) Form zurück.
@@ -110,10 +111,10 @@ namespace AdtGekid.Validation
         /// <param name="maxLength">Die maximale Länge des Strings oder 0, falls unbegrenzt.</param>
         /// <returns>Einen String in korrekter Form und Schreibweise, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateOrThrow(this string value, StringValidatorBehavior behavior, string[] allowedStrings, int maxLength = 0)
+        public static string ValidateOrThrow(this string value, StringValidatorBehavior behavior, string[] allowedStrings, int maxLength = 0, string validatedAdtObject = null, string validatedAdtField = null)
         {
             var validator = new StringValidatorByStrings(behavior, allowedStrings, maxLength);
-            return validator.GetValidatedValueOrThrow(value);
+            return validator.GetValidatedValueOrThrow(value, validatedAdtObject, validatedAdtField);
         }
 
         /// <summary>
@@ -125,8 +126,8 @@ namespace AdtGekid.Validation
         /// <param name="maxLength">Die maximale Länge des Strings oder 0, falls unbegrenzt.</param>
         /// <returns>Einen String in korrekter Form und Schreibweise, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateOrThrow(this string value, string[] allowedStrings, int maxLength = 0)
-            => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, allowedStrings, maxLength);
+        public static string ValidateOrThrow(this string value, string[] allowedStrings, int maxLength = 0, string validatedAdtObject = null, string validatedAdtField = null)
+            => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, allowedStrings, maxLength, validatedAdtObject, validatedAdtField);
 
         /// <summary>
         /// Prüft einen String und gibt im Erfolgsfall die gültige (und evt. veränderte) Form zurück.
@@ -136,10 +137,10 @@ namespace AdtGekid.Validation
         /// <param name="regexPattern">Das RegEx Pattern für zulässige Werte.</param>
         /// <returns>Einen String in korrekter Form und Schreibweise, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateOrThrow(this string value, StringValidatorBehavior behavior, string regexPattern)
+        public static string ValidateOrThrow(this string value, StringValidatorBehavior behavior, string regexPattern, string validatedAdtObject = null, string validatedAdtField = null)
         {
             var validator = new StringValidatorByRegex(behavior, regexPattern);
-            return validator.GetValidatedValueOrThrow(value);
+            return validator.GetValidatedValueOrThrow(value, validatedAdtObject, validatedAdtField);
         }
 
         /// <summary>
@@ -149,18 +150,18 @@ namespace AdtGekid.Validation
         /// <param name="maxLength">Die maximal zulässige Länge des Strings oder <c>0</c>, falls unbegrenzt.</param>
         /// <returns>Den übergebenen String, falls dieser korrekt validiert wurde, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateAlphanumericalOrThrow(this string value, int maxLength = 0)
+        public static string ValidateAlphanumericalOrThrow(this string value, int maxLength = 0, string validatedAdtObject = null, string validatedAdtField = null)
         {
             if(!string.IsNullOrEmpty(value))
             {
-                if(maxLength > 0 && value.Length > maxLength)
-                {
-                    throw new ArgumentException($"Feld erlaubt maximal {maxLength} Zeichen.");
+                if (maxLength > 0 && value.Length > maxLength)
+                {                                 
+                    throw new ValidationArgumentException($"Feld erlaubt maximal {maxLength} Zeichen.", validatedAdtObject, validatedAdtField);
                 }
 
                 if(alphanumRegex.IsMatch(value) == false)
-                {
-                    throw new ArgumentException($"Ungültiger Wert {value}");
+                {                    
+                    throw new ValidationArgumentException($"Ungültiger Wert {value}", validatedAdtObject, validatedAdtField);
                 }
             }
 
@@ -174,18 +175,18 @@ namespace AdtGekid.Validation
         /// <param name="maxLength">Die maximal zulässige Länge des Strings oder <c>0</c>, falls unbegrenzt.</param>
         /// <returns>Den übergebenen String, falls dieser korrekt validiert wurde, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateAlphaCharsOnlyOrThrow(this string value, int maxLength = 0)
+        public static string ValidateAlphaCharsOnlyOrThrow(this string value, int maxLength = 0, string validatedAdtObject = null, string validatedAdtField = null)
         {
             if (!string.IsNullOrEmpty(value))
             {
                 if (maxLength > 0 && value.Length > maxLength)
                 {
-                    throw new ArgumentException($"Feld erlaubt maximal {maxLength} Zeichen.");
+                    throw new ValidationArgumentException($"Feld erlaubt maximal {maxLength} Zeichen.", validatedAdtObject, validatedAdtField);
                 }
 
                 if (alphaRegex.IsMatch(value) == false)
                 {
-                    throw new ArgumentException($"Ungültiger Wert {value}");
+                    throw new ValidationArgumentException($"Ungültiger Wert {value}", validatedAdtObject, validatedAdtField);
                 }
             }
 
@@ -199,13 +200,14 @@ namespace AdtGekid.Validation
         /// <param name="maxLength">Die maximal zulässige Länge des Strings.</param>
         /// <returns>Den übergebenen String, falls dieser korrekt validiert wurde, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateMaxLength(this string value, int maxLength)
+        public static string ValidateMaxLength(this string value, int maxLength, string validatedAdtObject = null, string validatedAdtField = null)
         {
+
             if (!string.IsNullOrEmpty(value))
             {
                 if (value.Length > maxLength)
                 {
-                    throw new ArgumentException($"Feld erlaubt maximal {maxLength} Zeichen.");
+                    throw new ValidationArgumentException($"Feld erlaubt maximal {maxLength} Zeichen.", validatedAdtObject, validatedAdtField);
                 }
             }
 
@@ -218,11 +220,11 @@ namespace AdtGekid.Validation
         /// <param name="value">Zu prüfender Stringwert..</param>
         /// <returns>Der übergebene String.</returns>
         /// <exception cref="ArgumentException">Falls der übergebene String leer oder <c>null</c> war.</exception>
-        public static string ValidateNeitherNullNorEmpty(this string value)
-        {
-            if(string.IsNullOrEmpty(value))
+        public static string ValidateNeitherNullNorEmpty(this string value, string validatedAdtObject = null, string validatedAdtField = null)
+        {            
+            if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentException("NULL oder leere Strings sind nicht zulässig.");
+                throw new ValidationArgumentException("NULL oder leere Strings sind nicht zulässig.", validatedAdtObject, validatedAdtField);
             }
 
             return value;
@@ -236,7 +238,9 @@ namespace AdtGekid.Validation
         /// <param name="regexPattern">Das RegEx Pattern für zulässige Werte.</param>
         /// <returns>Einen String in korrekter Form und Schreibweise, andernfalls wird
         /// eine Exception ausgelöst..</returns>
-        public static string ValidateOrThrow(this string value, string regexPattern)
-            => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, regexPattern);
+        public static string ValidateOrThrow(this string value, string regexPattern, string validatedAdtObject = null, string validatedAdtField = null)
+            => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, regexPattern, validatedAdtObject, validatedAdtField);
+
+              
    }
 }

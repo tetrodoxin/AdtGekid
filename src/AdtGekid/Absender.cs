@@ -45,6 +45,8 @@ namespace AdtGekid
         private string _anschrift;
         private string _email;
 
+        private string _typeName = typeof(Absender).ToString();
+
         /// <summary>
         /// <para>
         /// Eindeutig identifizierendes Merkmal des Absenders
@@ -58,7 +60,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16); }
+            set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace AdtGekid
         public string SoftwareId
         {
             get { return _softwareId; }
-            set { _softwareId = value.ValidateAlphanumericalOrThrow(16); }
+            set { _softwareId = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.SoftwareId)); }
         }
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace AdtGekid
         public string InstallationsId
         {
             get { return _installationsId; }
-            set { _installationsId = value.ValidateAlphanumericalOrThrow(16); }
+            set { _installationsId = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.InstallationsId)); }
         }
 
         /// <summary>
@@ -88,7 +90,7 @@ namespace AdtGekid
         public string Ansprechpartner
         {
             get { return _ansprechpartner; }
-            set { _ansprechpartner = value.ValidateMaxLength(100); }
+            set { _ansprechpartner = value.ValidateMaxLength(100, _typeName, nameof(this.Ansprechpartner)); }
         }
 
         /// <summary>
@@ -98,7 +100,7 @@ namespace AdtGekid
         public string Bezeichnung
         {
             get { return _bezeichnung; }
-            set { _bezeichnung = value.ValidateMaxLength(255); }
+            set { _bezeichnung = value.ValidateMaxLength(255, _typeName, nameof(this.Bezeichnung)); }
         }
 
         /// <summary>
@@ -108,7 +110,7 @@ namespace AdtGekid
         public string Anschrift
         {
             get { return _anschrift; }
-            set { _anschrift = value.ValidateMaxLength(70); }
+            set { _anschrift = value.ValidateMaxLength(70, _typeName, nameof(this.Anschrift)); }
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace AdtGekid
         public string Telefon
         {
             get { return _telefon; }
-            set { _telefon = value.ValidateOrThrow(TelefonStringValidator.Instance); }
+            set { _telefon = value.ValidateOrThrow(TelefonStringValidator.Instance, _typeName, nameof(this.Telefon)); }
         }
 
         /// <summary>
@@ -128,7 +130,7 @@ namespace AdtGekid
         public string Email
         {
             get { return _email; }
-            set { _email = value.ValidateOrThrow(EmailStringValidator.Instance); }
+            set { _email = value.ValidateOrThrow(EmailStringValidator.Instance, _typeName, nameof(this.Email)); }
         }
     }
 }

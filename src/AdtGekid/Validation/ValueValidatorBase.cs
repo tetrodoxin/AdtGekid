@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+
 namespace AdtGekid.Validation
 {
     /// <summary>
@@ -36,8 +38,17 @@ namespace AdtGekid.Validation
     /// <typeparam name="T">Datentyp des zu validierenden Werts.</typeparam>
     public abstract class ValueValidatorBase<T> : IValueValidator<T>
     {
+        public string ValidateAdtObject { get; protected set; }
+        public string ValidatedAdtField { get; protected set; }
+
         public T GetValidatedValueOrThrow(T value)
         {
+            return GetValidatedValueOrThrow(value, this.ValidateAdtObject, this.ValidatedAdtField);
+        }
+
+
+        public T GetValidatedValueOrThrow(T value, string validatedAdtObject, string validatedAdtField)
+        {           
             var preparedValue = GetPreparedValue(value);
             string error = GetErrorText(preparedValue);
             if (string.IsNullOrEmpty(error))
@@ -46,7 +57,7 @@ namespace AdtGekid.Validation
             }
             else
             {
-                throw new ArgumentException(error);
+                throw new ValidationArgumentException (error, validatedAdtObject, validatedAdtField);
             }
         }
 

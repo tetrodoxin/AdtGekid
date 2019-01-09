@@ -53,18 +53,22 @@ namespace AdtGekid
         private string _vornamen;
         private Collection<string> _fruehereNamen;
 
+        private string _typeName = typeof(Stammdaten).Name;
+
         /// <summary>
-        /// Gibt an, ob der Wert der KrankenkassenNr validiert werden soll oder nicht.
+        /// Gibt an, ob der Wert der <see cref="KrankenkassenNr"/> validiert werden soll oder nicht.
         /// Default: true
         /// </summary>
         public static bool KrankenkassenNrValidationEnabled = true;
 
         /// <summary>
-        /// Gibt an, ob der Wert der KrankenversichertenNr validiert werden soll oder nicht.
+        /// Gibt an, ob der Wert der <see cref="KrankenversichertenNr"/> validiert werden soll oder nicht.
         /// Default: true
         /// </summary>
-        public static bool KrankenversichertenNrValidationEnabled = true;        
+        public static bool KrankenversichertenNrValidationEnabled = true;
+
        
+
 
         /// <summary>
         /// <para>
@@ -77,7 +81,13 @@ namespace AdtGekid
         public string FamilienangehoerigenNr
         {
             get { return _familienangehoerigenNr; }
-            set { _familienangehoerigenNr = value.ValidateOrThrow(new StringValidatorByRegex(StringValidatorBehavior.TrimAllowEmpty, @"[a-zA-Z][0-9]{1,9}")); }
+            set { _familienangehoerigenNr = value.ValidateOrThrow(
+                    new StringValidatorByRegex(
+                        StringValidatorBehavior.TrimAllowEmpty, @"[a-zA-Z][0-9]{1,9}")
+                        , _typeName
+                        , nameof(this.FamilienangehoerigenNr)
+                );
+            }
                 
         }
 
@@ -93,7 +103,7 @@ namespace AdtGekid
             {
                 _krankenkassenNr = (
                     KrankenkassenNrValidationEnabled 
-                        ? value.ValidateOrThrow(IkNrValidator.Instance)
+                        ? value.ValidateOrThrow(IkNrValidator.Instance, _typeName, nameof(this.KrankenkassenNr))
                         : value
                     )
                 ;
@@ -111,7 +121,7 @@ namespace AdtGekid
             {
                 _krankenversichertenNr = (
                     KrankenversichertenNrValidationEnabled 
-                    ? value.ValidateOrThrow(KvNrValidator.Instance)
+                    ? value.ValidateOrThrow(KvNrValidator.Instance, _typeName, nameof(this.KrankenversichertenNr))
                     : value
                    )
                 ;
@@ -144,7 +154,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateMaxLength(16); }
+            set { _id = value.ValidateMaxLength(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -154,7 +164,7 @@ namespace AdtGekid
         public string Geburtsname
         {
             get { return _geburtsname; }
-            set { _geburtsname = value.ValidateMaxLength(50); }
+            set { _geburtsname = value.ValidateMaxLength(50, _typeName, nameof(this.Geburtsname)); }
         }
 
         /// <summary>
@@ -169,7 +179,7 @@ namespace AdtGekid
             }
             set
             {
-                geschlecht = value.ValidateOrThrow(AllowedSexCodes);
+                geschlecht = value.ValidateOrThrow(AllowedSexCodes, _typeName, nameof(this.Geschlecht));
             }
         }
 
@@ -180,7 +190,7 @@ namespace AdtGekid
         public string Nachname
         {
             get { return _nachname; }
-            set { _nachname = value.ValidateMaxLength(50); }
+            set { _nachname = value.ValidateMaxLength(50, _typeName, nameof(this.Nachname)); }
         }
 
         /// <summary>
@@ -190,7 +200,7 @@ namespace AdtGekid
         public string Namenszusatz
         {
             get { return _namenszusatz; }
-            set { _namenszusatz = value.ValidateMaxLength(30); }
+            set { _namenszusatz = value.ValidateMaxLength(30, _typeName, nameof(this.Namenszusatz)); }
         }
 
         /// <summary>
@@ -201,7 +211,7 @@ namespace AdtGekid
         public string Titel
         {
             get { return _titel; }
-            set { _titel = value.ValidateMaxLength(20); }
+            set { _titel = value.ValidateMaxLength(20, _typeName, nameof(this.Titel)); }
         }
 
         /// <summary>
@@ -211,7 +221,7 @@ namespace AdtGekid
         public string Vornamen
         {
             get { return _vornamen; }
-            set { _vornamen = value.ValidateMaxLength(50); }
+            set { _vornamen = value.ValidateMaxLength(50, _typeName, nameof(this.Vornamen)); }
         }
 
         /// <summary>

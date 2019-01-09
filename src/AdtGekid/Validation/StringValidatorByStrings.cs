@@ -61,6 +61,8 @@ namespace AdtGekid.Validation
             _hash ^= _maxLen.GetHashCode();
         }
 
+      
+
         /// <summary>
         /// Erzeugt eine Instanz von <see cref="StringValidatorByStrings"/>
         /// welche <see cref="StringValidatorBehavior.UpcaseTrimAllowEmpty"/> als Verhalten verwendet.

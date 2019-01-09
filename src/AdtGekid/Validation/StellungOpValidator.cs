@@ -36,8 +36,11 @@ namespace AdtGekid.Validation
         public static IValueValidator<string> Instance => _instance.Value;
 
         private StellungOpValidator():base(StringValidatorBehavior.UpcaseTrimAllowEmpty, "OANIS".ToCharArray())
-        { }
-
+        {
+            //base.ValidatedEntityName = "Systemische Therapie";
+            //base.ValidatedObjectName = "Stellung OP";
+            //base.ValidatedObjectAdtName = "SYST_Stellung_OP";
+        }
     }
 }
 

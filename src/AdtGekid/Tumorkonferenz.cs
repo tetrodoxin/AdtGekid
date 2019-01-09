@@ -40,6 +40,8 @@ namespace AdtGekid
         private string _anmerkung;
         private string _id;
 
+        private string _typeName = typeof(Tumorkonferenz).Name;
+
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
@@ -48,7 +50,7 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16); }
+            set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -83,7 +85,8 @@ namespace AdtGekid
 
             set
             {
-                typ = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, _allowedTypes);
+                typ = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty
+                    , _allowedTypes, 0, _typeName, nameof(this.typ));
             }
         }
     }

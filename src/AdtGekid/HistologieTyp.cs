@@ -36,6 +36,13 @@ namespace AdtGekid
     [XmlType("Histologie_Typ", Namespace = Root.GekidNamespace)]
     public class HistologieTyp
     {
+        /// <summary>
+        /// Gibt an, ob der Wert der <see cref="EinsendeNr"/> streng validiert 
+        /// werden soll (Alphanumerisch mit Längenprüfung) oder nicht (nur Längenprüfung)
+        /// Default: true
+        /// </summary>
+        public static bool EinsendeNrStrongValidationEnabled = true;
+
         private static char[] AllowedGradingCodes = "01234XLMHBUT".ToCharArray();
         private string _grading;
 
@@ -49,6 +56,8 @@ namespace AdtGekid
         private string _freitext;
         private string _icdOVersion;
 
+        private string _typeName = "Histologie";
+
         /// <summary>
         /// Gibt den Differenzierungsgrad des Tumors an
         /// </summary>
@@ -56,7 +65,7 @@ namespace AdtGekid
         public string Grading
         {
             get { return _grading; }
-            set { _grading = value.ValidateOrThrow(AllowedGradingCodes); }
+            set { _grading = value.ValidateOrThrow(AllowedGradingCodes, _typeName, nameof(this.Grading)); }
         }
 
         /// <summary>
@@ -68,14 +77,18 @@ namespace AdtGekid
         public string EinsendeNr
         {
             get { return _einsendeNr; }
-            set { _einsendeNr = value.ValidateAlphanumericalOrThrow(16); }
+            set {
+                _einsendeNr = EinsendeNrStrongValidationEnabled 
+                    ? value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.EinsendeNr))
+                    : value.ValidateMaxLength(16,_typeName, nameof(this.EinsendeNr));
+            }
         }
 
         [XmlAttribute("Histologie_ID")]
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateMaxLength(16); }
+            set { _id = value.ValidateMaxLength(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -128,7 +141,7 @@ namespace AdtGekid
         public string Code
         {
             get { return _code; }
-            set { _code = value.ValidateOrThrow(@"^\d\d\d\d/\d$"); }
+            set { _code = value.ValidateOrThrow(@"^\d\d\d\d/\d$", _typeName, nameof(this.Code)); }
             
         }
 
@@ -139,7 +152,7 @@ namespace AdtGekid
         public string Freitext
         {
             get { return _freitext; }
-            set { _freitext = value.ValidateMaxLength(500); }
+            set { _freitext = value.ValidateMaxLength(500, _typeName, nameof(this.Freitext)); }
         }
 
         /// <summary>
@@ -149,7 +162,7 @@ namespace AdtGekid
         public string IcdOVersion
         {
             get { return _icdOVersion; }
-            set { _icdOVersion = value.ValidateMaxLength(25); }
+            set { _icdOVersion = value.ValidateMaxLength(25, _typeName, nameof(this.IcdOVersion)); }
         }
 
         /// <summary>

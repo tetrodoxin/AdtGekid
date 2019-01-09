@@ -50,6 +50,8 @@ namespace AdtGekid
         private string _id;
         private int? _version;
 
+        private string _typeName = "TNM";
+
         /// <summary>
         /// Gibt an, ob die Klassifikation aus Anlass einer Autopsie erfolgte.
         /// </summary>
@@ -57,7 +59,7 @@ namespace AdtGekid
         public string SymbolA
         {
             get { return _symbolA; }
-            set { _symbolA = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolAChars); }
+            set { _symbolA = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolAChars, _typeName, nameof(this.SymbolA)); }
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace AdtGekid
         public string PraefixM
         {
             get { return _praefixM; }
-            set { _praefixM = value.ValidateOrThrow(TnmPraefixValidator.Instance); }
+            set { _praefixM = value.ValidateOrThrow(TnmPraefixValidator.Instance, _typeName, nameof(this.PraefixM)); }
         }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace AdtGekid
         public string PraefixN
         {
             get { return _praefixN; }
-            set { _praefixN = value.ValidateOrThrow(TnmPraefixValidator.Instance); }
+            set { _praefixN = value.ValidateOrThrow(TnmPraefixValidator.Instance, _typeName, nameof(this.PraefixN)); }
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace AdtGekid
         public string PraefixT
         {
             get { return _praefixT; }
-            set { _praefixT = value.ValidateOrThrow(TnmPraefixValidator.Instance); }
+            set { _praefixT = value.ValidateOrThrow(TnmPraefixValidator.Instance, _typeName, nameof(this.PraefixT)); }
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16); }
+            set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -116,7 +118,7 @@ namespace AdtGekid
         public string L
         {
             get { return _l; }
-            set { _l = value.ValidateOrThrow(@"^L[X01]$"); }
+            set { _l = value.ValidateOrThrow(@"^L[X01]$", _typeName, nameof(this.L)); }
         }
 
         /// <summary>
@@ -146,7 +148,7 @@ namespace AdtGekid
         public string Pn
         {
             get { return _pn; }
-            set { _pn = value.ValidateOrThrow(StringValidatorBehavior.AllowEmpty, @"^Pn[X01]$"); }
+            set { _pn = value.ValidateOrThrow(StringValidatorBehavior.AllowEmpty, @"^Pn[X01]$", _typeName, nameof(this.Pn)); }
         }
 
         /// <summary>
@@ -156,7 +158,7 @@ namespace AdtGekid
         public string SymbolR
         {
             get { return _symbolR; }
-            set { _symbolR = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolRChars); }
+            set { _symbolR = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolRChars, _typeName, nameof(this.SymbolR)); }
         }
 
         /// <summary>
@@ -166,7 +168,7 @@ namespace AdtGekid
         public string S
         {
             get { return _s; }
-            set { _s = value.ValidateOrThrow(@"^S[0123X]$"); }
+            set { _s = value.ValidateOrThrow(@"^S[0123X]$", _typeName, nameof(this.S)); }
         }
 
         /// <summary>
@@ -183,7 +185,7 @@ namespace AdtGekid
         public string V
         {
             get { return _v; }
-            set { _v = value.ValidateOrThrow(@"^V[X012]$"); }
+            set { _v = value.ValidateOrThrow(@"^V[X012]$", _typeName, nameof(this.V)); }
         }
 
         /// <summary>
@@ -219,7 +221,7 @@ namespace AdtGekid
         public string SymbolY
         {
             get { return _symbolY; }
-            set { _symbolY = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolYChars); }
+            set { _symbolY = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolYChars, _typeName, nameof(this.SymbolY)); }
         }
     }
 }

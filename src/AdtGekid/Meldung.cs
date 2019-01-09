@@ -40,7 +40,9 @@ namespace AdtGekid
         private string _begruendung;
         private string _anmerkung;
         private string _id;        
-        private string _melderId;     
+        private string _melderId;
+
+        private string _typeName = typeof(Meldung).Name;
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
@@ -50,7 +52,7 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
         }
 
         /// <summary>
@@ -84,7 +86,7 @@ namespace AdtGekid
             }
             set
             {
-                _begruendung = value.ValidateOrThrow(AllowedReasonCodes);
+                _begruendung = value.ValidateOrThrow(AllowedReasonCodes, _typeName, nameof(this.Begruendung));
             }
         }
 
@@ -102,7 +104,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateMaxLength(16); }
+            set { _id = value.ValidateMaxLength(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace AdtGekid
         public string MelderId
         {
             get { return _melderId; }
-            set { _melderId = value.ValidateAlphanumericalOrThrow(6); }
+            set { _melderId = value.ValidateAlphanumericalOrThrow(6, _typeName, nameof(this.MelderId)); }
         }
 
         /// <summary>

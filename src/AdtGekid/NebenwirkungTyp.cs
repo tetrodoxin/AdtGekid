@@ -40,6 +40,8 @@ namespace AdtGekid
         private string _version;
         private string _art;
 
+        private string _typeName = "Nebenwirkung";
+
         /// <summary>
         /// Gibt an, zu welcher Nebenwirkung es bei der systemischen Therapie gekommen ist 
         /// (sogenannte akute Nebenwirkungen bis zum 90. Tag nach Therapiebeginn).
@@ -48,7 +50,7 @@ namespace AdtGekid
         public string Art
         {
             get { return _art; }
-            set { _art = value.ValidateMaxLength(255); }
+            set { _art = value.ValidateMaxLength(255, _typeName, nameof(this.Art)); }
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace AdtGekid
         public string Grad
         {
             get { return _grad; }
-            set { _grad = value.ValidateOrThrow(AllowedGradeCodes); }
+            set { _grad = value.ValidateOrThrow(AllowedGradeCodes, _typeName, nameof(this.Grad)); }
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace AdtGekid
         public string Version
         {
             get { return _version; }
-            set { _version = value.ValidateOrThrow(VersionPattern); }
+            set { _version = value.ValidateOrThrow(VersionPattern, _typeName, nameof(this.Version)); }
         }
     }
 }

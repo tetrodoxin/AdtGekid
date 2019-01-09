@@ -37,6 +37,14 @@ namespace AdtGekid
         private string _bemerkung;
         private string _wert;
 
+        private string _typeName = typeof(ZusatzItem).Name;
+
+        /// <summary>
+        /// Gibt an ob der Wert für <see cref="Art"/>
+        /// validiert werden soll oder nicht
+        /// </summary>
+        public static bool ArtAndValueValidationEnabled = true;
+
         /// <summary>
         /// Art des Zusatzitems.
         /// </summary>
@@ -52,8 +60,11 @@ namespace AdtGekid
             }
             set
             {
-                if (!string.Equals(value, "Untersuchungsanlass", StringComparison.OrdinalIgnoreCase))
-                    throw new ArgumentException("Erlaubt ist derzeit nur 'Untersuchungsanlass'");
+                if (ArtAndValueValidationEnabled 
+                    && !(string.Equals(value, "Untersuchungsanlass", StringComparison.OrdinalIgnoreCase)
+                        || value.StartsWith("Einsender", StringComparison.OrdinalIgnoreCase)
+                      ))
+                    throw new ValidationArgumentException("Erlaubt ist derzeit nur 'Untersuchungsanlass' oder Einsender-Einträge",_typeName,nameof(this.Art));
                 _art = value;
             }
         }
@@ -65,7 +76,7 @@ namespace AdtGekid
         public string Bemerkung
         {
             get { return _bemerkung; }
-            set { _bemerkung = value.ValidateMaxLength(500); }
+            set { _bemerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Bemerkung)); }
         }
 
         /// <summary>
@@ -81,7 +92,12 @@ namespace AdtGekid
         public string Wert
         {
             get { return _wert; }
-            set { _wert = value.ValidateOrThrow("NTBOSDZLXU".ToCharArray()); }
+            set
+            {
+                _wert = ArtAndValueValidationEnabled 
+                        ? value.ValidateOrThrow("NTBOSDZLXU".ToCharArray(), _typeName, nameof(this.Wert))
+                        : value;
+            }
         }
     }
 }

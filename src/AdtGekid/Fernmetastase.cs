@@ -39,6 +39,9 @@ namespace AdtGekid
         private const string MetastasisLocationPattern = @"^PUL|OSS|HEP|BRA|LYM|MAR|PLE|PER|ADR|SKI|OTH|GEN$";
         private string _lokalisation;
 
+        private string _typeName = typeof(Fernmetastase).Name;
+      
+
         /// <summary>
         /// Gibt an, wann die Fernmetastase festgestellt wurde.
         /// </summary>
@@ -52,7 +55,7 @@ namespace AdtGekid
         public string Lokalisation
         {
             get { return _lokalisation; }
-            set { _lokalisation = value.ValidateOrThrow(MetastasisLocationPattern); }
+            set { _lokalisation = value.ValidateOrThrow(MetastasisLocationPattern, _typeName, nameof(this.Lokalisation)); }
         }
     }
 }

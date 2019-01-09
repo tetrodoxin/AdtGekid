@@ -45,6 +45,7 @@ namespace AdtGekid
         private Collection<string> _substanzen;
         private Collection<string> _therapieArten;
 
+        private string _typeName = typeof(SystemischeTherapie).Name;
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
@@ -53,7 +54,7 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
         }
 
         [XmlArrayItem("SYST_Nebenwirkung", IsNullable = false)]
@@ -114,7 +115,7 @@ namespace AdtGekid
         public string EndeGrund
         {
             get { return _endeGrund; }
-            set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.SystemischeTherapie); }
+            set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.SystemischeTherapie, _typeName, nameof(this.EndeGrund)); }
         }
 
         /// <summary>
@@ -137,7 +138,7 @@ namespace AdtGekid
         public string Intention
         {
             get { return _intention; }
-            set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP); }
+            set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
         }
 
         /// <summary>
@@ -147,7 +148,7 @@ namespace AdtGekid
         public string Protokoll
         {
             get { return _protokoll; }
-            set { _protokoll = value.ValidateMaxLength(255); }
+            set { _protokoll = value.ValidateMaxLength(255, _typeName, nameof(this.Protokoll)); }
         }
 
         /// <summary>
@@ -158,7 +159,7 @@ namespace AdtGekid
         public string StellungOp
         {
             get { return _stellungOp; }
-            set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance); }
+            set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
         }
 
         /// <summary>
@@ -169,7 +170,7 @@ namespace AdtGekid
         public string TherapieartAnmerkung
         {
             get { return _therapieartAnmerkung; }
-            set { _therapieartAnmerkung = value.ValidateMaxLength(500); }
+            set { _therapieartAnmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.TherapieartAnmerkung)); }
         }
     }
 }

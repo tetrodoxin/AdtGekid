@@ -51,6 +51,16 @@ namespace AdtGekid
         private string _id;
         private IcdTyp _icdCode;
 
+        private string _entity = typeof(Diagnose).Name;
+
+        /// <summary>
+        /// Gibt an, ob die Länge von <see cref="Text"/> oder <see cref="Anmerkung"/> validiert werden soll oder nicht.
+        /// Default: true
+        /// </summary>
+        public static bool TextLengthValidationEnabled = true;
+
+
+
         /// <summary>
         /// Beurteilung des allgemeinen Leistungszustandes nach ECOG oder Karnofsky in %.
         /// </summary>
@@ -60,7 +70,7 @@ namespace AdtGekid
         public string AllgemeinerLeistungszustand
         {
             get { return _allgemeinerLeistungszustand; }
-            set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance); }
+            set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
         }
 
         /// <summary>
@@ -71,7 +81,12 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set
+            {
+                _anmerkung = TextLengthValidationEnabled
+                  ? value.ValidateMaxLength(500, _entity, nameof(this.Anmerkung))
+                  : value;
+            }
         }
 
         /// <summary>
@@ -94,7 +109,7 @@ namespace AdtGekid
             }
             set
             {
-                _diagnosesicherung = value.ValidateOrThrow(AllowedConfirmCodes);
+                _diagnosesicherung = value.ValidateOrThrow(AllowedConfirmCodes, _entity, nameof(this.Diagnosesicherung));
             }
         }
 
@@ -106,7 +121,7 @@ namespace AdtGekid
         public string FruehereTumorerkrankungen
         {
             get { return _fruehereTumorerkrankungen; }
-            set { _fruehereTumorerkrankungen = value.ValidateMaxLength(500); }
+            set { _fruehereTumorerkrankungen = value.ValidateMaxLength(500, _entity, nameof(this.FruehereTumorerkrankungen)); }
         }
 
         /// <summary>
@@ -144,7 +159,12 @@ namespace AdtGekid
         public string Text
         {
             get { return _text; }
-            set { _text = value.ValidateMaxLength(500); }
+            set
+            {
+                _text = TextLengthValidationEnabled
+                      ? value.ValidateMaxLength(500, _entity, nameof(this.Text))
+                      : value;
+            }
         }
 
         /// <summary>
@@ -164,7 +184,7 @@ namespace AdtGekid
         public string IcdVersion
         {
             get { return _icdVersion; }
-            set { _icdVersion = value.ValidateMaxLength(25); }
+            set { _icdVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdVersion)); }
         }
 
         /// <summary>
@@ -180,7 +200,7 @@ namespace AdtGekid
             }
             set
             {
-                _icdoCode = value.ValidateOrThrow(@"^C\d\d\.\d(\d)?$");                
+                _icdoCode = value.ValidateOrThrow(@"^C\d\d\.\d(\d)?$", _entity, nameof(this.IcdoCode));                
             }
         }
 
@@ -192,7 +212,7 @@ namespace AdtGekid
         public string IcdoFreitext
         {
             get { return _icdoFreitext; }
-            set { _icdoFreitext = value.ValidateMaxLength(500); }
+            set { _icdoFreitext = value.ValidateMaxLength(500, _entity, nameof(this.IcdoFreitext)); }
         }
 
         /// <summary>
@@ -202,7 +222,7 @@ namespace AdtGekid
         public string IcdoVersion
         {
             get { return _icdoVersion; }
-            set { _icdoVersion = value.ValidateMaxLength(25); }
+            set { _icdoVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdoVersion)); }
         }
 
         /// <summary>
@@ -212,7 +232,7 @@ namespace AdtGekid
         public string Seitenlokalisation
         {
             get { return _seitenlokalisation; }
-            set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance); }
+            set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _entity, nameof(this.Seitenlokalisation)); }
         }
 
         /// <summary>
@@ -222,7 +242,16 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateMaxLength(16); }
+            set { _id = value.ValidateMaxLength(16, _entity, nameof(this.Id)); }
         }
+
+        /// <summary>
+        /// Miscellaneous property, die nicht serialisiert wird.
+        /// Kann dazu verwendet werden, im ADT-Objektmodell 
+        /// vorzuhalten, ob die <see cref="Id"/> neu ist oder bereits 
+        /// verwendet/gemeldet wurde
+        /// </summary>
+        [XmlIgnore]
+        public bool MiscHasNewId { get; set; }        
     }
 }

@@ -42,6 +42,15 @@ namespace AdtGekid
         private string _pLZ;
         private string _strasse;
 
+        private string _typeName = typeof(Adresse).Name;
+
+        /// <summary>
+        /// Gibt an, ob der Wert der <see cref="Hausnummer"/> streng nach Muster validiert werden soll oder nicht.
+        /// Bei <code>false</code> wird lediglich die Längenprüfung angewandt.
+        /// Default: <code>true</code>     
+        /// </summary>
+        public static bool HausnummerValidationEnabled = true;
+
         /// <summary>
         /// Gültigkeit der Adresse: bis Datum
         /// </summary>
@@ -61,7 +70,13 @@ namespace AdtGekid
         public string Hausnummer
         {
             get { return _hausnummer; }
-            set { _hausnummer = value.ValidateOrThrow(@"^[a-zA-Z0-9\.\-\/]*$"); }
+            set {
+                _hausnummer = (
+                    HausnummerValidationEnabled
+                        ? value.ValidateOrThrow(@"^[a-zA-Z0-9\.\-\/]*$", _typeName, nameof(this.Hausnummer))
+                        : value
+                );
+            }
         }
 
         /// <summary>
@@ -72,7 +87,7 @@ namespace AdtGekid
         public string Land
         {
             get { return _land; }
-            set { _land = value.ValidateAlphaCharsOnlyOrThrow(4); }
+            set { _land = value.ValidateAlphaCharsOnlyOrThrow(4, _typeName, nameof(this.Land)); }
         }
 
         /// <summary>
@@ -82,7 +97,7 @@ namespace AdtGekid
         public string Ort
         {
             get { return _ort; }
-            set { _ort = value.ValidateMaxLength(50); }
+            set { _ort = value.ValidateMaxLength(50, _typeName, nameof(this.Ort)); }
         }
 
         /// <summary>
@@ -92,7 +107,7 @@ namespace AdtGekid
         public string PLZ
         {
             get { return _pLZ; }
-            set { _pLZ = value.ValidateMaxLength(10); }
+            set { _pLZ = value.ValidateMaxLength(10, _typeName, nameof(this.PLZ)); }
         }
 
         /// <summary>
@@ -102,7 +117,7 @@ namespace AdtGekid
         public string Strasse
         {
             get { return _strasse; }
-            set { _strasse = value.ValidateMaxLength(60); }
+            set { _strasse = value.ValidateMaxLength(60, _typeName, nameof(this.Strasse)); }
         }
     }
 }

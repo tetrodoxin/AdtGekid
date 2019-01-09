@@ -45,6 +45,8 @@ namespace AdtGekid.Validation
         public static IValueValidator<string> Max255 => _instance255.Value;
         public static IValueValidator<string> Max500 => _instance500.Value;
 
+          
+
         /// <summary>
         /// Erzeugt eine Instanz von <see cref="StringValidatorForStrings" />
         /// mit einem angegebenen Verhalten für StringWerte.
@@ -67,6 +69,37 @@ namespace AdtGekid.Validation
         /// <c>null</c> oder eer war.</exception>
         public StringValidatorByLength(int maxLength) : this(StringValidatorBehavior.TrimAllowEmpty, maxLength)
         { }
+
+        public StringValidatorByLength(int maxLength, string validatedAdtObject, string validatedAdtField)
+            : this(maxLength)
+        {
+            base.ValidateAdtObject = validatedAdtObject;
+            base.ValidatedAdtField = validatedAdtField;
+        }
+
+        public static StringValidatorByLength CreateInstanceForMax16(string validatedAdtObject, string validatedAdtField)
+        {
+            return new StringValidatorByLength(16, validatedAdtObject, validatedAdtField);            
+        }
+
+        public static StringValidatorByLength CreateInstanceForMax100(string validatedAdtObject, string validatedAdtField)
+        {
+            return new StringValidatorByLength(100, validatedAdtObject, validatedAdtField);
+        }
+        public static StringValidatorByLength CreateInstanceForMax50(string validatedAdtObject, string validatedAdtField)
+        {
+            return new StringValidatorByLength(50, validatedAdtObject, validatedAdtField);
+        }
+
+        public static StringValidatorByLength CreateInstanceForMax255(string validatedAdtObject, string validatedAdtField)
+        {
+            return new StringValidatorByLength(255, validatedAdtObject, validatedAdtField);
+        }
+
+        public static StringValidatorByLength CreateInstanceForMax500(string validatedAdtObject, string validatedAdtField)
+        {
+            return new StringValidatorByLength(500, validatedAdtObject, validatedAdtField);
+        }
 
         protected override int CalculateHashCode() => _maxLength;
 

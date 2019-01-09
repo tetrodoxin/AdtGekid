@@ -50,6 +50,8 @@ namespace AdtGekid
         private Collection<string> _komplikationen;
         private Collection<string> _opsCodes;
 
+        private string _typeName = "Operation";
+
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
@@ -58,7 +60,7 @@ namespace AdtGekid
         public string Anmerkung
         {
             get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500); }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
         }
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace AdtGekid
         public Collection<string> Komplikationen
         {
             get { return _komplikationen; }
-            set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.Instance); }
+            set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
         }
 
         /// <summary>
@@ -94,7 +96,7 @@ namespace AdtGekid
         public Collection<string> Operateure
         {
             get { return _operateure; }
-            set { _operateure = value.EnsureValidatedStringList().WithValidator(StringValidatorByLength.Max100); }
+            set { _operateure = value.EnsureValidatedStringList().WithValidator(StringValidatorByLength.CreateInstanceForMax100(_typeName, nameof(this.Operateure))); }
         }
 
         /// <summary>
@@ -113,7 +115,7 @@ namespace AdtGekid
         public Collection<string> OpsCodes
         {
             get { return _opsCodes; }
-            set { _opsCodes = value.EnsureValidatedStringList().WithValidator(OpsCodeValidator.Instance); }
+            set { _opsCodes = value.EnsureValidatedStringList().WithValidator(OpsCodeValidator.CreateInstance(_typeName, nameof(this.OpsCodes))); }
         }
 
         /// <summary>
@@ -146,7 +148,7 @@ namespace AdtGekid
         public string Id
         {
             get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16); }
+            set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
         /// <summary>
@@ -156,7 +158,7 @@ namespace AdtGekid
         public string Intention
         {
             get { return _intention; }
-            set { _intention = value.ValidateOrThrow(AllowedIntentionCodes); }
+            set { _intention = value.ValidateOrThrow(AllowedIntentionCodes, _typeName, nameof(this.Intention)); }
         }
 
         /// <summary>
@@ -166,7 +168,7 @@ namespace AdtGekid
         public string OpsVersion
         {
             get { return _opsVersion; }
-            set { _opsVersion = value.ValidateMaxLength(16); }
+            set { _opsVersion = value.ValidateMaxLength(16, _typeName, nameof(this.OpsVersion)); }
         }
 
         /// <summary>
