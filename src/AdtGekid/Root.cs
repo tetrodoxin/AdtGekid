@@ -49,5 +49,6 @@ namespace AdtGekid
         [XmlArrayItem("Melder", IsNullable = false)]
         [XmlArray("Menge_Melder", Order = 3)]
         public MelderTyp[] Melder { get; set; }
+        
     }
 }

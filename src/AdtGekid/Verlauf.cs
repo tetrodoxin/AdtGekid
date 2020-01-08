@@ -44,6 +44,7 @@ namespace AdtGekid
         private string _allgemeinerLeistungszustand;
         private string _anmerkung;
         private string _id;
+        private DatumTyp _datum;
 
         private string _typeName = typeof(Verlauf).Name;
 
@@ -103,7 +104,11 @@ namespace AdtGekid
         /// schätzung des Tumorstatus geführt hat.
         /// </summary>
         [XmlElement("Untersuchungsdatum_Verlauf", Order = 4)]
-        public DatumTyp Datum { get; set; }
+        public DatumTyp Datum
+        {
+            get { return _datum; }
+            set { _datum = value.ValidateAintInFutureOrThrow(_typeName, nameof(this.Datum)); }
+        }
 
         /// <summary>
         /// Eindeutig identifizierendes Merkmal des Verlaufsdatensatzes
