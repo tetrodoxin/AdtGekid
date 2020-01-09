@@ -45,7 +45,7 @@ namespace AdtGekid
         private string _anmerkung;
         private string _fruehereTumorerkrankungen;
         private string _text;
-        private string _icdVersion;
+        private IcdVersionTyp _icdVersion;
         private string _icdoFreitext;
         private string _icdoVersion;
         private string _id;
@@ -66,7 +66,7 @@ namespace AdtGekid
         /// </summary>
         /// <value>
         /// 0 - 4 für ECOG oder 0% bis 100% für Karnofsky oder 'U' für unbekannt.</value>
-        [XmlElement("Allgemeiner_Leistungszustand", Order = 15)]
+        [XmlElement("Allgemeiner_Leistungszustand", Order = 16)]
         public string AllgemeinerLeistungszustand
         {
             get { return _allgemeinerLeistungszustand; }
@@ -77,7 +77,7 @@ namespace AdtGekid
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 16)]
+        [XmlElement("Anmerkung", Order = 17)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -125,13 +125,6 @@ namespace AdtGekid
         }
 
         /// <summary>
-        /// Array mit Angaben über Fernmetastasen zum Diagnosezeitpunkt.
-        /// </summary>
-        [XmlArrayItem("Fernmetastase", IsNullable = false)]
-        [XmlArray("Menge_FM", Order = 12)]
-        public Fernmetastase[] Fernmetastasen { get; set; }
-
-        /// <summary>
         /// Array mit histologischen Angaben zur Diagnose nach ICD-O
         /// </summary>
         [XmlArrayItem("Histologie", IsNullable = false)]
@@ -139,17 +132,32 @@ namespace AdtGekid
         public HistologieTyp[] Histologien { get; set; }
 
         /// <summary>
+        /// Array mit Angaben über Fernmetastasen zum Diagnosezeitpunkt.
+        /// </summary>
+        [XmlArrayItem("Fernmetastase", IsNullable = false)]
+        [XmlArray("Menge_FM", Order = 12)]
+        public Fernmetastase[] Fernmetastasen { get; set; }
+
+       
+        /// <summary>
         /// Array mit Angaben zur Klassifizierung nach TNM.
         /// </summary>
-        [XmlArrayItem("TNM", IsNullable = false)]
-        [XmlArray("Menge_TNM", Order = 13)]
-        public TnmTyp[] TnmKlassifizierungen { get; set; }
+        //[XmlArrayItem("TNM", IsNullable = false)]
+        //[XmlArray("Menge_TNM", Order = 13)]
+        //public TnmTyp[] TnmKlassifizierungen { get; set; }
+
+        [XmlElement("cTNM", Order = 13)]
+        public TnmTyp TnmKlassifizierungKlinisch{ get; set; }
+
+        [XmlElement("pTNM", Order = 14)]
+        public TnmTyp TnmKlassifizierungPathologisch { get; set; }
+
 
         /// <summary>
         /// Array mit Angaben zur Einstufung nach anderen Klassifikationen.
         /// </summary>
         [XmlArrayItem("Weitere_Klassifikation", IsNullable = false)]
-        [XmlArray("Menge_Weitere_Klassifikation", Order = 14)]
+        [XmlArray("Menge_Weitere_Klassifikation", Order = 15)]
         public WeitereKlassifikation[] WeitereKlassifikationen { get; set; }
 
         /// <summary>
@@ -180,11 +188,19 @@ namespace AdtGekid
         /// <summary>
         /// Bezeichnung der zur Kodierung verwendeten ICD-10-GM Version
         /// </summary>
-        [XmlElement("Primaertumor_ICD_Version", Order = 2)]
+        [XmlIgnore]
         public string IcdVersion
         {
+            get { return _icdVersion.ToString(); }
+            set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion)); }
+
+        }
+
+        [XmlElement("Primaertumor_ICD_Version", Order = 2)]
+        public IcdVersionTyp IcdVersionEnumValue
+        {
             get { return _icdVersion; }
-            set { _icdVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdVersion)); }
+            set { _icdVersion = value; }
         }
 
         /// <summary>

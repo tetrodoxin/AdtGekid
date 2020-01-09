@@ -130,10 +130,9 @@ namespace AdtGekid
 
         /// <summary>
         /// Liste von postoperativen TNM-Klassifizierungen.
-        /// </summary>
-        [XmlArrayItem("TNM", IsNullable = false)]
-        [XmlArray("Menge_TNM", Order = 6)]
-        public TnmTyp[] TnmKlassifizierungen { get; set; }
+        /// </summary>        
+        [XmlElement("TNM", Order = 6)]
+        public TnmTyp TnmKlassifizierung { get; set; }
 
         /// <summary>
         /// Datum der OP

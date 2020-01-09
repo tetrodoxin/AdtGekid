@@ -48,6 +48,17 @@
     <Compile Include="Absender.cs" />
     <Compile Include="Adresse.cs" />
     <Compile Include="DatumTyp.cs" />
+    <Compile Include="Diagnosesicherung.cs" />
+    <Compile Include="FruehereTumorerkrankung.cs" />
+    <Compile Include="Geschlecht.cs" />
+    <Compile Include="Grading.cs" />
+    <Compile Include="IcdVersionTyp.cs" />
+    <Compile Include="Meldebegruendung.cs" />
+    <Compile Include="MorphologieIcdOVersion.cs" />
+    <Compile Include="OpsVersion.cs" />
+    <Compile Include="SeitenlokalisationTyp.cs" />
+    <Compile Include="TnmEnums.cs" />
+    <Compile Include="TopographieIcdOVersionTyp.cs" />
     <Compile Include="ValidatedStringList.cs" />
     <Compile Include="Validation\TherapieartValidator.cs" />
     <Compile Include="Validation\OpsCodeValidator.cs" />
@@ -110,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Module\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

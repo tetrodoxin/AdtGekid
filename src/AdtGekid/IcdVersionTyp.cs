@@ -1,3 +1,4 @@
+﻿
 #region license
 
 //MIT License
@@ -23,46 +24,41 @@
 //SOFTWARE.
 
 #endregion 
+
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Xml.Serialization;
 
 namespace AdtGekid
 {
-    using Validation;
-    /// <summary>
-    /// Basistyp für alle Meldungen.
-    /// Bildet den Root-Knoten des XML.
-    /// </summary>
     [Serializable()]
-    [XmlType("ADT_GEKID", AnonymousType = true, Namespace = GekidNamespace)]
-    [XmlRoot(Namespace = GekidNamespace, IsNullable = false, ElementName = "ADT_GEKID")]
-    public class Root
+    [XmlType("ICD_Version_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
+    public enum IcdVersionTyp
     {
-        public const string GekidNamespace = "http://www.gekid.de/namespace";
+        [XmlEnum("Sonstige")]
+        Sonstige = 0,
 
-        private string _version;
+        [XmlEnum("10 2013 GM")]
+        GM_10_2013 = 2013,
 
-        [XmlAttribute("Schema_Version")]
-        public string SchemaVersion
-        {
-            get { return _version;  }
-            set
-            {
-                _version = value.ValidateNeitherNullNorEmpty(typeof(Root).Name,nameof(this.SchemaVersion));
-            }
-        }
+        [XmlEnum("10 2014 GM")]
+        GM_10_2014 = 2014,
 
-        [XmlElement("Absender", Order = 1)]
-        public Absender Absender { get; set; }
-       
-        [XmlArrayItem("Patient", IsNullable = false)]
-        [XmlArray("Menge_Patient", Order = 2)]
-        public Patient[] Patienten { get; set; }
+        [XmlEnum("10 2015 GM")]
+        GM_10_2015 = 2015,
 
-        [XmlArrayItem("Melder", IsNullable = false)]
-        [XmlArray("Menge_Melder", Order = 3)]
-        public MelderTyp[] Melder { get; set; }
+        [XmlEnum("10 2016 GM")]
+        GM_10_2016 = 2016,
 
+        [XmlEnum("10 2017 GM")]
+        GM_10_2017 = 2017,
 
+        [XmlEnum("10 2018 GM")]
+        GM_10_2018 = 2018,
+
+        [XmlEnum("10 2019 GM")]
+        GM_10_2019 = 2019
     }
 }

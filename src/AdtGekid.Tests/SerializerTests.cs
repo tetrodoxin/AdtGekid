@@ -12,12 +12,13 @@ namespace AdtGekid.Tests
 {
     public class SerializerTests
     {
-        public const string SchemaFileName = @"ADT_GEKID_v1.0.5.xsd";
+        public const string SchemaFileName = @"ADT_GEKID_v2.0.0.xsd";
 
         [Fact]
         public void Deserialize()
         {
-            var serializer = createSerializer();
+            var serializer = createSerializer();          
+
             var sampleFile = "sample.xml";            
             using (var reader = new StreamReader(sampleFile, Encoding.UTF8))
             {
@@ -25,6 +26,29 @@ namespace AdtGekid.Tests
                 Assert.NotNull(obj);
                 
            }            
+        }
+
+        [Fact]
+        public void DeserializePatho_Test()
+        {
+            var serializer = createSerializer();
+
+            HistologieTyp.EinsendeNrStrongValidationEnabled = false;
+            Diagnose.TextLengthValidationEnabled = false;
+            ZusatzItem.ArtAndValueValidationEnabled = false;
+
+            var sampleFile = "sample_patho.xml";
+            using (var reader = new StreamReader(sampleFile, Encoding.UTF8))
+            {
+                var obj = serializer.Deserialize(reader) as Root;
+               
+                //obj.Patienten[0].Meldungen[0].Diagnose.
+                //  TnmKlassifizierungPathologisch.SymbolA = null;
+
+
+                Assert.NotNull(obj);
+
+            }
         }
 
         [Fact]
@@ -99,7 +123,8 @@ namespace AdtGekid.Tests
         {
             return new Root()
             {
-                Absender = new Absender()
+                SchemaVersion = "2.0.0"
+                , Absender = new Absender()
                 {
                     Id = "AGI8768",
                     InstallationsId = "KH9871",
@@ -184,14 +209,14 @@ namespace AdtGekid.Tests
                                         Id = "tum277",
                                         Datum = new DatumTyp("11.11.2015"),
                                         IcdCode = "C44.0",
-                                        IcdVersion = "ICD 10 Version 2014",
+                                        IcdVersion = "2014",
                                         Text = "Diagnosetext 11",
-                                        IcdoCode = "C44.0",
-                                        IcdoVersion = "O3; 1. Auflage 2003",
+                                        IcdoCode = "C44.0",                                        
+                                        IcdoVersion = "32",
                                         IcdoFreitext = "str1234",
                                         Anmerkung = "Diagnoseanmerkung",
-                                        AllgemeinerLeistungszustand = "85%",
-                                        FruehereTumorerkrankungen = "frühtumor",
+                                        //AllgemeinerLeistungszustand = "85%",
+                                        //FruehereTumorerkrankungen = "frühtumor",
                                         Seitenlokalisation = "T",
                                         Diagnosesicherung = "2",
                                         Histologien = new HistologieTyp[]
@@ -202,7 +227,7 @@ namespace AdtGekid.Tests
                                                 Datum = "10.03.2014",
                                                 EinsendeNr = "str1234",
                                                 Code = "8020/3",
-                                                IcdOVersion = "O3; 1. Auflage 2003",
+                                                IcdOVersion = "32",
                                                 Freitext = "str1234",
                                                 Grading = "3",
                                                 LkUntersucht = 33,
@@ -219,10 +244,31 @@ namespace AdtGekid.Tests
                                                 Lokalisation = "PUL"
                                             }
                                         },
-                                        TnmKlassifizierungen = new TnmTyp[]
+                                        //TnmKlassifizierungen = new TnmTyp[]
+                                        //{
+                                        //    new TnmTyp
+                                        //    {
+                                        //        Id = "tnm7638",
+                                        //        Datum = "20.03.2013",
+                                        //        Version = 7,
+                                        //        SymbolY = "y",
+                                        //        SymbolR = "r",
+                                        //        SymbolA = "a",
+                                        //        PraefixT = "c",
+                                        //        T = "T1a",
+                                        //        SymbolM = "(m)",
+                                        //        PraefixN = "p",
+                                        //        N = "N1",
+                                        //        PraefixM = "u",
+                                        //        M = "M0",
+                                        //        L = "L0",
+                                        //        V = "V1",
+                                        //        Pn = "PnX",
+                                        //        S = "S3"
+                                        //    }
+                                        //},
+                                        TnmKlassifizierungKlinisch = new TnmTyp()
                                         {
-                                            new TnmTyp
-                                            {
                                                 Id = "tnm7638",
                                                 Datum = "20.03.2013",
                                                 Version = 7,
@@ -240,7 +286,26 @@ namespace AdtGekid.Tests
                                                 V = "V1",
                                                 Pn = "PnX",
                                                 S = "S3"
-                                            }
+                                        },
+                                         TnmKlassifizierungPathologisch = new TnmTyp()
+                                        {
+                                                Id = "tnm7639",
+                                                Datum = "20.05.2013",
+                                                Version = 7,
+                                                SymbolY = "y",
+                                                SymbolR = "r",
+                                                SymbolA = "a",
+                                                PraefixT = "p",
+                                                T = "T1a",
+                                                SymbolM = "(m)",
+                                                PraefixN = "p",
+                                                N = "N1",
+                                                PraefixM = "u",
+                                                M = "M0",
+                                                L = "L0",
+                                                V = "V1",
+                                                Pn = "PnX",
+                                                S = "S3"
                                         },
                                         WeitereKlassifikationen = new WeitereKlassifikation[]
                                         {
@@ -263,7 +328,7 @@ namespace AdtGekid.Tests
                                                 Datum = "16.04.2013",
                                                 EinsendeNr = "str1234",
                                                 Code = "8130/3",
-                                                IcdOVersion = "O3; 1. Auflage 2003",
+                                                IcdOVersion = "32",
                                                 Freitext = "str1234",
                                                 Grading = "4",
                                                 LkUntersucht = 33,
@@ -271,27 +336,25 @@ namespace AdtGekid.Tests
                                                 SentinelLkUntersucht = 13,
                                                 SentinelLkBefallen = 3
                                             },
-                                            TnmKlassifizierungen = new TnmTyp[]
+                                            TnmKlassifizierung = new TnmTyp
                                             {
-                                                new TnmTyp
-                                                {
-                                                    Id = "ID3427",
-                                                    Datum = "16.04.2013",
-                                                    Version = 7,
-                                                    T = "T2b",
-                                                    N = "N0",
-                                                    M = "M1",
-                                                    L = "L1",
-                                                    V = "V2",
-                                                    Pn = "Pn1",
-                                                    S = "SX"
-                                                }
+                                                Id = "ID3427",
+                                                Datum = "16.04.2013",
+                                                Version = 7,
+                                                T = "T2b",
+                                                N = "N0",
+                                                M = "M1",
+                                                L = "L1",
+                                                V = "V2",
+                                                Pn = "Pn1",
+                                                S = "SX"
+                                                
                                             },
                                             Residualstatus = new ResidualstatusTyp() { Lokal = RTyp.R1, Gesamt = RTyp.R0 },
                                             Komplikationen = new Collection<string> {"ABD", "HRS"},
                                             Operateure = new Collection<string> {"Mr. Proper", "Dr. Beckmann"},
                                             OpsCodes = new Collection<string> {"5-217.1", "5-812.00"},
-                                            OpsVersion = "Version 2013",
+                                            OpsVersion = "2013",
                                             Datum = "15.04.2013",
                                             Id = "Op31687",
                                             Anmerkung = "str1234"

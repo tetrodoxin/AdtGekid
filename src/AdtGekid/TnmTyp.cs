@@ -40,27 +40,46 @@ namespace AdtGekid
         private string _praefixM;
         private string _praefixN;
         private string _praefixT;
-        private string _symbolA;
-        private string _symbolR;
-        private string _symbolY;
-        private string _l;
-        private string _pn;
-        private string _s;
-        private string _v;
-        private string _id;
-        private int? _version;
+        private TnmSymbolA _symbolA;
+        private TnmSymbolR _symbolR;
+        private TnmSymbolY _symbolY;
+        private TnmCategoryL _l;
+        private TnmCategoryPn _pn;
+        private TnmCategoryS _s;
+        private TnmCategoryV _v;
+        private string _id;        
+        private TnmVersion _version;
 
         private string _typeName = "TNM";
 
         /// <summary>
         /// Gibt an, ob die Klassifikation aus Anlass einer Autopsie erfolgte.
-        /// </summary>
-        [XmlElement("TNM_a_Symbol", Order = 5)]
+        /// </summary>      
+        [XmlIgnore]
         public string SymbolA
         {
-            get { return _symbolA; }
-            set { _symbolA = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolAChars, _typeName, nameof(this.SymbolA)); }
+            get { return _symbolA.ToString(); }
+            set
+            {
+                var parsed = Enum.TryParse(value, out _symbolA);
+                if (!parsed)
+                    throw new ArgumentException($"{nameof(this.SymbolA)} ungültig!");
+            }
         }
+
+        [XmlElement("TNM_a_Symbol", Order = 5)]
+        public TnmSymbolA SymbolAEnumValue
+        {
+            get { return _symbolA; }
+            set { _symbolA = value; }
+        }
+
+        /// <summary>
+        /// Angabe zur Steuerung der Serialisierung von <see cref="SymbolAEnumValue"/>.
+        /// Bei <see cref="TnmSymbolA.unknown"/> wird nicht serialisiert.
+        /// </summary>
+        [XmlIgnore()]
+        public bool SymbolAEnumValueSpecified => SymbolAEnumValue != TnmSymbolA.unknown;
 
         /// <summary>
         /// Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte.
@@ -117,9 +136,22 @@ namespace AdtGekid
         [XmlElement("TNM_L", Order = 13)]
         public string L
         {
-            get { return _l; }
-            set { _l = value.ValidateOrThrow(@"^L[X01]$", _typeName, nameof(this.L)); }
+            get { return _l.ToString(); }
+            set
+            {
+                var parsed = Enum.TryParse(value, out _l);
+                if (!parsed)
+                    throw new ArgumentException($"{nameof(this.CategoryL)} ungültig!");
+            }
         }
+
+        [XmlIgnore]
+        public TnmCategoryL CategoryL
+        {
+            get { return _l; }
+            set { _l = value; }
+        }
+
 
         /// <summary>
         /// Ausbreitung des Primärtumors, erfolgt gemäß Tumorentität nach TNM und
@@ -143,33 +175,93 @@ namespace AdtGekid
 
         /// <summary>
         /// Perineuralinvasion
-        /// </summary>
-        [XmlElement("TNM_Pn", Order = 15)]
+        /// </summary>  
+        [XmlIgnore]
         public string Pn
         {
-            get { return _pn; }
-            set { _pn = value.ValidateOrThrow(StringValidatorBehavior.AllowEmpty, @"^Pn[X01]$", _typeName, nameof(this.Pn)); }
+            get { return _pn.ToString(); }
+            set
+            {
+                var parsed = Enum.TryParse(value, out _pn);
+                if (!parsed)
+                    throw new ArgumentException($"{nameof(this.CategoryPn)} ungültig!");
+            }
         }
+
+        [XmlElement("TNM_Pn", Order = 15)]
+        public TnmCategoryPn CategoryPn
+        {
+            get { return _pn; }
+            set { _pn = value; }
+        }
+
+        /// <summary>
+        /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryPn"/>.
+        /// Bei <see cref="TnmCategoryPn.unknown"/> wird nicht serialisiert.
+        /// </summary>
+        [XmlIgnore()]
+        public bool CategoryPnSpecified => CategoryPn != TnmCategoryPn.unknown;
 
         /// <summary>
         /// Gibt an, ob die Klassifikation ein Rezidiv beurteilt.
         /// </summary>
-        [XmlElement("TNM_r_Symbol", Order = 4)]
+        [XmlIgnore]
         public string SymbolR
         {
-            get { return _symbolR; }
-            set { _symbolR = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolRChars, _typeName, nameof(this.SymbolR)); }
+            get { return _symbolR.ToString(); }
+            set
+            {
+                var parsed = Enum.TryParse(value, out _symbolR);
+                if (!parsed)
+                    throw new ArgumentException($"{nameof(this.SymbolR)} ungültig!");
+            }
         }
+
+        [XmlElement("TNM_r_Symbol", Order = 4)]
+        public TnmSymbolR SymbolREnumValue
+        {
+            get { return _symbolR; }
+            set { _symbolR = value; }
+        }
+
+        /// <summary>
+        /// Angabe zur Steuerung der Serialisierung von <see cref="SymbolREnumValue"/>.
+        /// Bei <see cref="TnmSymbolR.unknown"/> wird nicht serialisiert.
+        /// </summary>
+        [XmlIgnore()]
+        public bool SymbolREnumValueSpecified => SymbolREnumValue != TnmSymbolR.unknown;
+
 
         /// <summary>
         /// Serumtumormarker
         /// </summary>
-        [XmlElement("TNM_S", Order = 16)]
+        [XmlIgnore]
         public string S
         {
-            get { return _s; }
-            set { _s = value.ValidateOrThrow(@"^S[0123X]$", _typeName, nameof(this.S)); }
+            get { return _s.ToString(); }
+            set
+            {
+                var parsed = Enum.TryParse(value, out _s);
+                if (!parsed)
+                    throw new ArgumentException($"{nameof(this.CategoryS)} ungültig!");
+            }
         }
+
+        [XmlElement("TNM_S", Order = 16)]
+        public TnmCategoryS CategoryS
+        {
+            get { return _s; }
+            set { _s = value; }
+        }
+
+        // <summary>
+        /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryS"/>.
+        /// Bei <see cref="TnmCategoryS.unknown"/> wird nicht serialisiert.
+        /// </summary>
+        [XmlIgnore()]
+        public bool CategorySSpecified => CategoryS != TnmCategoryS.unknown;
+
+
 
         /// <summary>
         /// Ausbreitung des Primärtumors, erfolgt gemäß Tumorentität nach TNM und
@@ -180,48 +272,89 @@ namespace AdtGekid
 
         /// <summary>
         /// Veneninvasion
-        /// </summary>
-        [XmlElement("TNM_V", Order = 14)]
+        /// </summary>   
+        [XmlIgnore]
         public string V
         {
-            get { return _v; }
-            set { _v = value.ValidateOrThrow(@"^V[X012]$", _typeName, nameof(this.V)); }
+            get { return _v.ToString(); }
+            set
+            {
+                var parsed = Enum.TryParse(value, out _v);
+                if (!parsed)
+                    throw new ArgumentException($"{nameof(this.CategoryV)} ungültig!");
+            }
         }
+
+        // <summary>
+        /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryV"/>.
+        /// Bei <see cref="TnmCategoryV.unknown"/> wird nicht serialisiert.
+        /// </summary>
+        [XmlIgnore()]
+        public bool CategoryVSpecified => CategoryV != TnmCategoryV.unknown;
+
+
+        [XmlElement("TNM_V", Order = 14)]
+        public TnmCategoryV CategoryV
+        {
+            get { return _v; }
+            set { _v = value; }
+        }
+
 
         /// <summary>
         /// Gibt an, nach welcher Version des TNM klassifiziert wurde, da die Klassifikati-
         /// onsregeln abhängig von der Version sind.
-        /// </summary>
-        [XmlElement("TNM_Version", Order = 2)]
-        public string VersionString
-        {
-            get { return _version?.ToString(); }
-            set { _version = value.ParseNullableInt(); }
-        }
-
-        /// <summary>
-        /// Version des TNM
-        /// </summary>
-        /// <value>
-        /// 6 - 6. Auflage
-        /// 7 - 7. Auflage
-        /// </value>
+        /// </summary>        
         [XmlIgnore]
         public int? Version
+        {
+            get { return (int)_version; }
+            set
+            {
+                var parsed = Enum.TryParse<TnmVersion>(value?.ToString(), out _version);
+                if (!parsed)
+                    throw new ArgumentException("Ungültige TNM-Version!");
+            }
+        }
+
+        [XmlElement("TNM_Version", Order = 2)]
+        public TnmVersion VersionEnumValue
         {
             get { return _version; }
             set { _version = value; }
         }
 
+        
+             
+
         /// <summary>
         /// Gibt an, ob die Klassifikation während oder nach initialer multimodaler Thera-
         /// pie erfolgte.
-        /// </summary>
-        [XmlElement("TNM_y_Symbol", Order = 3)]
+        /// </summary>      
+        [XmlIgnore]
         public string SymbolY
         {
-            get { return _symbolY; }
-            set { _symbolY = value.ValidateOrThrow(StringValidatorBehavior.LowcaseTrimAllowEmpty, SymbolYChars, _typeName, nameof(this.SymbolY)); }
+            get { return _symbolY.ToString(); }
+            set
+            {
+                var parsed = Enum.TryParse(value, out _symbolY);
+                if (!parsed)
+                    throw new ArgumentException($"{nameof(this.SymbolY)} ungültig!");
+            }
         }
+
+        [XmlElement("TNM_y_Symbol", Order = 3)]
+        public TnmSymbolY SymbolYEnumValue
+        {
+            get { return _symbolY; }
+            set { _symbolY = value; }
+        }
+
+        /// <summary>
+        /// Angabe zur Steuerung der Serialisierung von <see cref="SymbolYEnumValue"/>.
+        /// Bei <see cref="TnmSymbolY.unknown"/> wird nicht serialisiert.
+        /// </summary>
+        [XmlIgnore()]
+        public bool SymbolYEnumValueSpecified => SymbolYEnumValue != TnmSymbolY.unknown;
     }
 }

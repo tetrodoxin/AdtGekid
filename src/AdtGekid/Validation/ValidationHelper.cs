@@ -217,7 +217,7 @@ namespace AdtGekid.Validation
         /// <summary>
         /// Prüft, ob ein Stringwert weder leer noch <c>null</c> ist.
         /// </summary>
-        /// <param name="value">Zu prüfender Stringwert..</param>
+        /// <param name="value">Zu prüfender Stringwert.</param>
         /// <returns>Der übergebene String.</returns>
         /// <exception cref="ArgumentException">Falls der übergebene String leer oder <c>null</c> war.</exception>
         public static string ValidateNeitherNullNorEmpty(this string value, string validatedAdtObject = null, string validatedAdtField = null)
@@ -228,6 +228,17 @@ namespace AdtGekid.Validation
             }
 
             return value;
+        }
+
+        public static TEnum TryParseAsEnumOrThrow<TEnum>(this string value, string validatedAdtObject = null, string validatedAdtField = null, bool allowEmpty = true)
+            where TEnum : struct
+        {
+            TEnum en;
+            var parsed = Enum.TryParse<TEnum>(value, out en);
+            if (!parsed && !allowEmpty)
+                throw new ArgumentException($"{validatedAdtObject}.{validatedAdtField} weist einen ungültigen Wert auf!");
+            
+            return en;
         }
 
         /// <summary>
