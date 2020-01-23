@@ -41,7 +41,7 @@ namespace AdtGekid
     {
         private static char[] AllowedSexCodes = "MWSU".ToCharArray();
 
-        private string geschlecht;
+        private Geschlecht geschlecht;        
         private string _familienangehoerigenNr;
         private string _krankenkassenNr;
         private string _krankenversichertenNr;
@@ -170,8 +170,18 @@ namespace AdtGekid
         /// <summary>
         /// Differenzierung einer Person nach ihrem Geschlechtsmerkmal
         /// </summary>
-        [XmlElement("Patienten_Geschlecht", Order = 10)]
+        [XmlIgnore]
         public string Geschlecht
+        {
+            get
+            {
+                return geschlecht.ToString();
+            }          
+            set { geschlecht = value.TryParseAsEnumOrThrow<Geschlecht>(_typeName, nameof(this.Geschlecht), false); }
+        }
+
+        [XmlElement("Patienten_Geschlecht", Order = 10)]
+        public Geschlecht GeschlechtEnumValue
         {
             get
             {
@@ -179,9 +189,10 @@ namespace AdtGekid
             }
             set
             {
-                geschlecht = value.ValidateOrThrow(AllowedSexCodes, _typeName, nameof(this.Geschlecht));
+                this.geschlecht = value;
             }
         }
+
 
         /// <summary>
         /// Der aktuelle Nachname des Patienten zum Zeitpunkt der Meldung

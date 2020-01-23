@@ -38,16 +38,16 @@ namespace AdtGekid
     {
         private static char[] AllowedConfirmCodes = "1245679".ToCharArray();
 
-        private string _seitenlokalisation;
+        private SeitenlokalisationTyp _seitenlokalisation;
         private string _icdoCode;
-        private string _diagnosesicherung;
+        private Diagnosesicherung _diagnosesicherung;
         private string _allgemeinerLeistungszustand;
         private string _anmerkung;
         private string _fruehereTumorerkrankungen;
         private string _text;
         private IcdVersionTyp _icdVersion;
         private string _icdoFreitext;
-        private string _icdoVersion;
+        private TopographieIcdOVersionTyp _icdoVersion;
         private string _id;
         private IcdTyp _icdCode;
 
@@ -100,8 +100,22 @@ namespace AdtGekid
         /// <summary>
         /// Höchste erreichte Diagnosesicherheit zum Diagnosedatum (siehe ICD-O-3, S. 60)
         /// </summary>
-        [XmlElement("Diagnosesicherung", Order = 8)]
+        [XmlIgnore]
         public string Diagnosesicherung
+        {
+            get
+            {
+                return _diagnosesicherung.ToString();
+            }
+            //set
+            //{
+            //    _diagnosesicherung = value.ValidateOrThrow(AllowedConfirmCodes, _entity, nameof(this.Diagnosesicherung));
+            //}
+            set { _diagnosesicherung = value.TryParseAsEnumOrThrow<Diagnosesicherung>(_entity, nameof(this.Diagnosesicherung)); }
+        }
+
+        [XmlElement("Diagnosesicherung", Order = 8)]
+        public Diagnosesicherung DiagnosesicherungEnumValue
         {
             get
             {
@@ -109,7 +123,7 @@ namespace AdtGekid
             }
             set
             {
-                _diagnosesicherung = value.ValidateOrThrow(AllowedConfirmCodes, _entity, nameof(this.Diagnosesicherung));
+                _diagnosesicherung = value;
             }
         }
 
@@ -117,12 +131,20 @@ namespace AdtGekid
         /// Tumorerkrankungen, die in der Anamnese zu einem früheren Zeitpunkt
         /// diagnnostiziert/behandelt wurden.
         /// </summary>
-        [XmlElement("Fruehere_Tumorerkrankungen", Order = 10)]
-        public string FruehereTumorerkrankungen
-        {
-            get { return _fruehereTumorerkrankungen; }
-            set { _fruehereTumorerkrankungen = value.ValidateMaxLength(500, _entity, nameof(this.FruehereTumorerkrankungen)); }
-        }
+        //[XmlElement("Fruehere_Tumorerkrankungen", Order = 10)]
+        //public string FruehereTumorerkrankungen
+        //{
+        //    get { return _fruehereTumorerkrankungen; }
+        //    set { _fruehereTumorerkrankungen = value.ValidateMaxLength(500, _entity, nameof(this.FruehereTumorerkrankungen)); }
+        //}
+
+        /// <summary>
+        /// Array mit Tumorerkrankungen, die in der Anamnese zu einem früheren Zeitpunkt
+        /// diagnostiziert/behandelt wurden.
+        /// </summary>
+        [XmlArrayItem("Fruehere_Tumorerkrankung", IsNullable = false)]
+        [XmlArray("Menge_Fruehere_Tumorerkrankung", Order = 10)]
+        public FruehereTumorerkrankung[] FruehereTumorerkrankungen { get; set; }
 
         /// <summary>
         /// Array mit histologischen Angaben zur Diagnose nach ICD-O
@@ -192,7 +214,7 @@ namespace AdtGekid
         public string IcdVersion
         {
             get { return _icdVersion.ToString(); }
-            set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion)); }
+            set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion), false); }
 
         }
 
@@ -200,8 +222,10 @@ namespace AdtGekid
         public IcdVersionTyp IcdVersionEnumValue
         {
             get { return _icdVersion; }
-            set { _icdVersion = value; }
+            set { _icdVersion = value;  }
         }
+
+       
 
         /// <summary>
         /// (Lokalisations-)Code der Topographie (Sitz des Primärtumors) einer meldepflichtigen
@@ -234,22 +258,55 @@ namespace AdtGekid
         /// <summary>
         /// Bezeichnung der zur Kodierung verwendeten ICD-O Version
         /// </summary>
-        [XmlElement("Primaertumor_Topographie_ICD_O_Version", Order = 5)]
+        [XmlIgnore]
         public string IcdoVersion
         {
-            get { return _icdoVersion; }
-            set { _icdoVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdoVersion)); }
+            get { return _icdoVersion.ToString(); }
+            //set { _icdoVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdoVersion)); }
+            set { _icdoVersion = value.TryParseAsEnumOrThrow<TopographieIcdOVersionTyp>(_entity, nameof(this.IcdoVersion)); }
         }
+
+        [XmlElement("Primaertumor_Topographie_ICD_O_Version", Order = 5)]
+        public TopographieIcdOVersionTyp IcdoVersionEnumValue
+        {
+            get { return _icdoVersion; }
+            set { _icdoVersion = value; }
+        }
+
+
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool IcdoVersionEnumValueSpecified => IcdoVersionEnumValue != TopographieIcdOVersionTyp.NotSpecified;
 
         /// <summary>
         /// Angabe der betroffenen organspezifischen Seite.
         /// </summary>
-        [XmlElement("Seitenlokalisation", Order = 9)]
+
+        [XmlIgnore]
         public string Seitenlokalisation
         {
-            get { return _seitenlokalisation; }
-            set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _entity, nameof(this.Seitenlokalisation)); }
+            get { return _seitenlokalisation.ToString(); }
+            //set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _entity, nameof(this.Seitenlokalisation)); }
+            set { _seitenlokalisation = value.TryParseAsEnumOrThrow<SeitenlokalisationTyp>(_entity, nameof(this.Seitenlokalisation)); }
+
         }
+
+        [XmlElement("Seitenlokalisation", Order = 9)]
+        public SeitenlokalisationTyp SeitenlokalisationEnumValue
+        {
+            get { return _seitenlokalisation; }
+            set { _seitenlokalisation = value; }
+        }
+
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool SeitenlokalisationEnumValueSpecified => SeitenlokalisationEnumValue != SeitenlokalisationTyp.NotSpecified;
 
         /// <summary>
         /// Eindeutig identifizierendes Merkmal des Tumors.

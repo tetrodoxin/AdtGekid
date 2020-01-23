@@ -41,22 +41,29 @@ namespace AdtGekid
         private const string TargetAreaPattern = @"^(1\.[1-3]\.)|(2\.[1-9]\.[\+\-]?)|(3\.[1-7]\.[\+\-]?)|(4\.[1-9]\.[\+\-]?)|(5\.([2-9]|1[0-2]?)\.[\+\-]?)|(6\.([2-9]|1[0-6]?)\.[\+\-]?)?|([78]\.[12]\.)$";
 
 
-        private string _seiteZielgebiet;
-        private string _applikationsart;
-        private string _zielgebiet;
-        private string _einzeldosis;
-        private string _gesamtdosis;
+        private BestrahlungSeiteZielgebiet _seiteZielgebiet;
+        private BestrahlungApplikationsart _applikationsart;
+        private BestrahlungZielgebiet _zielgebiet;
+        private StrahlendosisTyp _einzeldosis;
+        private StrahlendosisTyp _gesamtdosis;
 
         private string _entity = typeof(Bestrahlung).Name;
 
         /// <summary>
         /// Gibt an, mit welcher Technik die Strahlentherapie durchgeführt wird.
         /// </summary>
-        [XmlElement("ST_Applikationsart", Order = 5)]
+        [XmlIgnore]
         public string Applikationsart
         {
+            get { return _applikationsart.ToString(); }
+            set { _applikationsart = value.TryParseAsEnumOrThrow<BestrahlungApplikationsart>(_entity, nameof(this.ApplikationsartEnumValue)); }
+        }
+
+        [XmlElement("ST_Applikationsart", Order = 5)]
+        public BestrahlungApplikationsart ApplikationsartEnumValue
+        {
             get { return _applikationsart; }
-            set { _applikationsart = value.ValidateOrThrow(ApplicationTypePattern, _entity, nameof(this.Applikationsart)); }
+            set { _applikationsart = value; }            
         }
 
         /// <summary>
@@ -70,12 +77,12 @@ namespace AdtGekid
         /// bezieht sich auf die Verschreibungsisodose.
         /// </summary>
         [XmlElement("ST_Einzeldosis", Order = 7)]
-        public string Einzeldosis
+        public StrahlendosisTyp Einzeldosis
         {
             get { return _einzeldosis; }
-            set { _einzeldosis = value.ValidateAlphanumericalOrThrow(5, _entity, nameof(this.Einzeldosis)); }
+            set { _einzeldosis = value; }
         }
-
+     
         /// <summary>
         /// Gibt an, wann die Bestrahlung beendet wurde.
         /// </summary>
@@ -86,31 +93,50 @@ namespace AdtGekid
         /// Gibt an, mit welcher Gesamtdosis das Zielgebiet bestrahlt wurde
         /// </summary>
         [XmlElement("ST_Gesamtdosis", Order = 6)]
-        public string Gesamtdosis
+        public StrahlendosisTyp Gesamtdosis
         {
             get { return _gesamtdosis; }
-            set { _gesamtdosis = value.ValidateAlphanumericalOrThrow(5, _entity, nameof(this.Gesamtdosis)); }
+            set { _gesamtdosis = value; }
+        }
+
+        [XmlIgnore]
+        public string SeiteZielgebiet
+        {
+            get { return _seiteZielgebiet.ToString(); }
+            set { _seiteZielgebiet = value.TryParseAsEnumOrThrow<BestrahlungSeiteZielgebiet>(); }
         }
 
         /// <summary>
         /// Gibt an, an welcher Stelle (Seitenlokalisation) die Bestrahlung durchgeführt wurde.
         /// </summary>
         [XmlElement("ST_Seite_Zielgebiet", Order = 2)]
-        public string SeiteZielgebiet
+        public BestrahlungSeiteZielgebiet SeiteZielgebietEnumValue
         {
             get { return _seiteZielgebiet; }
-            set { _seiteZielgebiet = value.ValidateOrThrow(AllowedTargetSideCodes, _entity, nameof(this.SeiteZielgebiet)); }
+            set { _seiteZielgebiet = value; }
         }
 
         /// <summary>
         /// Gibt mittels eines Codes aus der Zielgebiet-Tabelle an, 
         /// an welcher Stelle die Bestrahlung durchgeführt wurde.
         /// </summary>
-        [XmlElement("ST_Zielgebiet", Order = 1)]
+        [XmlIgnore]
         public string Zielgebiet
         {
+            get { return _zielgebiet.ToString(); }
+            //set { _zielgebiet = value.TryParseAsEnumOrThrow<BestrahlungZielgebiet>(); }
+            set
+            {
+                _zielgebiet = value.TryParseEnumByXmlEnumAttributeOrThrow<BestrahlungZielgebiet>();
+            }
+        }
+
+        [XmlElement("ST_Zielgebiet", Order = 1)]
+        public BestrahlungZielgebiet ZielgebietEnumValue
+        {
             get { return _zielgebiet; }
-            set { _zielgebiet = value.ValidateOrThrow(TargetAreaPattern,  _entity, nameof(this.Zielgebiet)); }
+            set { _zielgebiet = value; }
+
         }
     }
 }

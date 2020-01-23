@@ -32,7 +32,7 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungTumorzuordnung", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class Tumorzuordnung
     {
-        private string _seitenlokalisation;
+        private SeitenlokalisationTyp _seitenlokalisation;
         private string _id;
         private IcdTyp _icdCode;
 
@@ -60,12 +60,29 @@ namespace AdtGekid
         /// <summary>
         /// Angabe der betroffenen organspezifischen Seite
         /// </summary>
-        [XmlElement("Seitenlokalisation", Order = 3)]
+        [XmlIgnore]
         public string Seitenlokalisation
         {
-            get { return _seitenlokalisation; }
-            set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _typeName, nameof(this.Seitenlokalisation)); }
+            get { return _seitenlokalisation.ToString(); }
+            //set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _entity, nameof(this.Seitenlokalisation)); }
+            set { _seitenlokalisation = value.TryParseAsEnumOrThrow<SeitenlokalisationTyp>(_typeName, nameof(this.Seitenlokalisation)); }
+
         }
+
+        [XmlElement("Seitenlokalisation", Order = 9)]
+        public SeitenlokalisationTyp SeitenlokalisationEnumValue
+        {
+            get { return _seitenlokalisation; }
+            set { _seitenlokalisation = value; }
+        }
+
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool SeitenlokalisationEnumValueSpecified => SeitenlokalisationEnumValue != SeitenlokalisationTyp.NotSpecified;
+        
 
         /// <summary>
         /// Eindeutig identifizierendes Merkmal des Tumors

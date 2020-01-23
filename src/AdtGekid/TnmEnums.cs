@@ -17,7 +17,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("6")]
         Item6 = 6,
@@ -37,7 +37,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("y")]
         y,
@@ -51,7 +51,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("r")]
         r,
@@ -65,7 +65,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("a")]
         a,
@@ -79,7 +79,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("c")]
         c,
@@ -99,7 +99,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("c")]
         c,
@@ -119,7 +119,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("c")]
         c,
@@ -139,7 +139,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("LX")]
         LX,
@@ -159,7 +159,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("VX")]
         VX,
@@ -182,7 +182,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("PnX")]
         PnX,
@@ -202,7 +202,7 @@ namespace AdtGekid
         /// Default (keine XML-Repräsentation!)
         /// </summary>
         [XmlIgnore]
-        unknown = 0,
+        NotSpecified = 0,
 
         [XmlEnum("SX")]
         SX,

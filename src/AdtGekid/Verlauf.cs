@@ -37,10 +37,10 @@ namespace AdtGekid
         private static char[] AllowedPrimaryAndLymphStatusCodes = "KTPNRFUX".ToCharArray();
         private static char[] AllowedMetastasisStatusCodes = "KMRTPNFUX".ToCharArray();
 
-        private string _tumorstatusGesamt;
-        private string _tumorstatusLokal;
-        private string _tumorstatusFernmetastasen;
-        private string _tumorstatusLymphknoten;
+        private TumorstatusGesamt _tumorstatusGesamt;
+        private TumorstatusLokal _tumorstatusLokal;
+        private TumorstatusFernmetastasen _tumorstatusFernmetastasen;
+        private TumorstatusLymphknoten _tumorstatusLymphknoten;
         private string _allgemeinerLeistungszustand;
         private string _anmerkung;
         private string _id;
@@ -73,11 +73,18 @@ namespace AdtGekid
         /// Gesamtbeurteilung der Erkrankung unter Berücksichtigung aller Manifestatio-
         /// nen
         /// </summary>
-        [XmlElement("Gesamtbeurteilung_Tumorstatus", Order = 5)]
+        [XmlIgnore]
         public string TumorstatusGesamt
         {
+            get { return _tumorstatusGesamt.ToString(); }
+            set { _tumorstatusGesamt = value.TryParseAsEnumOrThrow<TumorstatusGesamt>(_typeName, nameof(this.TumorstatusGesamt)); }
+        }
+
+        [XmlElement("Gesamtbeurteilung_Tumorstatus", Order = 5)]
+        public TumorstatusGesamt TumorstatusGesamtEnumValue
+        {
             get { return _tumorstatusGesamt; }
-            set { _tumorstatusGesamt = value.ValidateOrThrow(AllowedSummaryStatusCodes, _typeName, nameof(this.TumorstatusGesamt)); }
+            set { _tumorstatusGesamt = value; }
         }
 
         [XmlElement("Histologie", Order = 1)]
@@ -87,9 +94,12 @@ namespace AdtGekid
         [XmlArray("Menge_FM", Order = 9)]
         public Fernmetastase[] Fernmetastasen { get; set; }
 
-        [XmlArrayItem("TNM", IsNullable = false)]
-        [XmlArray("Menge_TNM", Order = 2)]
-        public TnmTyp[] TnmKlassifizierungen { get; set; }
+        //[XmlArrayItem("TNM", IsNullable = false)]
+        //[XmlArray("Menge_TNM", Order = 2)]
+        //public TnmTyp[] TnmKlassifizierungen { get; set; }
+
+        [XmlElement("TNM", Order = 2)]
+        public TnmTyp TnmKlassifizierung { get; set; }
 
         [XmlArrayItem("Weitere_Klassifikation", IsNullable = false)]
         [XmlArray("Menge_Weitere_Klassifikation", Order = 3)]
@@ -121,28 +131,52 @@ namespace AdtGekid
         /// <summary>
         /// Beurteilung der Situation im Primärtumorbereich
         /// </summary>
-        [XmlElement("Verlauf_Lokaler_Tumorstatus", Order = 6)]
+        [XmlIgnore]
         public string TumorstatusLokal
         {
+            get { return _tumorstatusLokal.ToString(); }
+            //set { _tumorstatusLokal = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLokal)); }
+            set { _tumorstatusLokal = value.TryParseAsEnumOrThrow<TumorstatusLokal>(_typeName, nameof(this.TumorstatusLokal)); }
+        }
+
+        [XmlElement("Verlauf_Lokaler_Tumorstatus", Order = 6)]
+        public TumorstatusLokal TumorstatusLokalEnumValue
+        {
             get { return _tumorstatusLokal; }
-            set { _tumorstatusLokal = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLokal)); }
+            set { _tumorstatusLokal = value; }
+        }
+
+        [XmlIgnore]
+        public string TumorstatusFernmetastasen
+        {
+            get { return _tumorstatusFernmetastasen.ToString(); }
+            //set { _tumorstatusFernmetastasen = value.ValidateOrThrow(AllowedMetastasisStatusCodes, _typeName, nameof(this.TumorstatusFernmetastasen)); }
+            set { _tumorstatusFernmetastasen = value.TryParseAsEnumOrThrow<TumorstatusFernmetastasen>(_typeName, nameof(this.TumorstatusFernmetastasen)); }
         }
 
         [XmlElement("Verlauf_Tumorstatus_Fernmetastasen", Order = 8)]
-        public string TumorstatusFernmetastasen
+        public TumorstatusFernmetastasen TumorstatusFernmetastasenEnumValue
         {
             get { return _tumorstatusFernmetastasen; }
-            set { _tumorstatusFernmetastasen = value.ValidateOrThrow(AllowedMetastasisStatusCodes, _typeName, nameof(this.TumorstatusFernmetastasen)); }
+            set { _tumorstatusFernmetastasen = value; }
         }
 
         /// <summary>
         /// Beurteilung der Situation im Bereich der regionären Lymphknoten
         /// </summary>
-        [XmlElement("Verlauf_Tumorstatus_Lymphknoten", Order = 7)]
+        [XmlIgnore]
         public string TumorstatusLymphknoten
         {
+            get { return _tumorstatusLymphknoten.ToString(); }
+            //set { _tumorstatusLymphknoten = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLymphknoten)); }
+            set { _tumorstatusLymphknoten = value.TryParseAsEnumOrThrow<TumorstatusLymphknoten>(_typeName, nameof(this.TumorstatusLymphknoten)); }
+        }
+
+        [XmlElement("Verlauf_Tumorstatus_Lymphknoten", Order = 7)]
+        public TumorstatusLymphknoten TumorstatusLymphknotenEnumValue
+        {
             get { return _tumorstatusLymphknoten; }
-            set { _tumorstatusLymphknoten = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLymphknoten)); }
+            set { _tumorstatusLymphknoten = value; }
         }
     }
 }

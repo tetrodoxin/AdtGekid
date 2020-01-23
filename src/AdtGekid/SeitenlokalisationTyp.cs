@@ -9,8 +9,12 @@ namespace AdtGekid
 {
     [Serializable()]
     [XmlType("Seitenlokalisation_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public enum Seitenlokalisation_Typ
+    public enum SeitenlokalisationTyp
     {
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        NotSpecified = 0,
         
         L,
         

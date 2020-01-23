@@ -33,9 +33,9 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungST", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class Strahlentherapie
     {
-        private string _intention;
-        private string _stellungOp;
-        private string _endeGrund;
+        private StrahlentherapieIntention _intention;
+        private StrahlentherapieStellungOp _stellungOp;
+        private BestrahlungEndeGrund _endeGrund;
         private string _anmerkung;
         private string _id;
 
@@ -66,11 +66,19 @@ namespace AdtGekid
         /// <summary>
         /// Gibt den Grund an, warum die Strahlentherapie beendet wurde.
         /// </summary>
-        [XmlElement("ST_Ende_Grund", Order = 4)]
+        [XmlIgnore]
         public string EndeGrund
         {
+            get { return _endeGrund.ToString(); }
+            //set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.StrahlenTherapie, _typeName, nameof(this.EndeGrund)); }
+            set { _endeGrund = value.TryParseAsEnumOrThrow<BestrahlungEndeGrund>(_typeName, nameof(this.EndeGrund)); }
+        }
+
+        [XmlElement("ST_Ende_Grund", Order = 4)]
+        public BestrahlungEndeGrund EndeGrundEnumValue
+        {
             get { return _endeGrund; }
-            set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.StrahlenTherapie, _typeName, nameof(this.EndeGrund)); }
+            set { _endeGrund = value; }
         }
 
         /// <summary>
@@ -89,21 +97,36 @@ namespace AdtGekid
         /// <summary>
         /// Gibt an, mit welcher Intention die Strahlentherapie durchgeführt wird.
         /// </summary>
-        [XmlElement("ST_Intention", Order = 1)]
+        [XmlIgnore]
         public string Intention
         {
+            get { return _intention.ToString(); }
+            //set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
+            set { _intention = value.TryParseAsEnumOrThrow<StrahlentherapieIntention>(_typeName, nameof(this.Intention)); } 
+        }
+
+        [XmlElement("ST_Intention", Order = 1)]
+        public StrahlentherapieIntention IntentionEnumValue
+        {
             get { return _intention; }
-            set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
+            set { _intention = value; }
         }
 
         /// <summary>
         /// Gibt an, in welchem Bezug zu einer operativen Therapie die Bestrahlung steht.
-        /// </summary>
-        [XmlElement("ST_Stellung_OP", Order = 2)]
+        /// </summary>       
+        [XmlIgnore]
         public string StellungOp
         {
+            get { return _stellungOp.ToString(); }
+            set { _stellungOp = value.TryParseAsEnumOrThrow<StrahlentherapieStellungOp>(_typeName, nameof(this.Intention)); }
+        }
+
+        [XmlElement("ST_Stellung_OP", Order = 2)]
+        public StrahlentherapieStellungOp StellungOpEnumValue
+        {
             get { return _stellungOp; }
-            set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
+            set { _stellungOp = value; }
         }
     }
 }

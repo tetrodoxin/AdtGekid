@@ -40,17 +40,30 @@ namespace AdtGekid
     {
         public const string GekidNamespace = "http://www.gekid.de/namespace";
 
-        private string _version;
+        private SchemaVersion _version;
 
-        [XmlAttribute("Schema_Version")]
+        [XmlIgnore]
         public string SchemaVersion
         {
-            get { return _version;  }
+            get { return _version.ToString();  }
+            //set
+            //{
+            //    _version = value.ValidateNeitherNullNorEmpty(typeof(Root).Name,nameof(this.SchemaVersion));
+            //}
             set
             {
-                _version = value.ValidateNeitherNullNorEmpty(typeof(Root).Name,nameof(this.SchemaVersion));
+                _version = value.TryParseAsEnumOrThrow<SchemaVersion>(typeof(Root).Name,nameof(this.SchemaVersion));
             }
         }
+
+        [XmlAttribute("Schema_Version")]
+        public SchemaVersion SchemaVersionEnumValue
+        {
+            get { return _version; }
+            set { _version = value; }
+        }
+
+
 
         [XmlElement("Absender", Order = 1)]
         public Absender Absender { get; set; }

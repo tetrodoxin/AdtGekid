@@ -36,9 +36,11 @@ namespace AdtGekid
     [Serializable()]
     [XmlType("ICD_Version_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum IcdVersionTyp
-    {
+    {        
+        NotSpecified = 0,
+
         [XmlEnum("Sonstige")]
-        Sonstige = 0,
+        Sonstige = 1,
 
         [XmlEnum("10 2013 GM")]
         GM_10_2013 = 2013,

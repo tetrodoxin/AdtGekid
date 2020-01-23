@@ -35,15 +35,15 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungSYST", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class SystemischeTherapie
     {
-        private string _endeGrund;
-        private string _intention;
-        private string _stellungOp;
+        private SystemTherapieEndeGrund _endeGrund;
+        private SystemTherapieIntention _intention;
+        private SystemTherapieStellungOp _stellungOp;
         private string _anmerkung;
         private string _id;
         private string _protokoll;
         private string _therapieartAnmerkung;
         private Collection<string> _substanzen;
-        private Collection<string> _therapieArten;
+        private Collection<SystemTherapieart> _therapieArten;
 
         private string _typeName = typeof(SystemischeTherapie).Name;
         /// <summary>
@@ -77,9 +77,18 @@ namespace AdtGekid
         public bool SubstanzenSpecified =>
             Substanzen == null || Substanzen.Count == 0 ? false : true;
 
+        [XmlIgnore]
+        public Collection<string> TherapieArten
+        {           
+            get { return _therapieArten.AsStringEnumerable<SystemTherapieart>() as Collection<string>; }
+            //set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
+            set { _therapieArten = value.TryParseAsEnumCollectionOrThrow<SystemTherapieart>() as Collection<SystemTherapieart>; }
+        }
+
+      
         [XmlArrayItem("SYST_Therapieart", IsNullable = false)]
         [XmlArray("Menge_Therapieart", Order = 3)]
-        public Collection<string> TherapieArten
+        public Collection<SystemTherapieart> TherapieArtenEnumValue
         {
             get { return _therapieArten; }
             set { _therapieArten = value; }
@@ -111,11 +120,19 @@ namespace AdtGekid
         /// <summary>
         /// Gibt den Grund an, warum die Systemtherapie beendet wurde.
         /// </summary>
-        [XmlElement("SYST_Ende_Grund", Order = 8)]
+        [XmlIgnore]
         public string EndeGrund
         {
+            get { return _endeGrund.ToString(); }
+            //set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.SystemischeTherapie, _typeName, nameof(this.EndeGrund)); }
+            set { _endeGrund = value.TryParseAsEnumOrThrow<SystemTherapieEndeGrund>(_typeName, nameof(this.EndeGrund)); }
+        }
+
+        [XmlElement("SYST_Ende_Grund", Order = 8)]
+        public SystemTherapieEndeGrund EndeGrundEnumValue
+        {
             get { return _endeGrund; }
-            set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.SystemischeTherapie, _typeName, nameof(this.EndeGrund)); }
+            set { _endeGrund = value; }
         }
 
         /// <summary>
@@ -134,12 +151,21 @@ namespace AdtGekid
         /// <summary>
         /// Gibt an, mit welcher Intention die systemische Therapie durchgeführt wird.
         /// </summary>
-        [XmlElement("SYST_Intention", Order = 1)]
+        [XmlIgnore]
         public string Intention
         {
-            get { return _intention; }
-            set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
+            get { return _intention.ToString(); }
+            //set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
+            set { _intention = value.TryParseAsEnumOrThrow<SystemTherapieIntention>(_typeName, nameof(this.Intention)); }
         }
+
+        [XmlElement("SYST_Intention", Order = 1)]
+        public SystemTherapieIntention IntentionEnumValue
+        {
+            get { return _intention; }
+            set { _intention = value; }
+        }
+
 
         /// <summary>
         /// Gibt an, nach welchem Protokoll die Systemtherapie durchgeführt wird.
@@ -155,11 +181,19 @@ namespace AdtGekid
         /// Gibt an, in welchem Bezug zu einer operativen Therapie die systemische The-
         /// rapie steht.
         /// </summary>
-        [XmlElement("SYST_Stellung_OP", Order = 2)]
+        [XmlIgnore]
         public string StellungOp
         {
-            get { return _stellungOp; }
-            set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
+            get { return _stellungOp.ToString(); }
+            //set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
+            set { _stellungOp = value.TryParseAsEnumOrThrow<SystemTherapieStellungOp>(_typeName, nameof(this.StellungOp)); }
+        }
+
+        [XmlElement("SYST_Stellung_OP", Order = 2)]
+        public SystemTherapieStellungOp StellungOpEnumValue
+        {
+            get { return _stellungOp; }            
+            set { _stellungOp = value; }
         }
 
         /// <summary>

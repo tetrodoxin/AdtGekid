@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ADT_GEKID xmlns="http://www.gekid.de/namespace">
+<ADT_GEKID xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+           Schema_Version="2.0.0" xmlns="http://www.gekid.de/namespace">
   <Absender Absender_ID="AGI8768" Software_ID="98724697" Installations_ID="KH9871">
     <Absender_Bezeichnung>Bezeichnung 1</Absender_Bezeichnung>
     <Absender_Ansprechpartner>Kai Niemand</Absender_Ansprechpartner>
@@ -27,7 +29,7 @@
         <Menge_Adresse>
           <Adresse>
             <Patienten_Strasse>Strasse Bravo</Patienten_Strasse>
-            <Patienten_Hausnummer>17a</Patienten_Hausnummer>
+            <Patienten_Hausnummer>17A</Patienten_Hausnummer>
             <Patienten_Land>D</Patienten_Land>
             <Patienten_PLZ>12864</Patienten_PLZ>
             <Patienten_Ort>Ort 11</Patienten_Ort>
@@ -48,23 +50,20 @@
           </Tumorzuordnung>
           <Diagnose Tumor_ID="tum277">
             <Primaertumor_ICD_Code>C44.0</Primaertumor_ICD_Code>
-            <Primaertumor_ICD_Version>ICD 10 Version 2014</Primaertumor_ICD_Version>
+            <Primaertumor_ICD_Version>10 2014 GM</Primaertumor_ICD_Version>
             <Primaertumor_Diagnosetext>Diagnosetext 11</Primaertumor_Diagnosetext>
             <Primaertumor_Topographie_ICD_O>C44.0</Primaertumor_Topographie_ICD_O>
-            <Primaertumor_Topographie_ICD_O_Version>O3; 1. Auflage 2003</Primaertumor_Topographie_ICD_O_Version>
             <Primaertumor_Topographie_ICD_O_Freitext>str1234</Primaertumor_Topographie_ICD_O_Freitext>
-            <Diagnosedatum>10.03.2014</Diagnosedatum>
+            <Diagnosedatum>11.11.2015</Diagnosedatum>
             <Diagnosesicherung>2</Diagnosesicherung>
             <Seitenlokalisation>T</Seitenlokalisation>
-            <Fruehere_Tumorerkrankungen>frühtumor</Fruehere_Tumorerkrankungen>
             <Menge_Histologie>
               <Histologie Histologie_ID="histo01">
                 <Tumor_Histologiedatum>10.03.2014</Tumor_Histologiedatum>
                 <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
                 <Morphologie_Code>8020/3</Morphologie_Code>
-                <Morphologie_ICD_O_Version>str1234</Morphologie_ICD_O_Version>
                 <Morphologie_Freitext>str1234</Morphologie_Freitext>
-                <Grading>3</Grading>
+                <Grading>2</Grading>
                 <LK_untersucht>33</LK_untersucht>
                 <LK_befallen>34</LK_befallen>
                 <Sentinel_LK_untersucht>35</Sentinel_LK_untersucht>
@@ -73,30 +72,46 @@
             </Menge_Histologie>
             <Menge_FM>
               <Fernmetastase>
-                <FM_Diagnosedatum>10.04.2014</FM_Diagnosedatum>
+                <FM_Diagnosedatum>20.04.2014</FM_Diagnosedatum>
                 <FM_Lokalisation>PUL</FM_Lokalisation>
               </Fernmetastase>
             </Menge_FM>
-            <Menge_TNM>
-              <TNM TNM_ID="tnm7638">
-                <TNM_Datum>20.03.2013</TNM_Datum>
-                <TNM_Version>7</TNM_Version>
-                <TNM_y_Symbol>y</TNM_y_Symbol>
-                <TNM_r_Symbol>r</TNM_r_Symbol>
-                <TNM_a_Symbol>a</TNM_a_Symbol>
-                <TNM_c_p_u_Praefix_T>c</TNM_c_p_u_Praefix_T>
-                <TNM_T>T1a</TNM_T>
-                <TNM_m_Symbol>(m)</TNM_m_Symbol>
-                <TNM_c_p_u_Praefix_N>p</TNM_c_p_u_Praefix_N>
-                <TNM_N>N1</TNM_N>
-                <TNM_c_p_u_Praefix_M>u</TNM_c_p_u_Praefix_M>
-                <TNM_M>M0</TNM_M>
-                <TNM_L>L0</TNM_L>
-                <TNM_V>V1</TNM_V>
-                <TNM_Pn>PnX</TNM_Pn>
-                <TNM_S>S3</TNM_S>
-              </TNM>
-            </Menge_TNM>
+            <cTNM TNM_ID="tnm7638">
+              <TNM_Datum>20.03.2013</TNM_Datum>
+              <TNM_Version>7</TNM_Version>
+              <TNM_y_Symbol>y</TNM_y_Symbol>
+              <TNM_r_Symbol>r</TNM_r_Symbol>
+              <TNM_a_Symbol>a</TNM_a_Symbol>
+              <TNM_c_p_u_Praefix_T>c</TNM_c_p_u_Praefix_T>
+              <TNM_T>T1a</TNM_T>
+              <TNM_m_Symbol>(m)</TNM_m_Symbol>
+              <TNM_c_p_u_Praefix_N>p</TNM_c_p_u_Praefix_N>
+              <TNM_N>N1</TNM_N>
+              <TNM_c_p_u_Praefix_M>u</TNM_c_p_u_Praefix_M>
+              <TNM_M>M0</TNM_M>
+              <TNM_L>L0</TNM_L>
+              <TNM_V>V1</TNM_V>
+              <TNM_Pn>PnX</TNM_Pn>
+              <TNM_S>S3</TNM_S>
+            </cTNM>
+            <pTNM TNM_ID="tnm7639">
+              <TNM_Datum>20.05.2013</TNM_Datum>
+              <TNM_Version>7</TNM_Version>
+              <TNM_y_Symbol>y</TNM_y_Symbol>
+              <TNM_r_Symbol>r</TNM_r_Symbol>
+              <TNM_a_Symbol>a</TNM_a_Symbol>
+              <TNM_c_p_u_Praefix_T>p</TNM_c_p_u_Praefix_T>
+              <TNM_T>T1a</TNM_T>
+              <TNM_m_Symbol>(m)</TNM_m_Symbol>
+              <TNM_c_p_u_Praefix_N>p</TNM_c_p_u_Praefix_N>
+              <TNM_N>N1</TNM_N>
+              <TNM_c_p_u_Praefix_M>u</TNM_c_p_u_Praefix_M>
+              <TNM_M>M0</TNM_M>
+              <TNM_L>L0</TNM_L>
+              <TNM_V>V1</TNM_V>
+              <TNM_Pn>PnX</TNM_Pn>
+              <TNM_S>S3</TNM_S>
+            </pTNM>
             <Menge_Weitere_Klassifikation>
               <Weitere_Klassifikation>
                 <Datum>11.03.2013</Datum>
@@ -104,7 +119,6 @@
                 <Stadium>ABC</Stadium>
               </Weitere_Klassifikation>
             </Menge_Weitere_Klassifikation>
-            <Allgemeiner_Leistungszustand>85%</Allgemeiner_Leistungszustand>
             <Anmerkung>Diagnoseanmerkung</Anmerkung>
           </Diagnose>
           <Menge_OP>
@@ -115,47 +129,33 @@
                 <OP_OPS>5-217.1</OP_OPS>
                 <OP_OPS>5-812.00</OP_OPS>
               </Menge_OPS>
-              <OP_OPS_Version>Version 2013</OP_OPS_Version>
+              <OP_OPS_Version>2013</OP_OPS_Version>
               <Histologie Histologie_ID="histo23">
                 <Tumor_Histologiedatum>16.04.2013</Tumor_Histologiedatum>
                 <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
                 <Morphologie_Code>8130/3</Morphologie_Code>
-                <Morphologie_ICD_O_Version>O3; 1. Auflage 2003</Morphologie_ICD_O_Version>
                 <Morphologie_Freitext>str1234</Morphologie_Freitext>
-                <Grading>4</Grading>
+                <Grading>3</Grading>
                 <LK_untersucht>33</LK_untersucht>
                 <LK_befallen>23</LK_befallen>
                 <Sentinel_LK_untersucht>13</Sentinel_LK_untersucht>
-                <Sentinel_LK_befallen>03</Sentinel_LK_befallen>
+                <Sentinel_LK_befallen>3</Sentinel_LK_befallen>
               </Histologie>
-              <Menge_TNM>
-                <TNM TNM_ID="ID3427">
-                  <TNM_Datum>16.04.2013</TNM_Datum>
-                  <TNM_Version>7</TNM_Version>
-                  <TNM_y_Symbol></TNM_y_Symbol>
-                  <TNM_r_Symbol></TNM_r_Symbol>
-                  <TNM_a_Symbol></TNM_a_Symbol>
-                  <TNM_c_p_u_Praefix_T></TNM_c_p_u_Praefix_T>
-                  <TNM_T>T2b</TNM_T>
-                  <TNM_m_Symbol></TNM_m_Symbol>
-                  <TNM_c_p_u_Praefix_N></TNM_c_p_u_Praefix_N>
-                  <TNM_N>N0</TNM_N>
-                  <TNM_c_p_u_Praefix_M></TNM_c_p_u_Praefix_M>
-                  <TNM_M>M1</TNM_M>
-                  <TNM_L>L1</TNM_L>
-                  <TNM_V>V2</TNM_V>
-                  <TNM_Pn>Pn1</TNM_Pn>
-                  <TNM_S>SX</TNM_S>
-                </TNM>
-              </Menge_TNM>
-              <Residualstatus >
-                <Lokale_Beurteilung_Residualstatus>R0</Lokale_Beurteilung_Residualstatus>
-                <Gesamtbeurteilung_Residualstatus>R1</Gesamtbeurteilung_Residualstatus>
+              <TNM TNM_ID="ID3427">
+                <TNM_Datum>16.04.2013</TNM_Datum>
+                <TNM_Version>7</TNM_Version>
+                <TNM_T>T2b</TNM_T>
+                <TNM_N>N0</TNM_N>
+                <TNM_M>M1</TNM_M>
+                <TNM_L>L1</TNM_L>
+                <TNM_V>V2</TNM_V>
+                <TNM_Pn>Pn1</TNM_Pn>
+                <TNM_S>SX</TNM_S>
+              </TNM>
+              <Residualstatus>
+                <Lokale_Beurteilung_Residualstatus>R1</Lokale_Beurteilung_Residualstatus>
+                <Gesamtbeurteilung_Residualstatus>R0</Gesamtbeurteilung_Residualstatus>
               </Residualstatus>
-              <Menge_Komplikation>
-                <OP_Komplikation>ABD</OP_Komplikation>
-                <OP_Komplikation>HRS</OP_Komplikation>
-              </Menge_Komplikation>
               <Menge_Operateur>
                 <Name_Operateur>Mr. Proper</Name_Operateur>
                 <Name_Operateur>Dr. Beckmann</Name_Operateur>
@@ -174,8 +174,14 @@
                   <ST_Beginn_Datum>01.05.2013</ST_Beginn_Datum>
                   <ST_Ende_Datum>10.05.2013</ST_Ende_Datum>
                   <ST_Applikationsart>M</ST_Applikationsart>
-                  <ST_Gesamtdosis>23Gy</ST_Gesamtdosis>
-                  <ST_Einzeldosis>2Gy</ST_Einzeldosis>
+                  <ST_Gesamtdosis>
+                    <Dosis>23</Dosis>
+                    <Einheit>Gy</Einheit>
+                  </ST_Gesamtdosis>
+                  <ST_Einzeldosis>
+                    <Dosis>2</Dosis>
+                    <Einheit>Gy</Einheit>
+                  </ST_Einzeldosis>
                 </Bestrahlung>
                 <Bestrahlung>
                   <ST_Zielgebiet>6.1.</ST_Zielgebiet>
@@ -183,8 +189,14 @@
                   <ST_Beginn_Datum>04.04.2015</ST_Beginn_Datum>
                   <ST_Ende_Datum>02.05.2015</ST_Ende_Datum>
                   <ST_Applikationsart>K</ST_Applikationsart>
-                  <ST_Gesamtdosis>23GBq</ST_Gesamtdosis>
-                  <ST_Einzeldosis>1GBq</ST_Einzeldosis>
+                  <ST_Gesamtdosis>
+                    <Dosis>23</Dosis>
+                    <Einheit>GBq</Einheit>
+                  </ST_Gesamtdosis>
+                  <ST_Einzeldosis>
+                    <Dosis>1</Dosis>
+                    <Einheit>GBq</Einheit>
+                  </ST_Einzeldosis>
                 </Bestrahlung>
               </Menge_Bestrahlung>
               <ST_Ende_Grund>E</ST_Ende_Grund>
@@ -194,14 +206,14 @@
               </Residualstatus>
               <Menge_Nebenwirkung>
                 <ST_Nebenwirkung>
-                  <Nebenwirkung_Grad>4</Nebenwirkung_Grad>
-                  <Nebenwirkung_Art>Anemia</Nebenwirkung_Art>
-                  <Nebenwirkung_Version>4</Nebenwirkung_Version>
-                </ST_Nebenwirkung>
-                <ST_Nebenwirkung>
                   <Nebenwirkung_Grad>K</Nebenwirkung_Grad>
                   <Nebenwirkung_Art>Cough</Nebenwirkung_Art>
-                  <Nebenwirkung_Version>4</Nebenwirkung_Version>
+                  <Nebenwirkung_Version>Sonstige</Nebenwirkung_Version>
+                </ST_Nebenwirkung>
+                <ST_Nebenwirkung>
+                  <Nebenwirkung_Grad>5</Nebenwirkung_Grad>
+                  <Nebenwirkung_Art>Anemia</Nebenwirkung_Art>
+                  <Nebenwirkung_Version>Sonstige</Nebenwirkung_Version>
                 </ST_Nebenwirkung>
               </Menge_Nebenwirkung>
               <Anmerkung>Strahlen Anmerkung</Anmerkung>
@@ -211,16 +223,12 @@
             <SYST SYST_ID="SystId2387">
               <SYST_Intention>K</SYST_Intention>
               <SYST_Stellung_OP>O</SYST_Stellung_OP>
-              <Menge_Therapieart>
-                <SYST_Therapieart>IM</SYST_Therapieart>
-                <SYST_Therapieart>HO</SYST_Therapieart>
-              </Menge_Therapieart>
               <SYST_Therapieart_Anmerkung>Art Anmerkung</SYST_Therapieart_Anmerkung>
               <SYST_Protokoll>Prot303</SYST_Protokoll>
               <SYST_Beginn_Datum>10.05.2014</SYST_Beginn_Datum>
               <Menge_Substanz>
                 <SYST_Substanz>Subst Eins</SYST_Substanz>
-                <SYST_Substanz>Subst zwei</SYST_Substanz>
+                <SYST_Substanz>Subst Zwei</SYST_Substanz>
               </Menge_Substanz>
               <SYST_Ende_Grund>E</SYST_Ende_Grund>
               <SYST_Ende_Datum>24.05.2014</SYST_Ende_Datum>
@@ -230,9 +238,9 @@
               </Residualstatus>
               <Menge_Nebenwirkung>
                 <SYST_Nebenwirkung>
-                  <Nebenwirkung_Grad>3</Nebenwirkung_Grad>
+                  <Nebenwirkung_Grad>4</Nebenwirkung_Grad>
                   <Nebenwirkung_Art>Nausea</Nebenwirkung_Art>
-                  <Nebenwirkung_Version>4</Nebenwirkung_Version>
+                  <Nebenwirkung_Version>Sonstige</Nebenwirkung_Version>
                 </SYST_Nebenwirkung>
               </Menge_Nebenwirkung>
               <Anmerkung>Anmerkung Systemisch</Anmerkung>
@@ -244,23 +252,20 @@
                 <Tumor_Histologiedatum>11.09.2014</Tumor_Histologiedatum>
                 <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
                 <Morphologie_Code>8920/3</Morphologie_Code>
-                <Morphologie_ICD_O_Version>O3; 1. Auflage 2003</Morphologie_ICD_O_Version>
                 <Morphologie_Freitext>str1234</Morphologie_Freitext>
-                <Grading>3</Grading>
+                <Grading>2</Grading>
                 <LK_untersucht>33</LK_untersucht>
                 <LK_befallen>22</LK_befallen>
                 <Sentinel_LK_untersucht>11</Sentinel_LK_untersucht>
                 <Sentinel_LK_befallen>1</Sentinel_LK_befallen>
               </Histologie>
-              <Menge_TNM>
-                <TNM TNM_ID="tnm01">
-                  <TNM_Datum>01.09.2014</TNM_Datum>
-                  <TNM_Version>7</TNM_Version>
-                  <TNM_T>T4</TNM_T>
-                  <TNM_N>N0</TNM_N>
-                  <TNM_M>M1</TNM_M>
-                </TNM>
-              </Menge_TNM>
+              <TNM TNM_ID="tnm01">
+                <TNM_Datum>01.09.2014</TNM_Datum>
+                <TNM_Version>7</TNM_Version>
+                <TNM_T>T4</TNM_T>
+                <TNM_N>N0</TNM_N>
+                <TNM_M>M1</TNM_M>
+              </TNM>
               <Menge_Weitere_Klassifikation>
                 <Weitere_Klassifikation>
                   <Datum>01.10.2014</Datum>

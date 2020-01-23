@@ -8,8 +8,8 @@ using System.Xml.Serialization;
 namespace AdtGekid
 {
     [Serializable()]
-    [XmlType("ADT_GEKIDPatientMeldungMeldebegruendung", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public enum Meldebegruendung
+    [XmlType("ADT_GEKIDPatientMeldungOPOP_Intention", AnonymousType = true, Namespace = Root.GekidNamespace)]
+    public enum OpIntention
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
@@ -17,14 +17,16 @@ namespace AdtGekid
         [XmlIgnore]
         NotSpecified = 0,
 
-        I,
+        K,
         
-        A,
-
+        P,
+        
         D,
-
-        W,
-
-        V,
+        
+        R,
+        
+        S,
+        
+        X,
     }
 }

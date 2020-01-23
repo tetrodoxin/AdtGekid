@@ -9,8 +9,14 @@ namespace AdtGekid
 {
     [Serializable()]
     [XmlType("Histologie_TypGrading", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public enum Grading
+    public enum HistoGrading
     {
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        [XmlIgnore]
+        NotSpecified = 0,
+
         [XmlEnum("0")]
         Item0,
         

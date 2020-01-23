@@ -11,6 +11,12 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungOPOP_OPS_Version", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum OpsVersion
     {
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        [XmlIgnore]
+        NotSpecified = 0,
+
         /// <remarks/>
         [XmlEnum("2013")]
         Item2013 = 2013,

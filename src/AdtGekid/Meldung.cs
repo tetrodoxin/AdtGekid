@@ -37,7 +37,7 @@ namespace AdtGekid
     public class Meldung
     {
         private static char[] AllowedReasonCodes = "IADWV".ToCharArray();
-        private string _begruendung;
+        private Meldebegruendung _begruendung;
         private string _anmerkung;
         private string _id;        
         private string _melderId;
@@ -77,17 +77,26 @@ namespace AdtGekid
         /// <summary>
         /// Widerspruch/Einwilligung des Patienten
         /// </summary>
-        [XmlElement("Meldebegruendung", Order = 2)]
+        [XmlIgnore]
         public string Begruendung
         {
             get
             {
-                return _begruendung;
+                return _begruendung.ToString();
             }
-            set
-            {
-                _begruendung = value.ValidateOrThrow(AllowedReasonCodes, _typeName, nameof(this.Begruendung));
-            }
+            //set
+            //{
+            //    _begruendung = value.ValidateOrThrow(AllowedReasonCodes, _typeName, nameof(this.Begruendung));
+            //}
+            set { _begruendung = value.TryParseAsEnumOrThrow<Meldebegruendung>(_typeName, nameof(this.Begruendung), false); }
+
+        }
+
+        [XmlElement("Meldebegruendung", Order = 2)]
+        public Meldebegruendung BegruendungEnumValue
+        {
+            get { return _begruendung; }
+            set { _begruendung = value; }
         }
 
         /// <summary>

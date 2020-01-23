@@ -42,12 +42,12 @@ namespace AdtGekid
     public class Op
     {
         private static char[] AllowedIntentionCodes = "KPDRSX".ToCharArray();
-        private string _intention;
+        private OpIntention _intention;
         private string _anmerkung;
         private string _id;
-        private string _opsVersion;
+        private OpsVersion _opsVersion;
         private Collection<string> _operateure;
-        private Collection<string> _komplikationen;
+        private Collection<OpKomplikation> _komplikationen;
         private Collection<string> _opsCodes;
 
         private string _typeName = "Operation";
@@ -69,15 +69,23 @@ namespace AdtGekid
         [XmlElement("Histologie", Order = 5)]
         public HistologieTyp Histologie { get; set; }
 
+        [XmlIgnore]
+        public Collection<string> Komplikationen
+        {
+            get { return _komplikationen.AsStringEnumerable<OpKomplikation>() as Collection<string>; }
+            //set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
+            set { _komplikationen = value.TryParseAsEnumCollectionOrThrow<OpKomplikation>() as Collection<OpKomplikation>; }
+        }
+
         /// <summary>
         /// Liste von OP-Komplikationen.
         /// </summary>
         [XmlArrayItem("OP_Komplikation", IsNullable = false)]
         [XmlArray("Menge_Komplikation", Order = 8)]
-        public Collection<string> Komplikationen
+        public Collection<OpKomplikation> KomplikationenEnumValue
         {
             get { return _komplikationen; }
-            set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
+            set { _komplikationen = value; }
         }
 
         /// <summary>
@@ -87,6 +95,8 @@ namespace AdtGekid
         [XmlIgnore]
         public bool KomplikationenSpecified =>
             Komplikationen == null || Komplikationen.Count == 0 ? false : true;
+
+
 
         /// <summary>
         /// Liste der Operateure.
@@ -150,25 +160,47 @@ namespace AdtGekid
             set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
+        [XmlIgnore]       
+        public string Intention
+        {
+            get { return _intention.ToString(); }
+            //set { _intention = value.ValidateOrThrow(AllowedIntentionCodes, _typeName, nameof(this.Intention)); }
+            set { _intention = value.TryParseAsEnumOrThrow<OpIntention>(_typeName, nameof(this.Intention)); }
+        }
+
         /// <summary>
         /// Gibt an, mit welchem Ziel die OP durchgeführt wird
         /// </summary>
         [XmlElement("OP_Intention", Order = 1)]
-        public string Intention
+        public OpIntention IntentionEnumValue
         {
             get { return _intention; }
-            set { _intention = value.ValidateOrThrow(AllowedIntentionCodes, _typeName, nameof(this.Intention)); }
+            set { _intention = value; }
         }
 
         /// <summary>
         /// Gibt an, nach welcher Version (Jahr) der OPS klassifiziert wurde.
         /// </summary>
-        [XmlElement("OP_OPS_Version", Order = 4)]
+        [XmlIgnore]
         public string OpsVersion
         {
-            get { return _opsVersion; }
-            set { _opsVersion = value.ValidateMaxLength(16, _typeName, nameof(this.OpsVersion)); }
+            get { return _opsVersion.ToString(); }
+            //set { _opsVersion = value.ValidateMaxLength(16, _typeName, nameof(this.OpsVersion)); }
+            set { _opsVersion = value.TryParseAsEnumOrThrow<OpsVersion>(_typeName, nameof(this.OpsVersion)); }
         }
+
+        [XmlElement("OP_OPS_Version", Order = 4)]
+        public OpsVersion OpsVersionEnumValue
+        {
+            get { return _opsVersion; }
+            set
+            {
+                _opsVersion = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool OpsVersionEnumValueSpecified => OpsVersionEnumValue != AdtGekid.OpsVersion.NotSpecified;
 
         /// <summary>
         /// Daten über die lokale und gesamte Beurteilung des postoperativen Residualstatus

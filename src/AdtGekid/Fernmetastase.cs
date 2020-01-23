@@ -37,7 +37,7 @@ namespace AdtGekid
     public class Fernmetastase
     {
         private const string MetastasisLocationPattern = @"^PUL|OSS|HEP|BRA|LYM|MAR|PLE|PER|ADR|SKI|OTH|GEN$";
-        private string _lokalisation;
+        private FernmetastaseLokalisation _lokalisation;
 
         private string _typeName = typeof(Fernmetastase).Name;
       
@@ -50,12 +50,27 @@ namespace AdtGekid
 
         /// <summary>
         /// Lokalisation der Fernmetastase als dreistelliger Code (siehe auch TNM-Klassifikation)
-        /// </summary>
-        [XmlElement("FM_Lokalisation", Order = 2)]
+        /// </summary>        
+        [XmlIgnore]
         public string Lokalisation
         {
-            get { return _lokalisation; }
-            set { _lokalisation = value.ValidateOrThrow(MetastasisLocationPattern, _typeName, nameof(this.Lokalisation)); }
+            get { return _lokalisation.ToString(); }
+            //set { _lokalisation = value.ValidateOrThrow(MetastasisLocationPattern, _typeName, nameof(this.Lokalisation)); }
+            set { _lokalisation = value.TryParseAsEnumOrThrow<FernmetastaseLokalisation>(_typeName, nameof(this.Lokalisation)); }
         }
+
+        [XmlElement("FM_Lokalisation", Order = 2)]        
+        public FernmetastaseLokalisation LokalisationEnumValue
+        {
+            get { return _lokalisation; }
+            set { _lokalisation = value; }
+        }
+
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool LokalisationEnumValueSpecified => LokalisationEnumValue != FernmetastaseLokalisation.NotSpecified;
     }
 }

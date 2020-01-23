@@ -73,18 +73,9 @@ namespace AdtGekid
         }
 
 
-        [XmlIgnore()]
-        public bool IcdVersionSpecified
-        {
-            get
-            {
-                return _icdVersionSpecified;
-            }
-            set
-            {
-                _icdVersionSpecified = value;
-            }
-        }
+        [XmlIgnore]
+        public bool IcdVersionSpecified => IcdVersionEnumValue != IcdVersionTyp.NotSpecified;
+        
 
         [XmlElement("Diagnosedatum", Order = 4)]
         public DatumTyp Diagnosedatum

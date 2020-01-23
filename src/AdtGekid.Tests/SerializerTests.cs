@@ -40,11 +40,7 @@ namespace AdtGekid.Tests
             var sampleFile = "sample_patho.xml";
             using (var reader = new StreamReader(sampleFile, Encoding.UTF8))
             {
-                var obj = serializer.Deserialize(reader) as Root;
-               
-                //obj.Patienten[0].Meldungen[0].Diagnose.
-                //  TnmKlassifizierungPathologisch.SymbolA = null;
-
+                var obj = serializer.Deserialize(reader) as Root;                              
 
                 Assert.NotNull(obj);
 
@@ -121,10 +117,12 @@ namespace AdtGekid.Tests
 
         private static Root createTestRootObject()
         {
+
+
             return new Root()
             {
-                SchemaVersion = "2.0.0"
-                , Absender = new Absender()
+                SchemaVersion = "2.0.0",
+                Absender = new Absender()
                 {
                     Id = "AGI8768",
                     InstallationsId = "KH9871",
@@ -209,10 +207,13 @@ namespace AdtGekid.Tests
                                         Id = "tum277",
                                         Datum = new DatumTyp("11.11.2015"),
                                         IcdCode = "C44.0",
-                                        IcdVersion = "2014",
+                                        IcdVersion = "GM_10_2014",
                                         Text = "Diagnosetext 11",
-                                        IcdoCode = "C44.0",                                        
+                                        IcdoCode = "C44.0",
+
                                         IcdoVersion = "32",
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item32,
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item31,
                                         IcdoFreitext = "str1234",
                                         Anmerkung = "Diagnoseanmerkung",
                                         //AllgemeinerLeistungszustand = "85%",
@@ -227,7 +228,7 @@ namespace AdtGekid.Tests
                                                 Datum = "10.03.2014",
                                                 EinsendeNr = "str1234",
                                                 Code = "8020/3",
-                                                IcdOVersion = "32",
+                                                //IcdOVersion = "32",
                                                 Freitext = "str1234",
                                                 Grading = "3",
                                                 LkUntersucht = 33,
@@ -348,7 +349,7 @@ namespace AdtGekid.Tests
                                                 V = "V2",
                                                 Pn = "Pn1",
                                                 S = "SX"
-                                                
+
                                             },
                                             Residualstatus = new ResidualstatusTyp() { Lokal = RTyp.R1, Gesamt = RTyp.R0 },
                                             Komplikationen = new Collection<string> {"ABD", "HRS"},
@@ -373,8 +374,18 @@ namespace AdtGekid.Tests
                                                     Zielgebiet ="3.1.",
                                                     SeiteZielgebiet = "L",
                                                     Applikationsart = "M",
-                                                    Einzeldosis = "2Gy",
-                                                    Gesamtdosis = "23Gy"
+                                                    //Einzeldosis = "2Gy",
+                                                    Einzeldosis = new StrahlendosisTyp()
+                                                    {
+                                                       Dosis = 2
+                                                       , Einheit = StrahlendosisEinheit.Gy                                                         
+                                                    },
+                                                    //Gesamtdosis = "23Gy"
+                                                    Gesamtdosis = new StrahlendosisTyp()
+                                                    {
+                                                       Dosis = 23
+                                                       , Einheit = StrahlendosisEinheit.Gy
+                                                    },
                                                 },
                                                 new Bestrahlung
                                                 {
@@ -383,8 +394,20 @@ namespace AdtGekid.Tests
                                                     Zielgebiet ="6.1.",
                                                     SeiteZielgebiet = "M",
                                                     Applikationsart = "K",
-                                                    Einzeldosis = "1GBq",
-                                                    Gesamtdosis = "23GBq"
+                                                    //Einzeldosis = "1GBq",
+                                                    //Gesamtdosis = "23GBq"
+                                                    Einzeldosis = new StrahlendosisTyp()
+                                                    {
+                                                       Dosis = 1
+                                                       , Einheit = StrahlendosisEinheit.GBq
+                                                    },
+                                                    //Gesamtdosis = "23Gy"
+                                                    Gesamtdosis = new StrahlendosisTyp()
+                                                    {
+                                                       Dosis = 23
+                                                       , Einheit = StrahlendosisEinheit.GBq
+                                                    }
+                                                    
                                                 },
                                             },
                                             Nebenwirkungen = new NebenwirkungTyp[]
@@ -436,17 +459,26 @@ namespace AdtGekid.Tests
                                                 new Fernmetastase { Lokalisation = "PUL", Datum = "03.10.2014" },
                                                 new Fernmetastase { Lokalisation = "OSS", Datum = "02.10.2014" },
                                             },
-                                            TnmKlassifizierungen = new TnmTyp[]
+                                            //TnmKlassifizierungen = new TnmTyp[]
+                                            //{
+                                            //    new TnmTyp
+                                            //    {
+                                            //        Id = "tnm01",
+                                            //        Datum = "01.09.2014",
+                                            //        Version = 7,
+                                            //        T = "T4",
+                                            //        N = "N0",
+                                            //        M = "M1",
+                                            //    }
+                                            //},
+                                            TnmKlassifizierung = new TnmTyp
                                             {
-                                                new TnmTyp
-                                                {
-                                                    Id = "tnm01",
-                                                    Datum = "01.09.2014",
-                                                    Version = 7,
-                                                    T = "T4",
-                                                    N = "N0",
-                                                    M = "M1",
-                                                }
+                                                Id = "tnm01",
+                                                Datum = "01.09.2014",
+                                                Version = 7,
+                                                T = "T4",
+                                                N = "N0",
+                                                M = "M1",
                                             },
                                             Histologie = new HistologieTyp()
                                             {
@@ -454,7 +486,7 @@ namespace AdtGekid.Tests
                                                 Datum = "11.09.2014",
                                                 EinsendeNr = "str1234",
                                                 Code = "8920/3",
-                                                IcdOVersion = "O3; 1. Auflage 2003",
+                                                IcdOVersion = "32",
                                                 Freitext = "str1234",
                                                 Grading = "3",
                                                 LkUntersucht = 33,

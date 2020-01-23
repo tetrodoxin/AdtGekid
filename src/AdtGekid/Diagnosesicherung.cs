@@ -10,7 +10,13 @@ namespace AdtGekid
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungDiagnoseDiagnosesicherung", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum Diagnosesicherung
-    {        
+    {
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        [XmlIgnore]
+        NotSpecified = 0,
+
         [XmlEnum("1")]
         Item1,
         

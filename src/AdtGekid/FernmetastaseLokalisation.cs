@@ -11,6 +11,12 @@ namespace AdtGekid
     [XmlType("Menge_FM_TypFernmetastaseFM_Lokalisation", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum FernmetastaseLokalisation
     {
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        [XmlIgnore]
+        NotSpecified = 0,
+
         PUL,
 
         OSS,

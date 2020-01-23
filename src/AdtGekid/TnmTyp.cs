@@ -59,12 +59,7 @@ namespace AdtGekid
         public string SymbolA
         {
             get { return _symbolA.ToString(); }
-            set
-            {
-                var parsed = Enum.TryParse(value, out _symbolA);
-                if (!parsed)
-                    throw new ArgumentException($"{nameof(this.SymbolA)} ungültig!");
-            }
+            set { _symbolA = value.TryParseAsEnumOrThrow<TnmSymbolA>(_typeName, nameof(this.SymbolA)); }           
         }
 
         [XmlElement("TNM_a_Symbol", Order = 5)]
@@ -76,10 +71,10 @@ namespace AdtGekid
 
         /// <summary>
         /// Angabe zur Steuerung der Serialisierung von <see cref="SymbolAEnumValue"/>.
-        /// Bei <see cref="TnmSymbolA.unknown"/> wird nicht serialisiert.
+        /// Bei <see cref="TnmSymbolA.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
-        [XmlIgnore()]
-        public bool SymbolAEnumValueSpecified => SymbolAEnumValue != TnmSymbolA.unknown;
+        [XmlIgnore]
+        public bool SymbolAEnumValueSpecified => SymbolAEnumValue != TnmSymbolA.NotSpecified;
 
         /// <summary>
         /// Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte.
@@ -133,24 +128,26 @@ namespace AdtGekid
         /// <summary>
         /// Lymphgefäßinvasion
         /// </summary>
-        [XmlElement("TNM_L", Order = 13)]
+        [XmlIgnore]
         public string L
         {
-            get { return _l.ToString(); }
-            set
-            {
-                var parsed = Enum.TryParse(value, out _l);
-                if (!parsed)
-                    throw new ArgumentException($"{nameof(this.CategoryL)} ungültig!");
-            }
+            get { return _l.ToString(); }           
+            set { _l = value.TryParseAsEnumOrThrow<TnmCategoryL>(_typeName, nameof(this.L)); }
         }
 
-        [XmlIgnore]
+        [XmlElement("TNM_L", Order = 13)]
         public TnmCategoryL CategoryL
         {
             get { return _l; }
             set { _l = value; }
         }
+
+        /// <summary>
+        /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryL"/>.
+        /// Bei <see cref="TnmCategoryL.NotSpecified"/> wird nicht serialisiert.
+        /// </summary>
+        [XmlIgnore]
+        public bool CategoryLSpecified => CategoryL != TnmCategoryL.NotSpecified;
 
 
         /// <summary>
@@ -179,13 +176,8 @@ namespace AdtGekid
         [XmlIgnore]
         public string Pn
         {
-            get { return _pn.ToString(); }
-            set
-            {
-                var parsed = Enum.TryParse(value, out _pn);
-                if (!parsed)
-                    throw new ArgumentException($"{nameof(this.CategoryPn)} ungültig!");
-            }
+            get { return _pn.ToString(); }            
+            set { _pn = value.TryParseAsEnumOrThrow<TnmCategoryPn>(_typeName, nameof(this.Pn)); }
         }
 
         [XmlElement("TNM_Pn", Order = 15)]
@@ -197,10 +189,10 @@ namespace AdtGekid
 
         /// <summary>
         /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryPn"/>.
-        /// Bei <see cref="TnmCategoryPn.unknown"/> wird nicht serialisiert.
+        /// Bei <see cref="TnmCategoryPn.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
-        [XmlIgnore()]
-        public bool CategoryPnSpecified => CategoryPn != TnmCategoryPn.unknown;
+        [XmlIgnore]
+        public bool CategoryPnSpecified => CategoryPn != TnmCategoryPn.NotSpecified;
 
         /// <summary>
         /// Gibt an, ob die Klassifikation ein Rezidiv beurteilt.
@@ -209,12 +201,7 @@ namespace AdtGekid
         public string SymbolR
         {
             get { return _symbolR.ToString(); }
-            set
-            {
-                var parsed = Enum.TryParse(value, out _symbolR);
-                if (!parsed)
-                    throw new ArgumentException($"{nameof(this.SymbolR)} ungültig!");
-            }
+            set { _symbolR = value.TryParseAsEnumOrThrow<TnmSymbolR>(_typeName, nameof(this.SymbolR)); }           
         }
 
         [XmlElement("TNM_r_Symbol", Order = 4)]
@@ -226,10 +213,10 @@ namespace AdtGekid
 
         /// <summary>
         /// Angabe zur Steuerung der Serialisierung von <see cref="SymbolREnumValue"/>.
-        /// Bei <see cref="TnmSymbolR.unknown"/> wird nicht serialisiert.
+        /// Bei <see cref="TnmSymbolR.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
-        [XmlIgnore()]
-        public bool SymbolREnumValueSpecified => SymbolREnumValue != TnmSymbolR.unknown;
+        [XmlIgnore]
+        public bool SymbolREnumValueSpecified => SymbolREnumValue != TnmSymbolR.NotSpecified;
 
 
         /// <summary>
@@ -238,13 +225,8 @@ namespace AdtGekid
         [XmlIgnore]
         public string S
         {
-            get { return _s.ToString(); }
-            set
-            {
-                var parsed = Enum.TryParse(value, out _s);
-                if (!parsed)
-                    throw new ArgumentException($"{nameof(this.CategoryS)} ungültig!");
-            }
+            get { return _s.ToString(); }            
+            set { _s = value.TryParseAsEnumOrThrow<TnmCategoryS>(_typeName, nameof(this.S)); }
         }
 
         [XmlElement("TNM_S", Order = 16)]
@@ -256,10 +238,10 @@ namespace AdtGekid
 
         // <summary>
         /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryS"/>.
-        /// Bei <see cref="TnmCategoryS.unknown"/> wird nicht serialisiert.
+        /// Bei <see cref="TnmCategoryS.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
-        [XmlIgnore()]
-        public bool CategorySSpecified => CategoryS != TnmCategoryS.unknown;
+        [XmlIgnore]
+        public bool CategorySSpecified => CategoryS != TnmCategoryS.NotSpecified;
 
 
 
@@ -276,21 +258,16 @@ namespace AdtGekid
         [XmlIgnore]
         public string V
         {
-            get { return _v.ToString(); }
-            set
-            {
-                var parsed = Enum.TryParse(value, out _v);
-                if (!parsed)
-                    throw new ArgumentException($"{nameof(this.CategoryV)} ungültig!");
-            }
+            get { return _v.ToString(); }            
+            set { _v = value.TryParseAsEnumOrThrow<TnmCategoryV>(_typeName, nameof(this.V)); }
         }
 
         // <summary>
         /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryV"/>.
-        /// Bei <see cref="TnmCategoryV.unknown"/> wird nicht serialisiert.
+        /// Bei <see cref="TnmCategoryV.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
-        [XmlIgnore()]
-        public bool CategoryVSpecified => CategoryV != TnmCategoryV.unknown;
+        [XmlIgnore]
+        public bool CategoryVSpecified => CategoryV != TnmCategoryV.NotSpecified;
 
 
         [XmlElement("TNM_V", Order = 14)]
@@ -308,13 +285,8 @@ namespace AdtGekid
         [XmlIgnore]
         public int? Version
         {
-            get { return (int)_version; }
-            set
-            {
-                var parsed = Enum.TryParse<TnmVersion>(value?.ToString(), out _version);
-                if (!parsed)
-                    throw new ArgumentException("Ungültige TNM-Version!");
-            }
+            get { return (int)_version; }            
+            set { _version = value.ToString().TryParseAsEnumOrThrow<TnmVersion>(_typeName, nameof(this.Version)); }
         }
 
         [XmlElement("TNM_Version", Order = 2)]
@@ -334,13 +306,8 @@ namespace AdtGekid
         [XmlIgnore]
         public string SymbolY
         {
-            get { return _symbolY.ToString(); }
-            set
-            {
-                var parsed = Enum.TryParse(value, out _symbolY);
-                if (!parsed)
-                    throw new ArgumentException($"{nameof(this.SymbolY)} ungültig!");
-            }
+            get { return _symbolY.ToString(); }            
+            set { _symbolY = value.ToString().TryParseAsEnumOrThrow<TnmSymbolY>(_typeName, nameof(this.SymbolY)); }
         }
 
         [XmlElement("TNM_y_Symbol", Order = 3)]
@@ -352,9 +319,9 @@ namespace AdtGekid
 
         /// <summary>
         /// Angabe zur Steuerung der Serialisierung von <see cref="SymbolYEnumValue"/>.
-        /// Bei <see cref="TnmSymbolY.unknown"/> wird nicht serialisiert.
+        /// Bei <see cref="TnmSymbolY.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
-        [XmlIgnore()]
-        public bool SymbolYEnumValueSpecified => SymbolYEnumValue != TnmSymbolY.unknown;
+        [XmlIgnore]
+        public bool SymbolYEnumValueSpecified => SymbolYEnumValue != TnmSymbolY.NotSpecified;
     }
 }

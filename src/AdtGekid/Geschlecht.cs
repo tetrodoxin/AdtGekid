@@ -11,7 +11,12 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientPatienten_StammdatenPatienten_Geschlecht", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum Geschlecht
     {
-        
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        [XmlIgnore]
+        NotSpecified = 0,
+
         M,
 
         

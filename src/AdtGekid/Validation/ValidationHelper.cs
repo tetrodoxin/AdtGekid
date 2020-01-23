@@ -230,16 +230,9 @@ namespace AdtGekid.Validation
             return value;
         }
 
-        public static TEnum TryParseAsEnumOrThrow<TEnum>(this string value, string validatedAdtObject = null, string validatedAdtField = null, bool allowEmpty = true)
-            where TEnum : struct
-        {
-            TEnum en;
-            var parsed = Enum.TryParse<TEnum>(value, out en);
-            if (!parsed && !allowEmpty)
-                throw new ArgumentException($"{validatedAdtObject}.{validatedAdtField} weist einen ungültigen Wert auf!");
-            
-            return en;
-        }
+
+        
+
 
         /// <summary>
         /// Prüft einen String und gibt im Erfolgsfall die gültige (und evt. veränderte) Form zurück,

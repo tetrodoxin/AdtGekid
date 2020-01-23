@@ -36,6 +36,12 @@ namespace AdtGekid
     public enum Meldeanlass
     {
         /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        [XmlIgnore]
+        NotSpecified = 0,
+
+        /// <summary>
         /// Anlass ist eine neue meldepflichtige Tumordiagnose
         /// </summary>
         [XmlEnum("diagnose")]
