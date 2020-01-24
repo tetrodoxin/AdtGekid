@@ -36,25 +36,7 @@ namespace AdtGekid
     public class VerlaufTod
     {
         private Collection<string> _ursachenIcdCodes;
-
-        [XmlArrayItem("Todesursache_ICD", IsNullable = false)]
-        [XmlArray("Menge_Todesursache", Order = 3)]
-        public Collection<string> UrsachenIcdCodes
-        {
-            get { return _ursachenIcdCodes; }
-            set { _ursachenIcdCodes = value.EnsureValidatedStringList().WithValidator(new StringValidatorByRegex(@"^[A-Z]\d\d(\.\d(\d)?)?$")); }
-        }
-
-        /// <summary>
-        /// Das entsprechende Container-Xml-Element wird dann nicht serialisiert
-        /// wenn es leer ist oder keine Elemente enthält
-        /// </summary>
-        [XmlIgnore]
-        public bool UrsachenIcdCodesSpecified =>
-            UrsachenIcdCodes == null || UrsachenIcdCodes.Count == 0 ? false : true;
-
-
-
+            
         /// <summary>
         /// Tag an dem der Patient verstorben ist.
         /// </summary>
@@ -65,6 +47,20 @@ namespace AdtGekid
         /// Krebs-Tod-Relation
         /// </summary>
         [XmlElement("Tod_tumorbedingt", Order = 2)]
-        public JnuTyp Tumorbedingt { get; set; }
+        public JnuTyp? Tumorbedingt { get; set; }
+
+
+        public bool TumorbedingtSpecified => Tumorbedingt.HasValue;
+
+        //[XmlArrayItem("Todesursache_ICD", IsNullable = false)]
+        //[XmlArray("Menge_Todesursache", Order = 3)]
+        //public Collection<string> UrsachenIcdCodes
+        //{
+        //    get { return _ursachenIcdCodes; }
+        //    set { _ursachenIcdCodes = value.EnsureValidatedStringList().WithValidator(new StringValidatorByRegex(@"^[A-Z]\d\d(\.\d(\d)?)?$")); }
+        //}
+
+        [XmlElement("Menge_Todesursache", Order = 3)]
+        public MengeTodesursache Todesursachen { get; set; }
     }
 }

@@ -37,11 +37,11 @@ namespace AdtGekid
         private static char[] AllowedPrimaryAndLymphStatusCodes = "KTPNRFUX".ToCharArray();
         private static char[] AllowedMetastasisStatusCodes = "KMRTPNFUX".ToCharArray();
 
-        private TumorstatusGesamt _tumorstatusGesamt;
-        private TumorstatusLokal _tumorstatusLokal;
-        private TumorstatusFernmetastasen _tumorstatusFernmetastasen;
-        private TumorstatusLymphknoten _tumorstatusLymphknoten;
-        private string _allgemeinerLeistungszustand;
+        private TumorstatusGesamt? _tumorstatusGesamt;
+        private TumorstatusLokal? _tumorstatusLokal;
+        private TumorstatusFernmetastasen? _tumorstatusFernmetastasen;
+        private TumorstatusLymphknoten? _tumorstatusLymphknoten;
+        private AllgemeinerLeistungszustandTyp? _allgemeinerLeistungszustand;
         private string _anmerkung;
         private string _id;
 
@@ -51,12 +51,22 @@ namespace AdtGekid
         /// Beurteilung des allgemeinen Leistungszustandes nach ECOG oder Karnofsky in
         /// %
         /// </summary>
-        [XmlElement("Allgemeiner_Leistungszustand", Order = 10)]
+       
+        [XmlIgnore]
         public string AllgemeinerLeistungszustand
         {
-            get { return _allgemeinerLeistungszustand; }
-            set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _typeName, nameof(this.AllgemeinerLeistungszustand)); }
+            get { return _allgemeinerLeistungszustand?.ToXmlEnumAttributeName(); }
+            //set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
+            set { _allgemeinerLeistungszustand = value.TryParseAsEnumOrThrow<AllgemeinerLeistungszustandTyp>(_typeName, nameof(AllgemeinerLeistungszustand)); }
         }
+
+        [XmlElement("Allgemeiner_Leistungszustand", Order = 10)]
+        public AllgemeinerLeistungszustandTyp? AllgemeinerLeistungszustandEnumValue
+        {
+            get { return _allgemeinerLeistungszustand; }
+            set { _allgemeinerLeistungszustand = value; }
+        }
+        public bool AllgemeinerLeistungszustandEnumValueSpecified => AllgemeinerLeistungszustandEnumValue.HasValue;
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
@@ -80,12 +90,16 @@ namespace AdtGekid
             set { _tumorstatusGesamt = value.TryParseAsEnumOrThrow<TumorstatusGesamt>(_typeName, nameof(this.TumorstatusGesamt)); }
         }
 
+       
+
         [XmlElement("Gesamtbeurteilung_Tumorstatus", Order = 5)]
-        public TumorstatusGesamt TumorstatusGesamtEnumValue
+        public TumorstatusGesamt? TumorstatusGesamtEnumValue
         {
             get { return _tumorstatusGesamt; }
             set { _tumorstatusGesamt = value; }
         }
+
+        public bool TumorstatusGesamtEnumValueSpecified => TumorstatusLokalEnumValue.HasValue;
 
         [XmlElement("Histologie", Order = 1)]
         public HistologieTyp Histologie { get; set; }
@@ -140,11 +154,13 @@ namespace AdtGekid
         }
 
         [XmlElement("Verlauf_Lokaler_Tumorstatus", Order = 6)]
-        public TumorstatusLokal TumorstatusLokalEnumValue
+        public TumorstatusLokal? TumorstatusLokalEnumValue
         {
             get { return _tumorstatusLokal; }
             set { _tumorstatusLokal = value; }
         }
+
+        public bool TumorstatusLokalEnumValueSpecified => TumorstatusLokalEnumValue.HasValue;
 
         [XmlIgnore]
         public string TumorstatusFernmetastasen
@@ -155,11 +171,13 @@ namespace AdtGekid
         }
 
         [XmlElement("Verlauf_Tumorstatus_Fernmetastasen", Order = 8)]
-        public TumorstatusFernmetastasen TumorstatusFernmetastasenEnumValue
+        public TumorstatusFernmetastasen? TumorstatusFernmetastasenEnumValue
         {
             get { return _tumorstatusFernmetastasen; }
             set { _tumorstatusFernmetastasen = value; }
         }
+
+        public bool TumorstatusFernmetastasenEnumValueSpecified => TumorstatusFernmetastasenEnumValue.HasValue;
 
         /// <summary>
         /// Beurteilung der Situation im Bereich der regionären Lymphknoten
@@ -173,10 +191,12 @@ namespace AdtGekid
         }
 
         [XmlElement("Verlauf_Tumorstatus_Lymphknoten", Order = 7)]
-        public TumorstatusLymphknoten TumorstatusLymphknotenEnumValue
+        public TumorstatusLymphknoten? TumorstatusLymphknotenEnumValue
         {
             get { return _tumorstatusLymphknoten; }
             set { _tumorstatusLymphknoten = value; }
         }
+
+        public bool TumorstatusLymphknotenEnumValueSpecified => TumorstatusLymphknotenEnumValue.HasValue;
     }
 }

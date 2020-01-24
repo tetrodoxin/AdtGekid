@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatumTypTests.cs" />
+    <Compile Include="EnumHelperTests.cs" />
     <Compile Include="JnuTypTests.cs" />
     <Compile Include="IcdTypTests.cs" />
     <Compile Include="SerializerTests.cs" />
@@ -84,9 +85,6 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sample_patho.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="sample.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

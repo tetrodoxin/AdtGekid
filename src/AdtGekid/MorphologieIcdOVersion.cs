@@ -14,14 +14,13 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
         [XmlEnum("31")]
-        Item31,
+        ICD_O_3_Auflage1_2003 = 31,
 
         [XmlEnum("32")]
-        Item32,
+        ICD_O_3_Auflage2_2013 = 32,
 
         bb,
     }

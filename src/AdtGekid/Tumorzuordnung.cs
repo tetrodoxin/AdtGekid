@@ -32,7 +32,7 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungTumorzuordnung", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class Tumorzuordnung
     {
-        private SeitenlokalisationTyp _seitenlokalisation;
+        private SeitenlokalisationTyp? _seitenlokalisation;
         private string _id;
         private IcdTyp _icdCode;
 
@@ -70,7 +70,7 @@ namespace AdtGekid
         }
 
         [XmlElement("Seitenlokalisation", Order = 9)]
-        public SeitenlokalisationTyp SeitenlokalisationEnumValue
+        public SeitenlokalisationTyp? SeitenlokalisationEnumValue
         {
             get { return _seitenlokalisation; }
             set { _seitenlokalisation = value; }
@@ -81,7 +81,7 @@ namespace AdtGekid
         /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
         /// </summary>
         [XmlIgnore]
-        public bool SeitenlokalisationEnumValueSpecified => SeitenlokalisationEnumValue != SeitenlokalisationTyp.NotSpecified;
+        public bool SeitenlokalisationEnumValueSpecified => SeitenlokalisationEnumValue.HasValue;
         
 
         /// <summary>

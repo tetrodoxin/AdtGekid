@@ -40,13 +40,13 @@ namespace AdtGekid
         private string _praefixM;
         private string _praefixN;
         private string _praefixT;
-        private TnmSymbolA _symbolA;
-        private TnmSymbolR _symbolR;
-        private TnmSymbolY _symbolY;
-        private TnmCategoryL _l;
-        private TnmCategoryPn _pn;
-        private TnmCategoryS _s;
-        private TnmCategoryV _v;
+        private TnmSymbolA? _symbolA;
+        private TnmSymbolR? _symbolR;
+        private TnmSymbolY? _symbolY;
+        private TnmCategoryL? _l;
+        private TnmCategoryPn? _pn;
+        private TnmCategoryS? _s;
+        private TnmCategoryV? _v;
         private string _id;        
         private TnmVersion _version;
 
@@ -63,7 +63,7 @@ namespace AdtGekid
         }
 
         [XmlElement("TNM_a_Symbol", Order = 5)]
-        public TnmSymbolA SymbolAEnumValue
+        public TnmSymbolA? SymbolAEnumValue
         {
             get { return _symbolA; }
             set { _symbolA = value; }
@@ -74,7 +74,7 @@ namespace AdtGekid
         /// Bei <see cref="TnmSymbolA.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool SymbolAEnumValueSpecified => SymbolAEnumValue != TnmSymbolA.NotSpecified;
+        public bool SymbolAEnumValueSpecified => SymbolREnumValue.HasValue;
 
         /// <summary>
         /// Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte.
@@ -136,7 +136,7 @@ namespace AdtGekid
         }
 
         [XmlElement("TNM_L", Order = 13)]
-        public TnmCategoryL CategoryL
+        public TnmCategoryL? CategoryL
         {
             get { return _l; }
             set { _l = value; }
@@ -147,7 +147,7 @@ namespace AdtGekid
         /// Bei <see cref="TnmCategoryL.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool CategoryLSpecified => CategoryL != TnmCategoryL.NotSpecified;
+        public bool CategoryLSpecified => CategoryL.HasValue;
 
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace AdtGekid
         }
 
         [XmlElement("TNM_Pn", Order = 15)]
-        public TnmCategoryPn CategoryPn
+        public TnmCategoryPn? CategoryPn
         {
             get { return _pn; }
             set { _pn = value; }
@@ -192,7 +192,7 @@ namespace AdtGekid
         /// Bei <see cref="TnmCategoryPn.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool CategoryPnSpecified => CategoryPn != TnmCategoryPn.NotSpecified;
+        public bool CategoryPnSpecified => CategoryPn.HasValue;
 
         /// <summary>
         /// Gibt an, ob die Klassifikation ein Rezidiv beurteilt.
@@ -205,7 +205,7 @@ namespace AdtGekid
         }
 
         [XmlElement("TNM_r_Symbol", Order = 4)]
-        public TnmSymbolR SymbolREnumValue
+        public TnmSymbolR? SymbolREnumValue
         {
             get { return _symbolR; }
             set { _symbolR = value; }
@@ -216,7 +216,7 @@ namespace AdtGekid
         /// Bei <see cref="TnmSymbolR.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool SymbolREnumValueSpecified => SymbolREnumValue != TnmSymbolR.NotSpecified;
+        public bool SymbolREnumValueSpecified => SymbolREnumValue.HasValue;
 
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace AdtGekid
         }
 
         [XmlElement("TNM_S", Order = 16)]
-        public TnmCategoryS CategoryS
+        public TnmCategoryS? CategoryS
         {
             get { return _s; }
             set { _s = value; }
@@ -241,7 +241,7 @@ namespace AdtGekid
         /// Bei <see cref="TnmCategoryS.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool CategorySSpecified => CategoryS != TnmCategoryS.NotSpecified;
+        public bool CategorySSpecified => CategoryS.HasValue;
 
 
 
@@ -261,21 +261,21 @@ namespace AdtGekid
             get { return _v.ToString(); }            
             set { _v = value.TryParseAsEnumOrThrow<TnmCategoryV>(_typeName, nameof(this.V)); }
         }
+       
+
+        [XmlElement("TNM_V", Order = 14)]
+        public TnmCategoryV? CategoryV
+        {
+            get { return _v; }
+            set { _v = value; }
+        }
 
         // <summary>
         /// Angabe zur Steuerung der Serialisierung von <see cref="CategoryV"/>.
         /// Bei <see cref="TnmCategoryV.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool CategoryVSpecified => CategoryV != TnmCategoryV.NotSpecified;
-
-
-        [XmlElement("TNM_V", Order = 14)]
-        public TnmCategoryV CategoryV
-        {
-            get { return _v; }
-            set { _v = value; }
-        }
+        public bool CategoryVSpecified => CategoryV.HasValue;
 
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace AdtGekid
         }
 
         [XmlElement("TNM_y_Symbol", Order = 3)]
-        public TnmSymbolY SymbolYEnumValue
+        public TnmSymbolY? SymbolYEnumValue
         {
             get { return _symbolY; }
             set { _symbolY = value; }
@@ -322,6 +322,6 @@ namespace AdtGekid
         /// Bei <see cref="TnmSymbolY.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool SymbolYEnumValueSpecified => SymbolYEnumValue != TnmSymbolY.NotSpecified;
+        public bool SymbolYEnumValueSpecified => SymbolYEnumValue.HasValue;
     }
 }

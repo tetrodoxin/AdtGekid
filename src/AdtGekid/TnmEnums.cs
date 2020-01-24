@@ -15,8 +15,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("6")]
@@ -35,8 +34,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("y")]
@@ -49,8 +47,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("r")]
@@ -63,8 +60,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("a")]
@@ -77,8 +73,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("c")]
@@ -97,8 +92,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("c")]
@@ -117,8 +111,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("c")]
@@ -137,8 +130,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("LX")]
@@ -157,8 +149,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("VX")]
@@ -180,8 +171,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("PnX")]
@@ -200,8 +190,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("SX")]

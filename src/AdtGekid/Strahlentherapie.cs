@@ -34,8 +34,8 @@ namespace AdtGekid
     public class Strahlentherapie
     {
         private StrahlentherapieIntention _intention;
-        private StrahlentherapieStellungOp _stellungOp;
-        private BestrahlungEndeGrund _endeGrund;
+        private StrahlentherapieStellungOp? _stellungOp;
+        private BestrahlungEndeGrund? _endeGrund;
         private string _anmerkung;
         private string _id;
 
@@ -75,11 +75,14 @@ namespace AdtGekid
         }
 
         [XmlElement("ST_Ende_Grund", Order = 4)]
-        public BestrahlungEndeGrund EndeGrundEnumValue
+        public BestrahlungEndeGrund? EndeGrundEnumValue
         {
             get { return _endeGrund; }
             set { _endeGrund = value; }
         }
+
+        public bool EndeGrundEnumValueSpecified => EndeGrundEnumValue.HasValue;
+        
 
         /// <summary>
         /// Eindeutig identifizierendes Merkmal der Strahlentherapie
@@ -123,10 +126,12 @@ namespace AdtGekid
         }
 
         [XmlElement("ST_Stellung_OP", Order = 2)]
-        public StrahlentherapieStellungOp StellungOpEnumValue
+        public StrahlentherapieStellungOp? StellungOpEnumValue
         {
             get { return _stellungOp; }
             set { _stellungOp = value; }
         }
+
+        public bool StellungOpEnumValueSpecified => StellungOpEnumValue.HasValue;
     }
 }

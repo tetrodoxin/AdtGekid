@@ -21,9 +21,7 @@ namespace AdtGekid
 
         private IcdTyp _icdCode;
 
-        private IcdVersionTyp _icdVersion;
-
-        private bool _icdVersionSpecified;
+        private IcdVersionTyp? _icdVersion;        
 
         private DatumTyp _diagnoseDatum;
 
@@ -60,13 +58,13 @@ namespace AdtGekid
         [XmlIgnore]
         public string IcdVersion
         {
-            get { return _icdVersion.ToString(); }
+            get { return _icdVersion?.ToXmlEnumAttributeName(); }
             set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion)); }
 
         }
 
         [XmlElement("ICD_Version", Order = 3)]
-        public IcdVersionTyp IcdVersionEnumValue
+        public IcdVersionTyp? IcdVersionEnumValue
         {
             get { return _icdVersion; }
             set { _icdVersion = value; }
@@ -74,7 +72,7 @@ namespace AdtGekid
 
 
         [XmlIgnore]
-        public bool IcdVersionSpecified => IcdVersionEnumValue != IcdVersionTyp.NotSpecified;
+        public bool IcdVersionSpecified => IcdVersionEnumValue.HasValue;
         
 
         [XmlElement("Diagnosedatum", Order = 4)]

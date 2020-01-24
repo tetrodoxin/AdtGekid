@@ -12,7 +12,11 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungSTST_Intention", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum StrahlentherapieIntention
     {
-            
+        ///<summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        NotSpecified = 0,
+
         K,
 
         P,
@@ -26,6 +30,10 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungSTBestrahlungST_Zielgebiet", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum StrahlentherapieStellungOp
     {
+        ///<summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        NotSpecified = 0,
 
         O,
 

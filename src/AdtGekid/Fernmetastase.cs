@@ -37,7 +37,7 @@ namespace AdtGekid
     public class Fernmetastase
     {
         private const string MetastasisLocationPattern = @"^PUL|OSS|HEP|BRA|LYM|MAR|PLE|PER|ADR|SKI|OTH|GEN$";
-        private FernmetastaseLokalisation _lokalisation;
+        private FernmetastaseLokalisation? _lokalisation;
 
         private string _typeName = typeof(Fernmetastase).Name;
       
@@ -60,7 +60,7 @@ namespace AdtGekid
         }
 
         [XmlElement("FM_Lokalisation", Order = 2)]        
-        public FernmetastaseLokalisation LokalisationEnumValue
+        public FernmetastaseLokalisation? LokalisationEnumValue
         {
             get { return _lokalisation; }
             set { _lokalisation = value; }
@@ -71,6 +71,6 @@ namespace AdtGekid
         /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
         /// </summary>
         [XmlIgnore]
-        public bool LokalisationEnumValueSpecified => LokalisationEnumValue != FernmetastaseLokalisation.NotSpecified;
+        public bool LokalisationEnumValueSpecified => LokalisationEnumValue.HasValue;
     }
 }

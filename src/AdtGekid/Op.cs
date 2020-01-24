@@ -94,7 +94,7 @@ namespace AdtGekid
         /// </summary>
         [XmlIgnore]
         public bool KomplikationenSpecified =>
-            Komplikationen == null || Komplikationen.Count == 0 ? false : true;
+            Komplikationen != null && Komplikationen.Count > 0;
 
 
 
@@ -184,7 +184,7 @@ namespace AdtGekid
         [XmlIgnore]
         public string OpsVersion
         {
-            get { return _opsVersion.ToString(); }
+            get { return ((int)_opsVersion).ToString(); }
             //set { _opsVersion = value.ValidateMaxLength(16, _typeName, nameof(this.OpsVersion)); }
             set { _opsVersion = value.TryParseAsEnumOrThrow<OpsVersion>(_typeName, nameof(this.OpsVersion)); }
         }

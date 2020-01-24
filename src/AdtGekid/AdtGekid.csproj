@@ -69,9 +69,10 @@
     <Compile Include="StrahlentherapieEnums.cs" />
     <Compile Include="SystemTherapieEnums.cs" />
     <Compile Include="TnmEnums.cs" />
+    <Compile Include="TodesUrsachen.cs" />
     <Compile Include="TopographieIcdOVersionTyp.cs" />
     <Compile Include="TumorstatusEnums.cs" />
-    <Compile Include="ValidatedStringList.cs" />
+    <Compile Include="Validation\ValidatedStringList.cs" />
     <Compile Include="Validation\TherapieartValidator.cs" />
     <Compile Include="Validation\OpsCodeValidator.cs" />
     <Compile Include="Validation\IStringListValidator.cs" />
@@ -79,7 +80,7 @@
     <Compile Include="Validation\SeitenlokalisationValidator.cs" />
     <Compile Include="Validation\StringValidatorByLength.cs" />
     <Compile Include="Validation\TherapieEndeGrundValidator.cs" />
-    <Compile Include="LeistungszustandValidator.cs" />
+    <Compile Include="Validation\LeistungszustandValidator.cs" />
     <Compile Include="Validation\TnmPraefixValidator.cs" />
     <Compile Include="Validation\TherapieIntentionValidator.cs" />
     <Compile Include="Validation\StellungOpValidator.cs" />

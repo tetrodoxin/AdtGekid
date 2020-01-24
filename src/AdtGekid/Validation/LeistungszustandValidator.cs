@@ -26,7 +26,7 @@
 using AdtGekid.Validation;
 using System;
 
-namespace AdtGekid
+namespace AdtGekid.Validation
 {
     public class LeistungszustandValidator : StringValidatorByRegex
     {

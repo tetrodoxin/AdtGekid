@@ -35,9 +35,9 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungSYST", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class SystemischeTherapie
     {
-        private SystemTherapieEndeGrund _endeGrund;
+        private SystemTherapieEndeGrund? _endeGrund;
         private SystemTherapieIntention _intention;
-        private SystemTherapieStellungOp _stellungOp;
+        private SystemTherapieStellungOp? _stellungOp;
         private string _anmerkung;
         private string _id;
         private string _protokoll;
@@ -75,7 +75,7 @@ namespace AdtGekid
         /// </summary>
         [XmlIgnore]
         public bool SubstanzenSpecified =>
-            Substanzen == null || Substanzen.Count == 0 ? false : true;
+            Substanzen != null && Substanzen.Count > 0;
 
         [XmlIgnore]
         public Collection<string> TherapieArten
@@ -100,7 +100,7 @@ namespace AdtGekid
         /// </summary>
         [XmlIgnore]
         public bool TherapieArtenSpecified =>
-            TherapieArten == null || TherapieArten.Count == 0 ? false : true;
+            TherapieArten != null && TherapieArten.Count > 0;
 
         [XmlElement("Residualstatus", Order = 10)]
         public ResidualstatusTyp Residualstatus { get; set; }
@@ -129,11 +129,13 @@ namespace AdtGekid
         }
 
         [XmlElement("SYST_Ende_Grund", Order = 8)]
-        public SystemTherapieEndeGrund EndeGrundEnumValue
+        public SystemTherapieEndeGrund? EndeGrundEnumValue
         {
             get { return _endeGrund; }
             set { _endeGrund = value; }
         }
+
+        public bool EndeGrundEnumValueSpecified => EndeGrundEnumValue.HasValue;
 
         /// <summary>
         /// eindeutig identifizierendes Merkmal der systemischen Therapie
@@ -190,11 +192,13 @@ namespace AdtGekid
         }
 
         [XmlElement("SYST_Stellung_OP", Order = 2)]
-        public SystemTherapieStellungOp StellungOpEnumValue
+        public SystemTherapieStellungOp? StellungOpEnumValue
         {
             get { return _stellungOp; }            
             set { _stellungOp = value; }
         }
+
+        public bool StellungOpEnumValueSpecified => StellungOpEnumValue.HasValue;
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise

@@ -13,29 +13,28 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>        
         NotSpecified = 0,
 
         [XmlEnum("1")]
-        Item1,
+        Item1 = 1,
         
         [XmlEnum("2")]
-        Item2,
+        Item2 = 2,
         
         [XmlEnum("4")]
-        Item4,
+        Item4 = 4,
         
         [XmlEnum("5")]
-        Item5,
+        Item5 = 5,
         
         [XmlEnum("6")]
-        Item6,
+        Item6 = 6,
 
         [XmlEnum("7")]
-        Item7,
+        Item7 = 7,
         
         [XmlEnum("9")]
-        Item9,
+        Item9 = 9,
     }
 }

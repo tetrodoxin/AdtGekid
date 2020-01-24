@@ -44,7 +44,7 @@ namespace AdtGekid
         public static bool EinsendeNrStrongValidationEnabled = true;
 
         private static char[] AllowedGradingCodes = "01234XLMHBUT".ToCharArray();
-        private HistoGrading _grading;
+        private HistoGrading? _grading;
 
         private int? _lkBefallen;
         private int? _lkUntersucht;
@@ -54,7 +54,7 @@ namespace AdtGekid
         private string _id;
         private string _code;
         private string _freitext;
-        private MorphologieIcdOVersion _icdOVersion;
+        private MorphologieIcdOVersion? _icdOVersion;
 
         private string _typeName = "Histologie";
 
@@ -64,19 +64,19 @@ namespace AdtGekid
         [XmlIgnore]
         public string Grading
         {
-            get { return _grading.ToString(); }
+            get { return _grading?.ToXmlEnumAttributeName(); }
             //set { _grading = value.ValidateOrThrow(AllowedGradingCodes, _typeName, nameof(this.Grading)); }
             set { _grading = value.TryParseAsEnumOrThrow<HistoGrading>(_typeName, nameof(this.Grading)); }
         }
 
         [XmlElement("Grading", Order = 6)]
-        public HistoGrading GradingEnumValue
+        public HistoGrading? GradingEnumValue
         {
             get { return _grading; }
             set { _grading = value; }
         }
 
-        public bool GradingSpecified => GradingEnumValue != AdtGekid.HistoGrading.NotSpecified;
+        public bool GradingEnumValueSpecified => GradingEnumValue.HasValue;
 
         /// <summary>
         /// Die Histologie-Einsendenummer wird vom pathologischen Institut beim
@@ -171,13 +171,13 @@ namespace AdtGekid
         [XmlIgnore]
         public string IcdOVersion
         {
-            get { return _icdOVersion.ToString(); }
+            get { return ((int)_icdOVersion).ToString(); }
             //set { _icdOVersion = value.ValidateMaxLength(25, _typeName, nameof(this.IcdOVersion)); }
             set { _icdOVersion = value.TryParseAsEnumOrThrow<MorphologieIcdOVersion>(_typeName, nameof(this.IcdOVersion)); }
         }
 
         [XmlElement("Morphologie_ICD_O_Version", Order = 4)]
-        public MorphologieIcdOVersion IcdoVersionEnumValue
+        public MorphologieIcdOVersion? IcdoVersionEnumValue
         {
             get { return _icdOVersion; }
             set { _icdOVersion = value; }
@@ -188,7 +188,7 @@ namespace AdtGekid
         /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
         /// </summary>
         [XmlIgnore]
-        public bool IcdoVersionEnumValueSpecified => IcdoVersionEnumValue != MorphologieIcdOVersion.NotSpecified;
+        public bool IcdoVersionEnumValueSpecified => IcdoVersionEnumValue.HasValue;
 
         /// <summary>
         /// Gibt in Stringform an, wie viele Sentinel-Lymphknoten untersucht wurden.

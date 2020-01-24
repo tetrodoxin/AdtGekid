@@ -14,7 +14,6 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
         M,

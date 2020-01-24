@@ -6,6 +6,8 @@ using System.Text;
 using System.Reflection;
 using System.Xml.Serialization;
 
+using System.Collections.ObjectModel;
+
 namespace AdtGekid
 {
     public static class EnumHelper
@@ -13,16 +15,41 @@ namespace AdtGekid
         /// <summary>
         /// Versucht die angegebene Zeichenfolge in den entsprechenden Enumerations-Wert zu übersetzen
         /// und löst eine Exception aus, falls nicht möglich.
-        /// Bei leeren Zeichenfolgen wird der Default der Enumeration zurückgegeben, falls <paramref name="allowNullOrEmpty"/>
+        /// Bei leeren Zeichenfolgen wird der Default (0) der Enumeration zurückgegeben, falls <paramref name="allowNullOrEmpty"/>
         /// <c>true</c> ist, leere Zeichenfolgen also erlaubt sind.
+        /// !!ACHTUNG!!: Bei NUMERISCHEN Werten, die in eine Enumeration übersetzt werden sollen,
+        /// sollte sicherheitshalber die dem zu SERIALISIERENDEN WERT ENTSPRECHENDE Nummer 
+        /// hinter die jeweilige Enum-Konstante geschrieben werden,
+        /// da in diesem Fall zuerst versucht wird, über die Nummer zu parsen.
+        /// Damit ist gewährleistet, dass korrekt geparst wird.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// public enum Diagnosesicherung
+        /// {
+        ///     NotSpecified = 0,
+        ///     [XmlEnum("1")]
+        ///     Item1 = 1,
+        ///     [XmlEnum("2")]
+        ///     Item2 = 2
+        ///     [XmlEnum("3")]
+        ///     Item3 = 3,
+        /// }
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        /// </code>
+        /// </example>
         /// <typeparam name="TEnum">Der Typ der Enumeration</typeparam>
         /// <param name="value">Die Zeichenfolge</param>
         /// <param name="validatedAdtObject">Der Name des betreffenden Objekts des ADT-Datensatzes.</param>
         /// <param name="validatedAdtField">Der Name des betreffenden Felds des ADT-Datensatzes</param>
         /// <param name="allowNullOrEmpty">Gibt an ob leere oder <c>null</c>-Zeichenfolgen erlaubt sind oder nicht</param>
         /// <param name="ignoreCase">Gibt an, ob Case sensitive geparsed werden soll oder nicht.</param>
-        /// <param name="tryDeeperParse">Gibt an, ob bei fehlerhaftem Parsen versucht werden soll den Wert über das <see cref="XmlEnumAttribute"/> aufzulösen.</param>
+        /// <param name="tryDeeperParse">Gibt an, ob bei fehlerhaftem Parsen versucht werden soll den Wert über das <see cref="XmlEnumAttribute"/> aufzulösen.
+        /// Dies kann nötig werden, wenn die zu serialisierende Zeichenfolge vom Namen der Enumerations-Konstanten
+        /// abweicht, da diese z.B. nicht Compiler-kompatibel ist.
+        /// </param>
         /// <returns>
         /// Den entsprechenden Enumerations-Wert falls dieser existiert, 
         /// andernfalls wird eine <see cref="System.ArgumentException"/> ausgelöst, wenn
@@ -32,6 +59,7 @@ namespace AdtGekid
             , bool allowNullOrEmpty = true, bool ignoreCase = true, bool tryDeeperParse = true)
             where TEnum : struct
         {
+            
             ThrowIfNoEnumeration(typeof(TEnum));
 
             if (value.IsNothing() && !allowNullOrEmpty)
@@ -62,10 +90,9 @@ namespace AdtGekid
 
             foreach (var enVal in Enum.GetValues(typeof(TEnum)))
             {
-                Type type = enVal.GetType();
-                FieldInfo fieldInfo = type.GetField(enVal.ToString());
-                var attributes = fieldInfo.GetCustomAttributes(
-                    typeof(XmlEnumAttribute), false) as XmlEnumAttribute[];
+                Type type = enVal.GetType();                
+
+                var attributes = ((TEnum)enVal).GetAttributes<TEnum, XmlEnumAttribute>();
 
                 StringComparison strComp = ignoreCase
                                     ? StringComparison.OrdinalIgnoreCase
@@ -79,9 +106,10 @@ namespace AdtGekid
             }
             throw new ArgumentException($"{validatedAdtObject}.{validatedAdtField} weist einen ungültigen Wert auf!");
         }
+        
 
 
-        public static IEnumerable<string> AsStringEnumerable<TEnum>(this System.Collections.ObjectModel.Collection<TEnum> col)
+        public static IEnumerable<string> AsStringEnumerable<TEnum>(this Collection<TEnum> col)
             where TEnum : struct
         {
             ThrowIfNoEnumeration(typeof(TEnum));
@@ -91,8 +119,16 @@ namespace AdtGekid
                 yield return item.ToString();
             }
         }
+        
+        public static TAttribute[] GetAttributes<TEnum, TAttribute>(this TEnum enumValue)
+            where TEnum : struct
+            where TAttribute : Attribute
+        {
+            FieldInfo fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+            return fieldInfo.GetCustomAttributes(typeof(TAttribute), false) as TAttribute[]; 
+        }
 
-        public static IEnumerable<TEnum> TryParseAsEnumCollectionOrThrow<TEnum>(this System.Collections.ObjectModel.Collection<string> col)
+        public static IEnumerable<TEnum> TryParseAsEnumCollectionOrThrow<TEnum>(this Collection<string> col)
             where TEnum : struct
         {
             ThrowIfNoEnumeration(typeof(TEnum));
@@ -101,8 +137,38 @@ namespace AdtGekid
             {
                 yield return item.TryParseAsEnumOrThrow<TEnum>();
             }
+        }       
+
+        /// <summary>
+        /// Übersetzt den angegebenen Enumerationswert in die zu serialisierende
+        /// Zeichenfolge, die unter <see cref="XmlEnumAttribute.Name"/>
+        /// über der Enumerationskonstante festgelegt ist.
+        /// Dies kann nötig sein, wenn der Konstantenname der Enumeration 
+        /// von der zu serialisierenden Zeichenfolge abweicht oder abweichen muss,
+        /// falls die Zeichenfolge nicht Compiler-kompatibel ist.
+        /// </summary>
+        /// <typeparam name="TEnum">Der zu übersetzende Enumerationswert</typeparam>
+        /// <returns></returns>
+        public static string ToXmlEnumAttributeName<TEnum>(this TEnum enumValue)
+            where TEnum : struct
+        {
+            ThrowIfNoEnumeration(typeof(TEnum));
+
+            var attributes = enumValue.GetAttributes<TEnum, XmlEnumAttribute>();
+
+            if (attributes == null || !attributes.Any())
+                return enumValue.ToString();
+
+
+            return attributes[0].Name;
         }
 
+
+        /// <summary>
+        /// Wirft eine <see cref="InvalidOperationException"/>
+        /// wenn der angegebene Typ kein Enumerations-Typ ist.
+        /// </summary>
+        /// <param name="type"></param>
         public static void ThrowIfNoEnumeration(Type type)
         {
             if (!type.IsEnum)

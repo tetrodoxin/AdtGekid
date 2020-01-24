@@ -14,20 +14,20 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
-        K,
-        
+              
         [XmlEnum("3")]
-        Item3,
+        Item3 = 3,
         
         [XmlEnum("4")]
-        Item4,
+        Item4 = 4,
         
         [XmlEnum("5")]
-        Item5,
-        
+        Item5 = 5,
+
+        K,
+
         U,
     }
 
@@ -38,18 +38,18 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
         [XmlEnum("4")]
-        Item4,
-        
-        [XmlEnum("4.03")]
-        Item403,
-        
+        Item4 = 4,
+                      
         [XmlEnum("5.0")]
-        Item50,
-        
+        Item5_0 = 5,
+
+        [XmlEnum("4.03")]
+        Item4_0_3,
+
+        [XmlEnum]
         Sonstige,
     }
 }

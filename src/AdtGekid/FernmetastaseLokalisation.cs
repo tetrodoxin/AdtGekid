@@ -13,8 +13,7 @@ namespace AdtGekid
     {
         /// <summary>
         /// Default (keine XML-Repräsentation!)
-        /// </summary>
-        [XmlIgnore]
+        /// </summary>      
         NotSpecified = 0,
 
         PUL,

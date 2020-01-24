@@ -61,7 +61,7 @@ namespace AdtGekid
         [XmlIgnore]
         public string Grad
         {
-            get { return _grad.ToString(); }
+            get { return _grad.ToXmlEnumAttributeName(); }
             //set { _grad = value.ValidateOrThrow(AllowedGradeCodes, _typeName, nameof(this.Grad)); }
             set { _grad = value.TryParseAsEnumOrThrow<NebenwirkungGrad>(_typeName, nameof(this.Grad)); }
         }
@@ -79,7 +79,7 @@ namespace AdtGekid
         [XmlIgnore]
         public string Version
         {
-            get { return _version.ToString(); }
+            get { return _version.ToXmlEnumAttributeName(); }
             set { _version = value.TryParseAsEnumOrThrow<NebenwirkungVersion>(_typeName, nameof(this.Version)); }
         }
 

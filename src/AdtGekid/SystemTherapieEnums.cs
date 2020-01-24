@@ -16,7 +16,6 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
         K,
@@ -35,7 +34,6 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
         O,
@@ -56,7 +54,6 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
         CH,
@@ -83,7 +80,6 @@ namespace AdtGekid
         /// <summary>
         /// Default (keine XML-Repräsentation!)
         /// </summary>
-        [XmlIgnore]
         NotSpecified = 0,
 
         A,

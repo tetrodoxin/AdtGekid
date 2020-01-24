@@ -10,7 +10,12 @@ namespace AdtGekid
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungSTBestrahlungST_Zielgebiet", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum BestrahlungZielgebiet
-    {        
+    {
+        // <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        NotSpecified = 0,
+
         [XmlEnum("1.")]
         Item1,        
         [XmlEnum("1.1.")]
@@ -118,195 +123,195 @@ namespace AdtGekid
         [XmlEnum("4.")]
         Item4,        
         [XmlEnum("4.+")]
-        Item41,        
+        Item4Plus,        
         [XmlEnum("4.-")]
-        Item42,        
+        Item4Minus,        
         [XmlEnum("4.1.")]
-        Item411,        
+        Item4_1,        
         [XmlEnum("4.1.+")]
-        Item412,        
+        Item4_1Plus,        
         [XmlEnum("4.1.-")]
-        Item413,        
+        Item4_1Minus,        
         [XmlEnum("4.2.")]
-        Item421,        
+        Item4_2,        
         [XmlEnum("4.2.+")]
-        Item422,        
+        Item4_2Plus,        
         [XmlEnum("4.2.-")]
-        Item423,        
+        Item4_2Minus,        
         [XmlEnum("4.3.")]
-        Item43,        
+        Item4_3,        
         [XmlEnum("4.3.+")]
-        Item431,        
+        Item4_3Plus,        
         [XmlEnum("4.3.-")]
-        Item432,        
+        Item4_3Minus,        
         [XmlEnum("4.4.")]
-        Item44,        
+        Item4_4,        
         [XmlEnum("4.4.+")]
-        Item441,        
+        Item4_4Plus,        
         [XmlEnum("4.4.-")]
-        Item442,        
+        Item4_4Minus,        
         [XmlEnum("4.5.")]
         Item45,        
         [XmlEnum("4.5.+")]
-        Item451,        
+        Item4_5Plus,        
         [XmlEnum("4.5.-")]
-        Item452,        
+        Item4_5Minus,        
         [XmlEnum("4.6.")]
-        Item46,        
+        Item4_6,        
         [XmlEnum("4.6.+")]
-        Item461,        
+        Item4_6Plus,        
         [XmlEnum("4.6.-")]
-        Item462,        
+        Item4_6Minus,        
         [XmlEnum("4.7.")]
-        Item47,        
+        Item4_7,        
         [XmlEnum("4.8.")]
-        Item48,        
+        Item4_8,        
         [XmlEnum("4.8.+")]
-        Item481,        
+        Item4_8Plus,        
         [XmlEnum("4.8.-")]
-        Item482,        
+        Item4_8Minus,        
         [XmlEnum("4.9.")]
-        Item49,        
+        Item4_9,        
         [XmlEnum("4.9.+")]
-        Item491,        
+        Item4_9Plus,        
         [XmlEnum("4.9.-")]
-        Item492,        
+        Item4_9Minus,        
         [XmlEnum("5.")]
         Item5,        
         [XmlEnum("5.+")]
-        Item51,        
+        Item5Plus,        
         [XmlEnum("5.-")]
-        Item52,        
+        Item5Minus,        
         [XmlEnum("5.1.")]
-        Item511,        
+        Item5_1,        
         [XmlEnum("5.1.+")]
-        Item512,        
+        Item5_1Plus,        
         [XmlEnum("5.1.-")]
-        Item513,        
+        Item5_1Minus,        
         [XmlEnum("5.2.")]
-        Item521,        
+        Item5_2,        
         [XmlEnum("5.2.+")]
-        Item522,        
+        Item5_2Plus,        
         [XmlEnum("5.2.-")]
-        Item523,        
+        Item5_2Minus,        
         [XmlEnum("5.3.")]
-        Item53,        
+        Item5_3,        
         [XmlEnum("5.3.+")]
-        Item531,        
+        Item5_3Plus,        
         [XmlEnum("5.3.-")]
-        Item532,        
+        Item5_3Minus,        
         [XmlEnum("5.4.")]
-        Item54,        
+        Item5_4,        
         [XmlEnum("5.4.+")]
-        Item541,        
+        Item5_4Plus,        
         [XmlEnum("5.4.-")]
-        Item542,        
+        Item5_4Minus,        
         [XmlEnum("5.5.")]
-        Item55,        
+        Item5_5,        
         [XmlEnum("5.5.+")]
-        Item551,        
+        Item5_5Plus,        
         [XmlEnum("5.5.-")]
-        Item552,        
+        Item5_5Minus,        
         [XmlEnum("5.6.")]
-        Item56,        
+        Item5_6,        
         [XmlEnum("5.6.+")]
-        Item561,        
+        Item5_6Plus,        
         [XmlEnum("5.6.-")]
-        Item562,        
+        Item5_6Minus,        
         [XmlEnum("5.7.")]
-        Item57,        
+        Item5_7,        
         [XmlEnum("5.7.+")]
-        Item571,        
+        Item5_7Plus,        
         [XmlEnum("5.7.-")]
-        Item572,        
+        Item5_7Minus,        
         [XmlEnum("5.7.1.")]
-        Item5711,        
+        Item5_7_1,        
         [XmlEnum("5.7.1.+")]
-        Item5712,        
+        Item5_7_1Plus,        
         [XmlEnum("5.7.1.-")]
-        Item5713,        
+        Item5_7_1Minus,        
         [XmlEnum("5.7.2.")]
-        Item5721,        
+        Item5_7_2,        
         [XmlEnum("5.7.2.+")]
-        Item5722,        
+        Item5_7_2Plus,        
         [XmlEnum("5.7.2.-")]
-        Item5723,        
+        Item5_7_2Minus,        
         [XmlEnum("5.8.")]
-        Item58,        
+        Item5_8,        
         [XmlEnum("5.8.+")]
-        Item581,        
+        Item5_8Plus,        
         [XmlEnum("5.8.-")]
-        Item582,        
+        Item5_8Minus,        
         [XmlEnum("5.9.")]
-        Item59,        
+        Item5_9,        
         [XmlEnum("5.9.+")]
-        Item591,        
+        Item5_9Plus,        
         [XmlEnum("5.9.-")]
-        Item592,        
+        Item5_9Minus,        
         [XmlEnum("5.10.")]
-        Item510,        
+        Item5_10,        
         [XmlEnum("5.10.+")]
-        Item5101,        
+        Item5_10Plus,        
         [XmlEnum("5.10.-")]
-        Item5102,        
+        Item5_10Minus,        
         [XmlEnum("5.11.")]
-        Item5111,        
+        Item5_11,        
         [XmlEnum("5.11.+")]
-        Item5112,        
+        Item5_11Plus,        
         [XmlEnum("5.11.-")]
-        Item5113,        
+        Item5_11Minus,        
         [XmlEnum("5.12.")]
-        Item5121,        
+        Item5_12,        
         [XmlEnum("6.")]
         Item6,        
         [XmlEnum("6.1.")]
-        Item61,        
+        Item6_1,        
         [XmlEnum("6.2.")]
-        Item62,        
+        Item6_2,        
         [XmlEnum("6.3.")]
-        Item63,        
+        Item6_3,        
         [XmlEnum("6.4.")]
-        Item64,        
+        Item6_4,        
         [XmlEnum("6.5.")]
-        Item65,        
+        Item6_5,        
         [XmlEnum("6.6.")]
-        Item66,        
+        Item6_6,        
         [XmlEnum("6.7.")]
-        Item67,        
+        Item6_7,        
         [XmlEnum("6.8.")]
-        Item68,        
+        Item6_8,        
         [XmlEnum("6.9.")]
-        Item69,        
+        Item6_9,        
         [XmlEnum("6.10.")]
-        Item610,        
+        Item6_10,        
         [XmlEnum("6.11.")]
-        Item611,        
+        Item6_11,        
         [XmlEnum("6.12.")]
-        Item612,        
+        Item6_12,        
         [XmlEnum("6.13.")]
-        Item613,        
+        Item6_13,        
         [XmlEnum("6.14.")]
-        Item614,        
+        Item6_14,        
         [XmlEnum("6.15.")]
-        Item615,        
+        Item6_15,        
         [XmlEnum("6.16.")]
-        Item616,        
+        Item6_16,        
         [XmlEnum("7.")]
         Item7,        
         [XmlEnum("7.+")]
-        Item71,        
+        Item7Plus,        
         [XmlEnum("7.-")]
-        Item72,        
+        Item7Minus,        
         [XmlEnum("7.1.")]
-        Item711,        
+        Item7_1,        
         [XmlEnum("7.2.")]
-        Item721,        
+        Item7_2,        
         [XmlEnum("8.")]
         Item8,        
         [XmlEnum("8.1.")]
-        Item81,        
+        Item8_1,        
         [XmlEnum("8.2.")]
-        Item82,
+        Item8_2,
     }
 
 
@@ -314,7 +319,11 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungSTBestrahlungST_Seite_Zielgebiet", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum BestrahlungSeiteZielgebiet
     {
-      
+        // <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        NotSpecified = 0,
+
         L,  
         
         R,      
@@ -329,7 +338,12 @@ namespace AdtGekid
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungSTBestrahlungST_Applikationsart", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum BestrahlungApplikationsart
-    {        
+    {
+        // <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        NotSpecified = 0,
+
         P,
         
         PRCJ,
@@ -364,7 +378,11 @@ namespace AdtGekid
     [XmlType("Strahlendosis_TypEinheit", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum StrahlendosisEinheit
     {
-      
+        // <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        NotSpecified = 0,
+
         Gy,
 
         GBq,
@@ -374,6 +392,11 @@ namespace AdtGekid
     [XmlType("ADT_GEKIDPatientMeldungSTST_Ende_Grund", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum BestrahlungEndeGrund
     {
+        // <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>        
+        NotSpecified = 0,
+
         A,
 
         E,

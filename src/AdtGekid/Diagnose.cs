@@ -38,10 +38,10 @@ namespace AdtGekid
     {
         private static char[] AllowedConfirmCodes = "1245679".ToCharArray();
 
-        private SeitenlokalisationTyp _seitenlokalisation;
+        private SeitenlokalisationTyp? _seitenlokalisation;
         private string _icdoCode;
         private Diagnosesicherung _diagnosesicherung;
-        private string _allgemeinerLeistungszustand;
+        private AllgemeinerLeistungszustandTyp? _allgemeinerLeistungszustand;
         private string _anmerkung;
         private string _fruehereTumorerkrankungen;
         private string _text;
@@ -66,12 +66,22 @@ namespace AdtGekid
         /// </summary>
         /// <value>
         /// 0 - 4 für ECOG oder 0% bis 100% für Karnofsky oder 'U' für unbekannt.</value>
-        [XmlElement("Allgemeiner_Leistungszustand", Order = 16)]
+        [XmlIgnore]
         public string AllgemeinerLeistungszustand
         {
-            get { return _allgemeinerLeistungszustand; }
-            set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
+            get { return _allgemeinerLeistungszustand?.ToXmlEnumAttributeName(); }
+            //set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
+            set { _allgemeinerLeistungszustand = value.TryParseAsEnumOrThrow<AllgemeinerLeistungszustandTyp>(_entity, nameof(AllgemeinerLeistungszustand)); }
         }
+
+        [XmlElement("Allgemeiner_Leistungszustand", Order = 16)]
+        public AllgemeinerLeistungszustandTyp? AllgemeinerLeistungszustandEnumValue
+        {
+            get { return _allgemeinerLeistungszustand; }
+            set { _allgemeinerLeistungszustand = value; }
+        }
+
+        public bool AllgemeinerLeistungszustandEnumValueSpecified => AllgemeinerLeistungszustandEnumValue.HasValue;
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
@@ -105,7 +115,7 @@ namespace AdtGekid
         {
             get
             {
-                return _diagnosesicherung.ToString();
+                return ((int)_diagnosesicherung).ToString();
             }
             //set
             //{
@@ -213,7 +223,7 @@ namespace AdtGekid
         [XmlIgnore]
         public string IcdVersion
         {
-            get { return _icdVersion.ToString(); }
+            get { return _icdVersion.ToXmlEnumAttributeName(); }
             set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion), false); }
 
         }
@@ -261,7 +271,7 @@ namespace AdtGekid
         [XmlIgnore]
         public string IcdoVersion
         {
-            get { return _icdoVersion.ToString(); }
+            get { return ((int)_icdoVersion).ToString(); }
             //set { _icdoVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdoVersion)); }
             set { _icdoVersion = value.TryParseAsEnumOrThrow<TopographieIcdOVersionTyp>(_entity, nameof(this.IcdoVersion)); }
         }
@@ -295,7 +305,7 @@ namespace AdtGekid
         }
 
         [XmlElement("Seitenlokalisation", Order = 9)]
-        public SeitenlokalisationTyp SeitenlokalisationEnumValue
+        public SeitenlokalisationTyp? SeitenlokalisationEnumValue
         {
             get { return _seitenlokalisation; }
             set { _seitenlokalisation = value; }
@@ -306,7 +316,7 @@ namespace AdtGekid
         /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
         /// </summary>
         [XmlIgnore]
-        public bool SeitenlokalisationEnumValueSpecified => SeitenlokalisationEnumValue != SeitenlokalisationTyp.NotSpecified;
+        public bool SeitenlokalisationEnumValueSpecified => SeitenlokalisationEnumValue.HasValue;
 
         /// <summary>
         /// Eindeutig identifizierendes Merkmal des Tumors.

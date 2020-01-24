@@ -10,11 +10,24 @@ namespace AdtGekid
     [Serializable()]
     [XmlType("Strahlendosis_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public partial class StrahlendosisTyp
-    {     
+    {
+        private StrahlendosisEinheit _einheit;
+
         [XmlElement("Dosis", Order = 1)]        
         public decimal Dosis { get; set; }
 
+        [XmlIgnore]
+        public string Einheit
+        {
+            get { return _einheit.ToString(); }
+            set { _einheit = value.TryParseAsEnumOrThrow<StrahlendosisEinheit>(typeof(StrahlendosisEinheit).Name,nameof(this.Einheit)); }
+        }
+
         [XmlElement("Einheit", Order = 2)]
-        public StrahlendosisEinheit Einheit { get; set; }
+        public StrahlendosisEinheit EinheitEnumValue
+        {
+            get { return _einheit; }
+            set { _einheit = value; }
+        }
     }
 }
