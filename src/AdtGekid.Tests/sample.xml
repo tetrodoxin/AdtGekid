@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ADT_GEKID xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-           xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-           Schema_Version="2.0.0" xmlns="http://www.gekid.de/namespace">
+<ADT_GEKID xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Schema_Version="2.0.0" xmlns="http://www.gekid.de/namespace">
   <Absender Absender_ID="AGI8768" Software_ID="98724697" Installations_ID="KH9871">
     <Absender_Bezeichnung>Bezeichnung 1</Absender_Bezeichnung>
     <Absender_Ansprechpartner>Kai Niemand</Absender_Ansprechpartner>
@@ -53,17 +51,27 @@
             <Primaertumor_ICD_Version>10 2014 GM</Primaertumor_ICD_Version>
             <Primaertumor_Diagnosetext>Diagnosetext 11</Primaertumor_Diagnosetext>
             <Primaertumor_Topographie_ICD_O>C44.0</Primaertumor_Topographie_ICD_O>
+            <Primaertumor_Topographie_ICD_O_Version>32</Primaertumor_Topographie_ICD_O_Version>
             <Primaertumor_Topographie_ICD_O_Freitext>str1234</Primaertumor_Topographie_ICD_O_Freitext>
             <Diagnosedatum>11.11.2015</Diagnosedatum>
             <Diagnosesicherung>2</Diagnosesicherung>
             <Seitenlokalisation>T</Seitenlokalisation>
+            <Menge_Fruehere_Tumorerkrankung>
+              <Fruehere_Tumorerkrankung>
+                <Freitext>Bronchial-Ca.</Freitext>
+                <ICD_Code>C34.0</ICD_Code>
+                <ICD_Version>10 2013 GM</ICD_Version>
+                <Diagnosedatum>18.02.2013</Diagnosedatum>
+              </Fruehere_Tumorerkrankung>
+            </Menge_Fruehere_Tumorerkrankung>
             <Menge_Histologie>
               <Histologie Histologie_ID="histo01">
                 <Tumor_Histologiedatum>10.03.2014</Tumor_Histologiedatum>
                 <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
                 <Morphologie_Code>8020/3</Morphologie_Code>
+                <Morphologie_ICD_O_Version>32</Morphologie_ICD_O_Version>
                 <Morphologie_Freitext>str1234</Morphologie_Freitext>
-                <Grading>2</Grading>
+                <Grading>3</Grading>
                 <LK_untersucht>33</LK_untersucht>
                 <LK_befallen>34</LK_befallen>
                 <Sentinel_LK_untersucht>35</Sentinel_LK_untersucht>
@@ -119,6 +127,7 @@
                 <Stadium>ABC</Stadium>
               </Weitere_Klassifikation>
             </Menge_Weitere_Klassifikation>
+            <Allgemeiner_Leistungszustand>80%</Allgemeiner_Leistungszustand>
             <Anmerkung>Diagnoseanmerkung</Anmerkung>
           </Diagnose>
           <Menge_OP>
@@ -134,8 +143,9 @@
                 <Tumor_Histologiedatum>16.04.2013</Tumor_Histologiedatum>
                 <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
                 <Morphologie_Code>8130/3</Morphologie_Code>
+                <Morphologie_ICD_O_Version>32</Morphologie_ICD_O_Version>
                 <Morphologie_Freitext>str1234</Morphologie_Freitext>
-                <Grading>3</Grading>
+                <Grading>4</Grading>
                 <LK_untersucht>33</LK_untersucht>
                 <LK_befallen>23</LK_befallen>
                 <Sentinel_LK_untersucht>13</Sentinel_LK_untersucht>
@@ -208,12 +218,12 @@
                 <ST_Nebenwirkung>
                   <Nebenwirkung_Grad>K</Nebenwirkung_Grad>
                   <Nebenwirkung_Art>Cough</Nebenwirkung_Art>
-                  <Nebenwirkung_Version>Sonstige</Nebenwirkung_Version>
+                  <Nebenwirkung_Version>4</Nebenwirkung_Version>
                 </ST_Nebenwirkung>
                 <ST_Nebenwirkung>
-                  <Nebenwirkung_Grad>5</Nebenwirkung_Grad>
+                  <Nebenwirkung_Grad>4</Nebenwirkung_Grad>
                   <Nebenwirkung_Art>Anemia</Nebenwirkung_Art>
-                  <Nebenwirkung_Version>Sonstige</Nebenwirkung_Version>
+                  <Nebenwirkung_Version>4</Nebenwirkung_Version>
                 </ST_Nebenwirkung>
               </Menge_Nebenwirkung>
               <Anmerkung>Strahlen Anmerkung</Anmerkung>
@@ -238,9 +248,9 @@
               </Residualstatus>
               <Menge_Nebenwirkung>
                 <SYST_Nebenwirkung>
-                  <Nebenwirkung_Grad>4</Nebenwirkung_Grad>
+                  <Nebenwirkung_Grad>3</Nebenwirkung_Grad>
                   <Nebenwirkung_Art>Nausea</Nebenwirkung_Art>
-                  <Nebenwirkung_Version>Sonstige</Nebenwirkung_Version>
+                  <Nebenwirkung_Version>4</Nebenwirkung_Version>
                 </SYST_Nebenwirkung>
               </Menge_Nebenwirkung>
               <Anmerkung>Anmerkung Systemisch</Anmerkung>
@@ -252,8 +262,9 @@
                 <Tumor_Histologiedatum>11.09.2014</Tumor_Histologiedatum>
                 <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
                 <Morphologie_Code>8920/3</Morphologie_Code>
+                <Morphologie_ICD_O_Version>32</Morphologie_ICD_O_Version>
                 <Morphologie_Freitext>str1234</Morphologie_Freitext>
-                <Grading>2</Grading>
+                <Grading>3</Grading>
                 <LK_untersucht>33</LK_untersucht>
                 <LK_befallen>22</LK_befallen>
                 <Sentinel_LK_untersucht>11</Sentinel_LK_untersucht>
@@ -288,12 +299,14 @@
                   <FM_Lokalisation>OSS</FM_Lokalisation>
                 </Fernmetastase>
               </Menge_FM>
-              <Allgemeiner_Leistungszustand>4</Allgemeiner_Leistungszustand>
+              <Allgemeiner_Leistungszustand>3</Allgemeiner_Leistungszustand>
               <Tod>
                 <Sterbedatum>11.11.2011</Sterbedatum>
                 <Tod_tumorbedingt>J</Tod_tumorbedingt>
                 <Menge_Todesursache>
                   <Todesursache_ICD>C22.0</Todesursache_ICD>
+                  <Todesursache_ICD>C23.0</Todesursache_ICD>
+                  <Todesursache_ICD_Version>10 2014 GM</Todesursache_ICD_Version>
                 </Menge_Todesursache>
               </Tod>
               <Anmerkung>Anmerkung Verlauf</Anmerkung>

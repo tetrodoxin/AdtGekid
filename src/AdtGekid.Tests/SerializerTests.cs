@@ -14,23 +14,30 @@ namespace AdtGekid.Tests
     {
         public const string SchemaFileName = @"ADT_GEKID_v2.0.0.xsd";
 
+       
         [Fact]
-        public void Deserialize()
-        {
-            var serializer = createSerializer();          
-
-            var sampleFile = "sample.xml";            
-            using (var reader = new StreamReader(sampleFile, Encoding.UTF8))
-            {
-                var obj = serializer.Deserialize(reader) as Root;
-                Assert.NotNull(obj);
-                
-           }            
-        }
-        
-        
-        [Fact]
+    
         public void Serialize()
+        {
+            string outputFileName = "serializer_output.xml";
+            string sampleFileName = "sample.xml";
+
+            serialize(outputFileName);
+            var serializedDocument = readDocument(outputFileName);
+
+            Assert.NotNull(serializedDocument);
+
+            testOnValidationErrors(serializedDocument);
+
+            var sampleDocument = readDocument(sampleFileName);
+            Assert.NotNull(sampleDocument);
+
+            // Serialisiertes mit Sample vergleichen
+            compareXmlNodes(sampleDocument.DocumentElement, serializedDocument.DocumentElement);
+        }
+
+        [Fact]
+        public void Serialize_old()
         {
             string outputFileName = "serializer_output.xml";
 
@@ -78,35 +85,143 @@ namespace AdtGekid.Tests
         public void SerializeMinimal_Test()
         {
             string outputFileName = "serializer_minimal_output.xml";
+            string sampleFileName = "sample_minimal.xml";
 
-            var testObject = createMinimalTestRootObject();
+            serialize(outputFileName, true);
+            var serializedDocument = readDocument(outputFileName);
+
+            Assert.NotNull(serializedDocument);
+
+            testOnValidationErrors(serializedDocument);
+
+            var sampleDocument = readDocument(sampleFileName);
+            Assert.NotNull(sampleDocument);
+
+            // Serialisiertes mit Sample vergleichen
+            compareXmlNodes(sampleDocument.DocumentElement, serializedDocument.DocumentElement);
+        }
+
+        [Fact]
+        public void Deserialize()
+        {                      
+            var sampleFile = "sample.xml";
+            var objDeserialized = deserialize(sampleFile);
+
+            Assert.NotNull(objDeserialized);
+        }
+
+        /// <summary>
+        /// Deserialisiert das Sample, serialisiert es
+        /// erneut und vergleicht es anschließend mit dem Original
+        /// </summary>
+        [Fact]
+        public void DeserializeWithCompare()
+        {            
+
+            var sampleFile = "sample.xml";
+            var reserializedFile = "reserialized_output.xml";
+
+            var objDeserialized = deserialize(sampleFile);
+            Assert.NotNull(objDeserialized);
+
+            serialize(objDeserialized, reserializedFile);
+
+            var sampleDocument = readDocument(sampleFile);            
+            var reserializedDocument = readDocument(reserializedFile);
+
+            // Re-serialisiertes Dokument mit Sample vergleichen
+            compareXmlNodes(sampleDocument.DocumentElement, reserializedDocument.DocumentElement);
+        }
+
+
+        /// <summary>
+        /// Deserialisiert das Minimal-Sample, serialisiert es
+        /// erneut und vergleicht es anschließend mit dem Original.
+        /// Das Minimal-Sample wird dazu verwendet um zu testen,
+        /// ob leere Werte leer oder falsch serialisiert werden,
+        /// wobei hier gerade bei den Enumerationen erhöhtes Risiko einer 
+        /// falschen Serialisierung besteht
+        /// </summary>
+        [Fact]
+        public void DeserializeMinimalWithCompare()
+        {
+
+            var sampleFile = "sample_minimal.xml";
+            var reserializedFile = "reserialized_minimal_output.xml";
+
+            var objDeserialized = deserialize(sampleFile);
+            Assert.NotNull(objDeserialized);
+
+            serialize(objDeserialized, reserializedFile);
+
+            var sampleDocument = readDocument(sampleFile);
+            var reserializedDocument = readDocument(reserializedFile);
+
+            // Re-serialisiertes Dokument mit Sample vergleichen
+            compareXmlNodes(sampleDocument.DocumentElement, reserializedDocument.DocumentElement);
+        }
+
+        private Root deserialize(string fileName)
+        {
             var serializer = createSerializer();
-           
+
+            Root objDeserialized = null;
+            using (var reader = new StreamReader(fileName, Encoding.UTF8))
+            {
+                objDeserialized = serializer.Deserialize(reader) as Root;                             
+            }
+            return objDeserialized;
+        }
+
+        private void serialize(string outputFileName, bool minimalTest = false)
+        {
+            var testObject = minimalTest
+                                ? createMinimalTestRootObject()
+                                : createTestRootObject();
+
+            serialize(testObject, outputFileName);
+        }
+
+        private void serialize(Root objToSerialize, string outputFileName)
+        {
+            var serializer = createSerializer();
 
             using (var writer = new StreamWriter(outputFileName))
             {
                 using (var xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings { Indent = true, IndentChars = "  ", Encoding = Encoding.UTF8 }))
                 {
-                    serializer.Serialize(xmlWriter, testObject);
+                    serializer.Serialize(xmlWriter, objToSerialize);
                 }
             }
+        }
 
+
+        private void testOnValidationErrors(XmlDocument document)
+        {          
+            List<string> errors = new List<string>();
+            var eventHandler = new ValidationEventHandler((p, q) => errors.Add(q.Message));
+            document.Validate(eventHandler);
+            Assert.Empty(errors);            
+        }
+
+        private XmlDocument readDocument(string fileName)
+        {
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.Schemas.Add(Root.GekidNamespace, SchemaFileName);
             settings.ValidationType = ValidationType.Schema;
 
-            XmlDocument createdDocument = new XmlDocument();
+            XmlDocument loadedDocument = new XmlDocument();
 
-            using (var reader = XmlReader.Create(outputFileName, settings))
+            using (var reader = XmlReader.Create(fileName, settings))
             {
-                createdDocument.Load(reader);
+                loadedDocument.Load(reader);
+            }
 
-                List<string> errors = new List<string>();
-                var eventHandler = new ValidationEventHandler((p, q) => errors.Add(q.Message));
-                createdDocument.Validate(eventHandler);
-                Assert.Empty(errors);
-            }           
+            return loadedDocument;
         }
+        
+
+       
 
         private void compareXmlNodes(XmlElement x, XmlElement y)
         {

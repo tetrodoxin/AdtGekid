@@ -4,6 +4,9 @@ This project is in german, since it covers purely data structures, that are nece
 
 Entitätsklassen für den onkologischen Basisdatensatz nach ADT/GEKID, wie er im neuen KFRG (Krebsfrüherkennungs- und -registergesetz) Anwendung findet (http://www.tumorzentren.de/onkol-basisdatensatz.html).
 
+version 2.0.0.0-alpha01 (Mad-dog-tannen)
+- On the lines of ADT/GEKID Version 2.0.0, many types are enumerations now
+
 version 1.0.5.17 (Maddogtannen)
 - Empty container elements like Menge_Frueherer_Name will not be serialized any more
 

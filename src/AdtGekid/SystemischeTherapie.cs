@@ -99,7 +99,7 @@ namespace AdtGekid
         /// wenn es leer ist oder keine Elemente enthält
         /// </summary>
         [XmlIgnore]
-        public bool TherapieArtenSpecified =>
+        public bool TherapieArtenEnumValueSpecified =>
             TherapieArten != null && TherapieArten.Count > 0;
 
         [XmlElement("Residualstatus", Order = 10)]

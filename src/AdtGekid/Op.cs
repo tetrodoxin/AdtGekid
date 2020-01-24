@@ -93,7 +93,7 @@ namespace AdtGekid
         /// wenn es leer ist oder keine Elemente enthält
         /// </summary>
         [XmlIgnore]
-        public bool KomplikationenSpecified =>
+        public bool KomplikationenEnumValueSpecified =>
             Komplikationen != null && Komplikationen.Count > 0;
 
 
