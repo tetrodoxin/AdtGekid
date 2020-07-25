@@ -45,7 +45,7 @@ namespace AdtGekid
         [XmlIgnore]
         public string SchemaVersion
         {
-            get { return _version.ToString();  }
+            get { return _version.ToXmlEnumAttributeName();  }
             //set
             //{
             //    _version = value.ValidateNeitherNullNorEmpty(typeof(Root).Name,nameof(this.SchemaVersion));

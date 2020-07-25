@@ -45,9 +45,9 @@ namespace AdtGekid
         private string _anmerkung;
         private string _fruehereTumorerkrankungen;
         private string _text;
-        private IcdVersionTyp _icdVersion;
+        private IcdVersionTyp? _icdVersion;
         private string _icdoFreitext;
-        private TopographieIcdOVersionTyp _icdoVersion;
+        private TopographieIcdOVersionTyp? _icdoVersion;
         private string _id;
         private IcdTyp _icdCode;
 
@@ -223,19 +223,26 @@ namespace AdtGekid
         [XmlIgnore]
         public string IcdVersion
         {
-            get { return _icdVersion.ToXmlEnumAttributeName(); }
+            get { return _icdVersion?.ToXmlEnumAttributeName(); }
             set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion), false); }
 
         }
 
         [XmlElement("Primaertumor_ICD_Version", Order = 2)]
-        public IcdVersionTyp IcdVersionEnumValue
+        public IcdVersionTyp? IcdVersionEnumValue
         {
             get { return _icdVersion; }
             set { _icdVersion = value;  }
         }
 
-       
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool IcdVersionEnumValueSpecified => IcdVersionEnumValue.HasValue;
+
+
 
         /// <summary>
         /// (Lokalisations-)Code der Topographie (Sitz des Primärtumors) einer meldepflichtigen
@@ -271,13 +278,13 @@ namespace AdtGekid
         [XmlIgnore]
         public string IcdoVersion
         {
-            get { return ((int)_icdoVersion).ToString(); }
+            get { return ((int?)_icdoVersion).ToString(); }
             //set { _icdoVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdoVersion)); }
             set { _icdoVersion = value.TryParseAsEnumOrThrow<TopographieIcdOVersionTyp>(_entity, nameof(this.IcdoVersion)); }
         }
 
         [XmlElement("Primaertumor_Topographie_ICD_O_Version", Order = 5)]
-        public TopographieIcdOVersionTyp IcdoVersionEnumValue
+        public TopographieIcdOVersionTyp? IcdoVersionEnumValue
         {
             get { return _icdoVersion; }
             set { _icdoVersion = value; }
@@ -289,7 +296,7 @@ namespace AdtGekid
         /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
         /// </summary>
         [XmlIgnore]
-        public bool IcdoVersionEnumValueSpecified => IcdoVersionEnumValue != TopographieIcdOVersionTyp.NotSpecified;
+        public bool IcdoVersionEnumValueSpecified => IcdoVersionEnumValue.HasValue;
 
         /// <summary>
         /// Angabe der betroffenen organspezifischen Seite.

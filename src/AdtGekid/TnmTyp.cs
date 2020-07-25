@@ -48,7 +48,7 @@ namespace AdtGekid
         private TnmCategoryS? _s;
         private TnmCategoryV? _v;
         private string _id;        
-        private TnmVersion _version;
+        private TnmVersion? _version;
 
         private string _typeName = "TNM";
 
@@ -118,12 +118,12 @@ namespace AdtGekid
         /// <value>
         /// Alphanumerischer Wert bis 16 Zeichen
         /// </value>
-        [XmlAttribute("TNM_ID")]
-        public string Id
-        {
-            get { return _id; }
-            set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
-        }
+        //[XmlAttribute("TNM_ID")]
+        //public string Id
+        //{
+        //    get { return _id; }
+        //    set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
+        //}
 
         /// <summary>
         /// Lymphgefäßinvasion
@@ -285,20 +285,20 @@ namespace AdtGekid
         [XmlIgnore]
         public int? Version
         {
-            get { return (int)_version; }            
+            get { return (int?)_version; }            
             set { _version = value.ToString().TryParseAsEnumOrThrow<TnmVersion>(_typeName, nameof(this.Version)); }
         }
 
         [XmlElement("TNM_Version", Order = 2)]
-        public TnmVersion VersionEnumValue
+        public TnmVersion? VersionEnumValue
         {
             get { return _version; }
             set { _version = value; }
         }
 
-        
-             
-
+        [XmlIgnore]
+        public bool VersionEnumValueSpecified => VersionEnumValue.HasValue;
+      
         /// <summary>
         /// Gibt an, ob die Klassifikation während oder nach initialer multimodaler Thera-
         /// pie erfolgte.

@@ -171,7 +171,7 @@ namespace AdtGekid
         [XmlIgnore]
         public string IcdOVersion
         {
-            get { return ((int)_icdOVersion).ToString(); }
+            get { return ((int?)_icdOVersion).ToString(); }
             //set { _icdOVersion = value.ValidateMaxLength(25, _typeName, nameof(this.IcdOVersion)); }
             set { _icdOVersion = value.TryParseAsEnumOrThrow<MorphologieIcdOVersion>(_typeName, nameof(this.IcdOVersion)); }
         }
