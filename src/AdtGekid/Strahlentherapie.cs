@@ -71,7 +71,11 @@ namespace AdtGekid
         {
             get { return _endeGrund.ToString(); }
             //set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.StrahlenTherapie, _typeName, nameof(this.EndeGrund)); }
-            set { _endeGrund = value.TryParseAsEnumOrThrow<BestrahlungEndeGrund>(_typeName, nameof(this.EndeGrund)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _endeGrund = value.TryParseAsEnumOrThrow<BestrahlungEndeGrund>(_typeName, nameof(this.EndeGrund)); 
+            }
         }
 
         [XmlElement("ST_Ende_Grund", Order = 4)]
@@ -122,7 +126,11 @@ namespace AdtGekid
         public string StellungOp
         {
             get { return _stellungOp.ToString(); }
-            set { _stellungOp = value.TryParseAsEnumOrThrow<StrahlentherapieStellungOp>(_typeName, nameof(this.Intention)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _stellungOp = value.TryParseAsEnumOrThrow<StrahlentherapieStellungOp>(_typeName, nameof(this.Intention)); 
+            }
         }
 
         [XmlElement("ST_Stellung_OP", Order = 2)]

@@ -56,7 +56,11 @@ namespace AdtGekid
         {
             get { return _lokalisation.ToString(); }
             //set { _lokalisation = value.ValidateOrThrow(MetastasisLocationPattern, _typeName, nameof(this.Lokalisation)); }
-            set { _lokalisation = value.TryParseAsEnumOrThrow<FernmetastaseLokalisation>(_typeName, nameof(this.Lokalisation)); }
+            set             
+            {
+                if (!value.IsNothing())
+                    _lokalisation = value.TryParseAsEnumOrThrow<FernmetastaseLokalisation>(_typeName, nameof(this.Lokalisation)); 
+            }
         }
 
         [XmlElement("FM_Lokalisation", Order = 2)]        

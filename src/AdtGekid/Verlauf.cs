@@ -37,7 +37,7 @@ namespace AdtGekid
         private static char[] AllowedPrimaryAndLymphStatusCodes = "KTPNRFUX".ToCharArray();
         private static char[] AllowedMetastasisStatusCodes = "KMRTPNFUX".ToCharArray();
 
-        private TumorstatusGesamt? _tumorstatusGesamt;
+        private TumorstatusGesamt _tumorstatusGesamt;
         private TumorstatusLokal? _tumorstatusLokal;
         private TumorstatusFernmetastasen? _tumorstatusFernmetastasen;
         private TumorstatusLymphknoten? _tumorstatusLymphknoten;
@@ -57,7 +57,11 @@ namespace AdtGekid
         {
             get { return _allgemeinerLeistungszustand?.ToXmlEnumAttributeName(); }
             //set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
-            set { _allgemeinerLeistungszustand = value.TryParseAsEnumOrThrow<AllgemeinerLeistungszustandTyp>(_typeName, nameof(AllgemeinerLeistungszustand)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _allgemeinerLeistungszustand = value.TryParseAsEnumOrThrow<AllgemeinerLeistungszustandTyp>(_typeName, nameof(AllgemeinerLeistungszustand)); 
+            }
         }
 
         [XmlElement("Allgemeiner_Leistungszustand", Order = 10)]
@@ -87,19 +91,19 @@ namespace AdtGekid
         public string TumorstatusGesamt
         {
             get { return _tumorstatusGesamt.ToString(); }
-            set { _tumorstatusGesamt = value.TryParseAsEnumOrThrow<TumorstatusGesamt>(_typeName, nameof(this.TumorstatusGesamt)); }
+            set { _tumorstatusGesamt = value.TryParseAsEnumOrThrow<TumorstatusGesamt>(_typeName, nameof(this.TumorstatusGesamt), false); }
         }
 
        
 
         [XmlElement("Gesamtbeurteilung_Tumorstatus", Order = 5)]
-        public TumorstatusGesamt? TumorstatusGesamtEnumValue
+        public TumorstatusGesamt TumorstatusGesamtEnumValue
         {
             get { return _tumorstatusGesamt; }
             set { _tumorstatusGesamt = value; }
         }
 
-        public bool TumorstatusGesamtEnumValueSpecified => TumorstatusLokalEnumValue.HasValue;
+        //public bool TumorstatusGesamtEnumValueSpecified => TumorstatusGesamtEnumValue.HasValue;
 
         [XmlElement("Histologie", Order = 1)]
         public HistologieTyp Histologie { get; set; }
@@ -150,7 +154,11 @@ namespace AdtGekid
         {
             get { return _tumorstatusLokal.ToString(); }
             //set { _tumorstatusLokal = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLokal)); }
-            set { _tumorstatusLokal = value.TryParseAsEnumOrThrow<TumorstatusLokal>(_typeName, nameof(this.TumorstatusLokal)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _tumorstatusLokal = value.TryParseAsEnumOrThrow<TumorstatusLokal>(_typeName, nameof(this.TumorstatusLokal)); 
+            }
         }
 
         [XmlElement("Verlauf_Lokaler_Tumorstatus", Order = 6)]
@@ -167,7 +175,11 @@ namespace AdtGekid
         {
             get { return _tumorstatusFernmetastasen.ToString(); }
             //set { _tumorstatusFernmetastasen = value.ValidateOrThrow(AllowedMetastasisStatusCodes, _typeName, nameof(this.TumorstatusFernmetastasen)); }
-            set { _tumorstatusFernmetastasen = value.TryParseAsEnumOrThrow<TumorstatusFernmetastasen>(_typeName, nameof(this.TumorstatusFernmetastasen)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _tumorstatusFernmetastasen = value.TryParseAsEnumOrThrow<TumorstatusFernmetastasen>(_typeName, nameof(this.TumorstatusFernmetastasen)); 
+            }
         }
 
         [XmlElement("Verlauf_Tumorstatus_Fernmetastasen", Order = 8)]
@@ -187,7 +199,11 @@ namespace AdtGekid
         {
             get { return _tumorstatusLymphknoten.ToString(); }
             //set { _tumorstatusLymphknoten = value.ValidateOrThrow(AllowedPrimaryAndLymphStatusCodes, _typeName, nameof(this.TumorstatusLymphknoten)); }
-            set { _tumorstatusLymphknoten = value.TryParseAsEnumOrThrow<TumorstatusLymphknoten>(_typeName, nameof(this.TumorstatusLymphknoten)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _tumorstatusLymphknoten = value.TryParseAsEnumOrThrow<TumorstatusLymphknoten>(_typeName, nameof(this.TumorstatusLymphknoten)); 
+            }
         }
 
         [XmlElement("Verlauf_Tumorstatus_Lymphknoten", Order = 7)]

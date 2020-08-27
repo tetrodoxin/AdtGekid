@@ -23,6 +23,10 @@ namespace AdtGekid
             set { _einheit = value.TryParseAsEnumOrThrow<StrahlendosisEinheit>(typeof(StrahlendosisEinheit).Name,nameof(this.Einheit)); }
         }
 
+        /// <summary>
+        /// Angabe der Dosiseinheit. Muss gefüllt sein 
+        /// wenn Dosis vorhanden -> keine Leerwerte hier zulässig
+        /// </summary>
         [XmlElement("Einheit", Order = 2)]
         public StrahlendosisEinheit EinheitEnumValue
         {

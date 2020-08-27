@@ -66,7 +66,11 @@ namespace AdtGekid
         {
             get { return _grading?.ToXmlEnumAttributeName(); }
             //set { _grading = value.ValidateOrThrow(AllowedGradingCodes, _typeName, nameof(this.Grading)); }
-            set { _grading = value.TryParseAsEnumOrThrow<HistoGrading>(_typeName, nameof(this.Grading)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _grading = value.TryParseAsEnumOrThrow<HistoGrading>(_typeName, nameof(this.Grading)); 
+            }
         }
 
         [XmlElement("Grading", Order = 6)]
@@ -173,7 +177,11 @@ namespace AdtGekid
         {
             get { return ((int?)_icdOVersion).ToString(); }
             //set { _icdOVersion = value.ValidateMaxLength(25, _typeName, nameof(this.IcdOVersion)); }
-            set { _icdOVersion = value.TryParseAsEnumOrThrow<MorphologieIcdOVersion>(_typeName, nameof(this.IcdOVersion)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _icdOVersion = value.TryParseAsEnumOrThrow<MorphologieIcdOVersion>(_typeName, nameof(this.IcdOVersion)); 
+            }
         }
 
         [XmlElement("Morphologie_ICD_O_Version", Order = 4)]

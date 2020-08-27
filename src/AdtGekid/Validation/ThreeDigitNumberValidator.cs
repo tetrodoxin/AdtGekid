@@ -23,22 +23,33 @@
 //SOFTWARE.
 
 #endregion 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-[assembly: AssemblyTitle("AdtGekid")]
-[assembly: AssemblyDescription("German Project. Entitäten für den ADT_GEKID Basisdatensatz Version 1.0.5")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Andreas Hübner")]
-[assembly: AssemblyProduct("AdtGekid")]
-[assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+namespace AdtGekid.Validation
+{
+    /// <summary>
+    /// Stringvalidierer für Email Adressen.
+    /// </summary>
+    public class ThreeDigitNumberValidator : StringValidatorByRegex
+    {
+        private static readonly Lazy<IValueValidator<string>> _instance = new Lazy<IValueValidator<string>>(() => new ThreeDigitNumberValidator());
 
-[assembly: ComVisible(false)]
+        public static IValueValidator<string> Instance => _instance.Value;
 
-[assembly: Guid("4fec61bd-d46d-46a1-a3e1-3a94255bd443")]
+        private ThreeDigitNumberValidator() : base(StringValidatorBehavior.TrimAllowEmpty, @"^\d(\d)?(\d)?|U$")
+        { }
 
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyInformationalVersion("2.0.0.0-alpha16")]
+        protected override string GetErrorTextForNonEmpty(string stringToValidate)
+        {
+            if(stringToValidate.Length > 3)
+            {
+                return "Maximal drei Stellen erlaubt.";
+            }
+
+            return base.GetErrorTextForNonEmpty(stringToValidate);
+        }
+    }
+}

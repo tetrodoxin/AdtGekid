@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ADT_GEKID xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Schema_Version="2.0.0" xmlns="http://www.gekid.de/namespace">
+  <Absender Absender_ID="AGI8768" Software_ID="98724697" Installations_ID="KH9871">
+    <Absender_Bezeichnung>Bezeichnung 1</Absender_Bezeichnung>
+    <Absender_Ansprechpartner>Kai Niemand</Absender_Ansprechpartner>
+    <Absender_Anschrift>Anschrift 1a</Absender_Anschrift>
+    <Absender_Telefon>0900-555-1260</Absender_Telefon>
+    <Absender_EMail>email@example.com</Absender_EMail>
+  </Absender>
+  <Menge_Patient>
+    <Patient>
+      <Patienten_Stammdaten Patient_ID="PatId43687628">
+        <KrankenversichertenNr>Z629410041</KrankenversichertenNr>
+        <KrankenkassenNr>104940005</KrankenkassenNr>
+        <Patienten_Nachname>Sondermeyer</Patienten_Nachname>
+        <Patienten_Vornamen>Rudolf Clarence Fidelius</Patienten_Vornamen>
+        <Patienten_Geschlecht>M</Patienten_Geschlecht>
+        <Patienten_Geburtsdatum>11.02.1971</Patienten_Geburtsdatum>
+        <Menge_Adresse>
+          <Adresse>
+            <Patienten_Strasse>Strasse Bravo</Patienten_Strasse>
+            <Patienten_Land>D</Patienten_Land>
+            <Patienten_PLZ>12864</Patienten_PLZ>
+            <Patienten_Ort>Ort 11</Patienten_Ort>
+          </Adresse>
+        </Menge_Adresse>
+      </Patienten_Stammdaten>
+      <Menge_Meldung>
+        <Meldung Meldung_ID="Meldung3267" Melder_ID="ID264">
+          <Meldebegruendung>I</Meldebegruendung>
+          <Tumorzuordnung Tumor_ID="tum277">
+            <Primaertumor_ICD_Code>C44.0</Primaertumor_ICD_Code>
+            <Diagnosedatum>10.03.2014</Diagnosedatum>
+          </Tumorzuordnung>
+          <Diagnose Tumor_ID="tum277">
+            <Primaertumor_ICD_Code>C44.0</Primaertumor_ICD_Code>
+            <Primaertumor_ICD_Version>10 2014 GM</Primaertumor_ICD_Version>
+            <Primaertumor_Topographie_ICD_O>C44.0</Primaertumor_Topographie_ICD_O>
+            <Primaertumor_Topographie_ICD_O_Version>32</Primaertumor_Topographie_ICD_O_Version>
+            <Diagnosedatum>11.11.2015</Diagnosedatum>
+            <Diagnosesicherung>4</Diagnosesicherung>
+            <Menge_Histologie>
+              <Histologie Histologie_ID="histo01">
+                <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
+                <Morphologie_Code>8020/3</Morphologie_Code>
+                <Morphologie_ICD_O_Version>32</Morphologie_ICD_O_Version>
+              </Histologie>
+            </Menge_Histologie>
+            <Menge_FM>
+              <Fernmetastase>
+                <FM_Diagnosedatum>20.04.2014</FM_Diagnosedatum>
+                <FM_Lokalisation>PUL</FM_Lokalisation>
+              </Fernmetastase>
+            </Menge_FM>
+            <cTNM TNM_ID="tnm7638">
+              <TNM_Datum>20.03.2013</TNM_Datum>
+              <TNM_Version>7</TNM_Version>
+              <TNM_c_p_u_Praefix_T>c</TNM_c_p_u_Praefix_T>
+              <TNM_T>T1a</TNM_T>
+              <TNM_c_p_u_Praefix_N>p</TNM_c_p_u_Praefix_N>
+              <TNM_N>N1</TNM_N>
+              <TNM_c_p_u_Praefix_M>u</TNM_c_p_u_Praefix_M>
+            </cTNM>
+            <pTNM TNM_ID="tnm7639">
+              <TNM_Datum>20.05.2013</TNM_Datum>
+              <TNM_Version>7</TNM_Version>
+              <TNM_c_p_u_Praefix_T>p</TNM_c_p_u_Praefix_T>
+              <TNM_T>T1a</TNM_T>
+              <TNM_c_p_u_Praefix_N>p</TNM_c_p_u_Praefix_N>
+              <TNM_N>N1</TNM_N>
+              <TNM_c_p_u_Praefix_M>u</TNM_c_p_u_Praefix_M>
+              <TNM_M>M0</TNM_M>
+            </pTNM>
+            <Menge_Weitere_Klassifikation>
+              <Weitere_Klassifikation>
+                <Datum>11.03.2013</Datum>
+                <Name>Klasse 23</Name>
+                <Stadium>ABC</Stadium>
+              </Weitere_Klassifikation>
+            </Menge_Weitere_Klassifikation>
+          </Diagnose>
+          <Menge_OP>
+            <OP OP_ID="Op31687">
+              <OP_Intention>K</OP_Intention>
+              <OP_Datum>15.04.2013</OP_Datum>
+              <Menge_OPS>
+                <OP_OPS>5-217.1</OP_OPS>
+                <OP_OPS>5-812.00</OP_OPS>
+              </Menge_OPS>
+              <OP_OPS_Version>2013</OP_OPS_Version>
+              <Histologie Histologie_ID="histo23">
+                <Morphologie_Code>8130/3</Morphologie_Code>
+                <Morphologie_ICD_O_Version>32</Morphologie_ICD_O_Version>
+                <Morphologie_Freitext>str1234</Morphologie_Freitext>
+                <Grading>4</Grading>
+                <LK_befallen>23</LK_befallen>
+                <Sentinel_LK_befallen>3</Sentinel_LK_befallen>
+              </Histologie>
+              <TNM TNM_ID="ID3427">
+                <TNM_Datum>16.04.2013</TNM_Datum>
+                <TNM_Version>7</TNM_Version>
+                <TNM_T>T2b</TNM_T>
+                <TNM_N>N0</TNM_N>
+                <TNM_M>M1</TNM_M>
+              </TNM>
+              <Residualstatus>
+                <Lokale_Beurteilung_Residualstatus>R1</Lokale_Beurteilung_Residualstatus>
+              </Residualstatus>
+            </OP>
+          </Menge_OP>
+          <Menge_ST>
+            <ST ST_ID="StId4379872">
+              <ST_Intention>P</ST_Intention>
+              <Menge_Bestrahlung>
+                <Bestrahlung>
+                  <ST_Zielgebiet>3.1.</ST_Zielgebiet>
+                  <ST_Beginn_Datum>01.05.2013</ST_Beginn_Datum>
+                  <ST_Applikationsart>M</ST_Applikationsart>
+                  <ST_Gesamtdosis>
+                    <Dosis>23</Dosis>
+                    <Einheit>Gy</Einheit>
+                  </ST_Gesamtdosis>
+                  <ST_Einzeldosis>
+                    <Dosis>2</Dosis>
+                    <Einheit>Gy</Einheit>
+                  </ST_Einzeldosis>
+                </Bestrahlung>
+                <Bestrahlung>
+                  <ST_Zielgebiet>6.1.</ST_Zielgebiet>
+                  <ST_Beginn_Datum>04.04.2015</ST_Beginn_Datum>
+                  <ST_Applikationsart>K</ST_Applikationsart>
+                </Bestrahlung>
+              </Menge_Bestrahlung>
+              <Residualstatus />
+            </ST>
+          </Menge_ST>
+          <Menge_SYST>
+            <SYST SYST_ID="SystId2387">
+              <SYST_Intention>K</SYST_Intention>
+              <SYST_Beginn_Datum>10.05.2014</SYST_Beginn_Datum>
+              <Menge_Substanz>
+                <SYST_Substanz>Subst Eins</SYST_Substanz>
+              </Menge_Substanz>
+              <Menge_Nebenwirkung>
+                <SYST_Nebenwirkung>
+                  <Nebenwirkung_Grad>3</Nebenwirkung_Grad>
+                  <Nebenwirkung_Version>4</Nebenwirkung_Version>
+                </SYST_Nebenwirkung>
+              </Menge_Nebenwirkung>
+              <Anmerkung>Anmerkung Systemisch</Anmerkung>
+            </SYST>
+          </Menge_SYST>
+          <Menge_Verlauf>
+            <Verlauf Verlauf_ID="Verlauf26876">
+              <Histologie Histologie_ID="histo89">
+                <Tumor_Histologiedatum>11.09.2014</Tumor_Histologiedatum>
+                <Histologie_EinsendeNr>str1234</Histologie_EinsendeNr>
+                <Morphologie_Code>8920/3</Morphologie_Code>
+                <Morphologie_ICD_O_Version>32</Morphologie_ICD_O_Version>
+              </Histologie>
+              <TNM TNM_ID="tnm01">
+                <TNM_Datum>01.09.2014</TNM_Datum>
+                <TNM_Version>7</TNM_Version>
+                <TNM_T>T4</TNM_T>
+                <TNM_N>N0</TNM_N>
+                <TNM_M>M1</TNM_M>
+              </TNM>
+              <Menge_Weitere_Klassifikation>
+                <Weitere_Klassifikation>
+                  <Datum>01.10.2014</Datum>
+                  <Name>Klass1</Name>
+                  <Stadium>AH1</Stadium>
+                </Weitere_Klassifikation>
+                <Weitere_Klassifikation />
+              </Menge_Weitere_Klassifikation>
+              <Untersuchungsdatum_Verlauf>13.09.2014</Untersuchungsdatum_Verlauf>
+            </Verlauf>
+            <Verlauf Verlauf_ID="Verlauf26877">
+              <Tod>
+                <Sterbedatum>11.11.2011</Sterbedatum>
+              </Tod>
+            </Verlauf>
+          </Menge_Verlauf>
+          <Menge_Tumorkonferenz>
+            <Tumorkonferenz Tumorkonferenz_ID="TB31268">
+              <Tumorkonferenz_Datum>08.06.2013</Tumorkonferenz_Datum>
+            </Tumorkonferenz>
+          </Menge_Tumorkonferenz>
+          <Menge_Zusatzitem>
+            <Zusatzitem>
+              <Datum>03.03.2012</Datum>
+              <Art>Untersuchungsanlass</Art>
+              <Wert>Z</Wert>
+              <Bemerkung>Comment</Bemerkung>
+            </Zusatzitem>
+            <Zusatzitem />
+          </Menge_Zusatzitem>
+          <Anmerkung>Keine Meldungsanmerkung</Anmerkung>
+        </Meldung>
+      </Menge_Meldung>
+      <Anmerkung>Keine Anmerkung</Anmerkung>
+    </Patient>
+  </Menge_Patient>
+  <Menge_Melder>
+    <Melder Melder_ID="ID264">
+      <Meldende_Stelle>Meldstelle1</Meldende_Stelle>
+    </Melder>
+  </Menge_Melder>
+</ADT_GEKID>

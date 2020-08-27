@@ -80,15 +80,15 @@ namespace AdtGekid
         [XmlIgnore]
         public Collection<string> TherapieArten
         {           
-            get { return _therapieArten.AsStringEnumerable<SystemTherapieart>() as Collection<string>; }
+            get { return _therapieArten.AsStringCollection<SystemTherapieart>(); }
             //set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
-            set { _therapieArten = value.TryParseAsEnumCollectionOrThrow<SystemTherapieart>() as Collection<SystemTherapieart>; }
+            set { _therapieArten = value.TryParseAsEnumCollectionOrThrow<SystemTherapieart>(); }
         }
 
       
         [XmlArrayItem("SYST_Therapieart", IsNullable = false)]
         [XmlArray("Menge_Therapieart", Order = 3)]
-        public Collection<SystemTherapieart> TherapieArtenEnumValue
+        public Collection<SystemTherapieart> TherapieArtenEnumCollection
         {
             get { return _therapieArten; }
             set { _therapieArten = value; }
@@ -99,8 +99,8 @@ namespace AdtGekid
         /// wenn es leer ist oder keine Elemente enthält
         /// </summary>
         [XmlIgnore]
-        public bool TherapieArtenEnumValueSpecified =>
-            TherapieArten != null && TherapieArten.Count > 0;
+        public bool TherapieArtenEnumCollectionSpecified =>
+            _therapieArten != null && _therapieArten.Count > 0;
 
         [XmlElement("Residualstatus", Order = 10)]
         public ResidualstatusTyp Residualstatus { get; set; }
@@ -125,7 +125,10 @@ namespace AdtGekid
         {
             get { return _endeGrund.ToString(); }
             //set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.SystemischeTherapie, _typeName, nameof(this.EndeGrund)); }
-            set { _endeGrund = value.TryParseAsEnumOrThrow<SystemTherapieEndeGrund>(_typeName, nameof(this.EndeGrund)); }
+            set {
+                if (!value.IsNothing())
+                    _endeGrund = value.TryParseAsEnumOrThrow<SystemTherapieEndeGrund>(_typeName, nameof(this.EndeGrund)); 
+            }
         }
 
         [XmlElement("SYST_Ende_Grund", Order = 8)]
@@ -188,7 +191,10 @@ namespace AdtGekid
         {
             get { return _stellungOp.ToString(); }
             //set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
-            set { _stellungOp = value.TryParseAsEnumOrThrow<SystemTherapieStellungOp>(_typeName, nameof(this.StellungOp)); }
+            set {
+                if (!value.IsNothing())
+                    _stellungOp = value.TryParseAsEnumOrThrow<SystemTherapieStellungOp>(_typeName, nameof(this.StellungOp)); 
+            }
         }
 
         [XmlElement("SYST_Stellung_OP", Order = 2)]

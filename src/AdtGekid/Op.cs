@@ -72,9 +72,9 @@ namespace AdtGekid
         [XmlIgnore]
         public Collection<string> Komplikationen
         {
-            get { return _komplikationen.AsStringEnumerable<OpKomplikation>() as Collection<string>; }
+            get { return _komplikationen.AsStringCollection<OpKomplikation>(); }
             //set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
-            set { _komplikationen = value.TryParseAsEnumCollectionOrThrow<OpKomplikation>() as Collection<OpKomplikation>; }
+            set { _komplikationen = value.TryParseAsEnumCollectionOrThrow<OpKomplikation>(); }
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace AdtGekid
         /// </summary>
         [XmlIgnore]
         public bool KomplikationenEnumValueSpecified =>
-            Komplikationen != null && Komplikationen.Count > 0;
+            _komplikationen != null && _komplikationen.Count > 0;
 
 
 

@@ -50,13 +50,15 @@
     <Compile Include="AllgemeinerLeistungszustandTyp.cs" />
     <Compile Include="DatumTyp.cs" />
     <Compile Include="Diagnosesicherung.cs" />
-    <Compile Include="EnumHelper.cs" />
+    <Compile Include="EnumStaticHelpers.cs" />
     <Compile Include="FernmetastaseLokalisation.cs" />
     <Compile Include="FruehereTumorerkrankung.cs" />
     <Compile Include="Geschlecht.cs" />
     <Compile Include="HistoGrading.cs" />
     <Compile Include="IcdVersionTyp.cs" />
     <Compile Include="Meldebegruendung.cs" />
+    <Compile Include="Module\Mamma\Mamma.cs" />
+    <Compile Include="Module\Mamma\MammaEnums.cs" />
     <Compile Include="MorphologieIcdOVersion.cs" />
     <Compile Include="NebenwirkungEnums.cs" />
     <Compile Include="OpIntention.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="TodesUrsachen.cs" />
     <Compile Include="TopographieIcdOVersionTyp.cs" />
     <Compile Include="TumorstatusEnums.cs" />
+    <Compile Include="Validation\ThreeDigitNumberValidator.cs" />
     <Compile Include="Validation\ValidatedStringList.cs" />
     <Compile Include="Validation\TherapieartValidator.cs" />
     <Compile Include="Validation\OpsCodeValidator.cs" />
@@ -136,8 +139,8 @@
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Module\Allgemein\" />
     <Folder Include="Module\Kolorektal\" />
-    <Folder Include="Module\Mamma\" />
     <Folder Include="Module\Prostata\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

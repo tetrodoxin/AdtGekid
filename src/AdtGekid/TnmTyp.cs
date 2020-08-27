@@ -59,7 +59,11 @@ namespace AdtGekid
         public string SymbolA
         {
             get { return _symbolA.ToString(); }
-            set { _symbolA = value.TryParseAsEnumOrThrow<TnmSymbolA>(_typeName, nameof(this.SymbolA)); }           
+            set 
+            {
+                if (!value.IsNothing())
+                    _symbolA = value.TryParseAsEnumOrThrow<TnmSymbolA>(_typeName, nameof(this.SymbolA)); 
+            }           
         }
 
         [XmlElement("TNM_a_Symbol", Order = 5)]
@@ -74,7 +78,7 @@ namespace AdtGekid
         /// Bei <see cref="TnmSymbolA.NotSpecified"/> wird nicht serialisiert.
         /// </summary>
         [XmlIgnore]
-        public bool SymbolAEnumValueSpecified => SymbolREnumValue.HasValue;
+        public bool SymbolAEnumValueSpecified => SymbolAEnumValue.HasValue;
 
         /// <summary>
         /// Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte.
@@ -111,19 +115,7 @@ namespace AdtGekid
         /// </summary>
         [XmlElement("TNM_Datum", Order = 1)]
         public DatumTyp Datum { get; set; }
-
-        /// <summary>
-        /// Eindeutig identifizierendes Merkmal für den TNM
-        /// </summary>
-        /// <value>
-        /// Alphanumerischer Wert bis 16 Zeichen
-        /// </value>
-        //[XmlAttribute("TNM_ID")]
-        //public string Id
-        //{
-        //    get { return _id; }
-        //    set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
-        //}
+       
 
         /// <summary>
         /// Lymphgefäßinvasion
@@ -132,7 +124,10 @@ namespace AdtGekid
         public string L
         {
             get { return _l.ToString(); }           
-            set { _l = value.TryParseAsEnumOrThrow<TnmCategoryL>(_typeName, nameof(this.L)); }
+            set { 
+                if (!value.IsNothing())
+                    _l = value.TryParseAsEnumOrThrow<TnmCategoryL>(_typeName, nameof(this.L)); 
+            }
         }
 
         [XmlElement("TNM_L", Order = 13)]
@@ -177,7 +172,11 @@ namespace AdtGekid
         public string Pn
         {
             get { return _pn.ToString(); }            
-            set { _pn = value.TryParseAsEnumOrThrow<TnmCategoryPn>(_typeName, nameof(this.Pn)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _pn = value.TryParseAsEnumOrThrow<TnmCategoryPn>(_typeName, nameof(this.Pn)); 
+            }
         }
 
         [XmlElement("TNM_Pn", Order = 15)]
@@ -201,7 +200,11 @@ namespace AdtGekid
         public string SymbolR
         {
             get { return _symbolR.ToString(); }
-            set { _symbolR = value.TryParseAsEnumOrThrow<TnmSymbolR>(_typeName, nameof(this.SymbolR)); }           
+            set 
+            {
+                if (!value.IsNothing())
+                    _symbolR = value.TryParseAsEnumOrThrow<TnmSymbolR>(_typeName, nameof(this.SymbolR)); 
+            }           
         }
 
         [XmlElement("TNM_r_Symbol", Order = 4)]
@@ -226,7 +229,11 @@ namespace AdtGekid
         public string S
         {
             get { return _s.ToString(); }            
-            set { _s = value.TryParseAsEnumOrThrow<TnmCategoryS>(_typeName, nameof(this.S)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _s = value.TryParseAsEnumOrThrow<TnmCategoryS>(_typeName, nameof(this.S)); 
+            }
         }
 
         [XmlElement("TNM_S", Order = 16)]
@@ -259,7 +266,11 @@ namespace AdtGekid
         public string V
         {
             get { return _v.ToString(); }            
-            set { _v = value.TryParseAsEnumOrThrow<TnmCategoryV>(_typeName, nameof(this.V)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _v = value.TryParseAsEnumOrThrow<TnmCategoryV>(_typeName, nameof(this.V)); 
+            }
         }
        
 
@@ -307,7 +318,10 @@ namespace AdtGekid
         public string SymbolY
         {
             get { return _symbolY.ToString(); }            
-            set { _symbolY = value.ToString().TryParseAsEnumOrThrow<TnmSymbolY>(_typeName, nameof(this.SymbolY)); }
+            set {
+                if (!value.IsNothing())
+                    _symbolY = value.TryParseAsEnumOrThrow<TnmSymbolY>(_typeName, nameof(this.SymbolY));                     
+            }
         }
 
         [XmlElement("TNM_y_Symbol", Order = 3)]

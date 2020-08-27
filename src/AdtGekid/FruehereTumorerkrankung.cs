@@ -59,7 +59,11 @@ namespace AdtGekid
         public string IcdVersion
         {
             get { return _icdVersion?.ToXmlEnumAttributeName(); }
-            set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion)); 
+            }
 
         }
 

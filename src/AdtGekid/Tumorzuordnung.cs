@@ -65,7 +65,11 @@ namespace AdtGekid
         {
             get { return _seitenlokalisation.ToString(); }
             //set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _entity, nameof(this.Seitenlokalisation)); }
-            set { _seitenlokalisation = value.TryParseAsEnumOrThrow<SeitenlokalisationTyp>(_typeName, nameof(this.Seitenlokalisation)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _seitenlokalisation = value.TryParseAsEnumOrThrow<SeitenlokalisationTyp>(_typeName, nameof(this.Seitenlokalisation)); 
+            }
 
         }
 

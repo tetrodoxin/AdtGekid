@@ -39,7 +39,11 @@ namespace AdtGekid
         public string UrsachenIcdVersion
         {
             get { return _ursachenIcdVersion?.ToXmlEnumAttributeName(); }
-            set { _ursachenIcdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_typeName, nameof(this.UrsachenIcdVersion), false); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _ursachenIcdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_typeName, nameof(this.UrsachenIcdVersion), false); 
+            }
 
         }
         

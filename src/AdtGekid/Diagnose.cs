@@ -29,6 +29,8 @@ using AdtGekid.Validation;
 
 namespace AdtGekid
 {
+    using Module.Mamma;
+
     /// <summary>
     /// Enthält Daten zu einer Tumordiagnose.
     /// </summary>
@@ -71,10 +73,14 @@ namespace AdtGekid
         {
             get { return _allgemeinerLeistungszustand?.ToXmlEnumAttributeName(); }
             //set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
-            set { _allgemeinerLeistungszustand = value.TryParseAsEnumOrThrow<AllgemeinerLeistungszustandTyp>(_entity, nameof(AllgemeinerLeistungszustand)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _allgemeinerLeistungszustand = value.TryParseAsEnumOrThrow<AllgemeinerLeistungszustandTyp>(_entity, nameof(AllgemeinerLeistungszustand)); 
+            }
         }
 
-        [XmlElement("Allgemeiner_Leistungszustand", Order = 16)]
+        [XmlElement("Allgemeiner_Leistungszustand", Order = 17)]
         public AllgemeinerLeistungszustandTyp? AllgemeinerLeistungszustandEnumValue
         {
             get { return _allgemeinerLeistungszustand; }
@@ -87,7 +93,7 @@ namespace AdtGekid
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 17)]
+        [XmlElement("Anmerkung", Order = 18)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -192,6 +198,10 @@ namespace AdtGekid
         [XmlArray("Menge_Weitere_Klassifikation", Order = 15)]
         public WeitereKlassifikation[] WeitereKlassifikationen { get; set; }
 
+        [XmlElement("Modul_Mamma", Order = 16)]
+        public ModulMamma ModulMamma { get; set; }
+
+
         /// <summary>
         /// Bezeichnung der meldepflichtigen Tumorerkrankung.
         /// </summary>
@@ -224,7 +234,11 @@ namespace AdtGekid
         public string IcdVersion
         {
             get { return _icdVersion?.ToXmlEnumAttributeName(); }
-            set { _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion), false); }
+            set
+            {          
+                if (!value.IsNothing())
+                    _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion), false); 
+            }
 
         }
 

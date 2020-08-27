@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 
 namespace AdtGekid
 {
-    public static class EnumHelper
+    public static class EnumStaticHelpers
     {
         /// <summary>
         /// Versucht die angegebene Zeichenfolge in den entsprechenden Enumerations-Wert zu übersetzen
@@ -44,11 +44,15 @@ namespace AdtGekid
         /// <param name="value">Die Zeichenfolge</param>
         /// <param name="validatedAdtObject">Der Name des betreffenden Objekts des ADT-Datensatzes.</param>
         /// <param name="validatedAdtField">Der Name des betreffenden Felds des ADT-Datensatzes</param>
-        /// <param name="allowNullOrEmpty">Gibt an ob leere oder <c>null</c>-Zeichenfolgen erlaubt sind oder nicht</param>
-        /// <param name="ignoreCase">Gibt an, ob Case sensitive geparsed werden soll oder nicht.</param>
-        /// <param name="tryDeeperParse">Gibt an, ob bei fehlerhaftem Parsen versucht werden soll den Wert über das <see cref="XmlEnumAttribute"/> aufzulösen.
+        /// <param name="allowNullOrEmpty">Gibt an ob leere oder <c>null</c>-Zeichenfolgen erlaubt sind oder nicht
+        /// und wirft bei <code>false</code> eine <see cref="System.ArgumentException"/> falls ein Leerwert geparst werden soll
+        /// </param>
+        /// <param name="ignoreCase">Gibt an, ob Case sensitive geparsed werden soll oder nicht. 
+        /// Bei Case sensitiven Werten wird der Wert nicht aufgelöst, wenn die Groß/Kleinschreibung nicht übereinstimmt.</param>
+        /// <param name="tryDeeperParse">Gibt an, ob nach fehlerhaftem Parsen versucht werden 
+        /// soll den Wert über das <see cref="XmlEnumAttribute"/> aufzulösen.
         /// Dies kann nötig werden, wenn die zu serialisierende Zeichenfolge vom Namen der Enumerations-Konstanten
-        /// abweicht, da diese z.B. nicht Compiler-kompatibel ist.
+        /// abweicht, da diese z.B. nicht Compiler-kompatibel ist, z.B. Zielgebiet-Wert einer Bestrahlung "1."
         /// </param>
         /// <returns>
         /// Den entsprechenden Enumerations-Wert falls dieser existiert, 
@@ -67,7 +71,7 @@ namespace AdtGekid
          
             TEnum enumValue;
             var parsed = Enum.TryParse<TEnum>(value, ignoreCase, out enumValue);
-
+           
             // Parsing fehlgeschlagen oder geparster Wert ist nicht als Enumerations-Konstante definiert
             if ((!parsed && !value.IsNothing()) || ! Enum.IsDefined(typeof(TEnum),enumValue))
             {
@@ -109,15 +113,22 @@ namespace AdtGekid
         
 
 
-        public static IEnumerable<string> AsStringEnumerable<TEnum>(this Collection<TEnum> col)
+        public static Collection<string> AsStringCollection<TEnum>(this Collection<TEnum> col)
             where TEnum : struct
         {
             ThrowIfNoEnumeration(typeof(TEnum));
 
+            if (col == null)
+                return null;
+
+            var stringCol = new Collection<string>();
+
             foreach (var item in col)
             {
-                yield return item.ToString();
+                stringCol.Add(item.ToString());
             }
+
+            return stringCol;
         }
         
         public static TAttribute[] GetAttributes<TEnum, TAttribute>(this TEnum enumValue)
@@ -128,15 +139,21 @@ namespace AdtGekid
             return fieldInfo.GetCustomAttributes(typeof(TAttribute), false) as TAttribute[]; 
         }
 
-        public static IEnumerable<TEnum> TryParseAsEnumCollectionOrThrow<TEnum>(this Collection<string> col)
+        public static Collection<TEnum> TryParseAsEnumCollectionOrThrow<TEnum>(this Collection<string> col)
             where TEnum : struct
         {
-            ThrowIfNoEnumeration(typeof(TEnum));
+            if (col == null)
+                return null;
 
+            ThrowIfNoEnumeration(typeof(TEnum));
+           
+            var enumCol = new Collection<TEnum>();
             foreach (var item in col)
             {
-                yield return item.TryParseAsEnumOrThrow<TEnum>();
+                enumCol.Add(item.TryParseAsEnumOrThrow<TEnum>());                
             }
+
+            return enumCol;
         }       
 
         /// <summary>

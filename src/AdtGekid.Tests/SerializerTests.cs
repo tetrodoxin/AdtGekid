@@ -10,6 +10,8 @@ using System.Collections.ObjectModel;
 
 namespace AdtGekid.Tests
 {
+    using Module.Mamma;
+
     public class SerializerTests
     {
         public const string SchemaFileName = @"ADT_GEKID_v2.0.0.xsd";
@@ -27,6 +29,7 @@ namespace AdtGekid.Tests
 
             Assert.NotNull(serializedDocument);
 
+            // Gegen XSD validieren
             testOnValidationErrors(serializedDocument);
 
             var sampleDocument = readDocument(sampleFileName);
@@ -35,6 +38,35 @@ namespace AdtGekid.Tests
             // Serialisiertes mit Sample vergleichen
             compareXmlNodes(sampleDocument.DocumentElement, serializedDocument.DocumentElement);
         }
+
+        /// <summary>
+        /// Soll testen ob korrekt serialisiert wird
+        /// wenn die Enumerationen leer sind,
+        /// z.B. sollte bei leerer <see cref="StrahlendosisTyp.Einheit"/> nicht 
+        /// <see cref="StrahlendosisEinheit.NotSpecified"/> serialisiert werden
+        /// </summary>
+        public void SerializeEmptyEnumsTest()
+        {
+            throw new System.NotImplementedException();
+            //string outputFileName = "serializer_output_empty_enums.xml";
+            //string sampleFileName = "sample.xml";
+
+            //serialize(outputFileName);
+            //var serializedDocument = readDocument(outputFileName);
+
+            //Assert.NotNull(serializedDocument);
+
+            //// Gegen XSD validieren
+            //testOnValidationErrors(serializedDocument);
+
+            //var sampleDocument = readDocument(sampleFileName);
+            //Assert.NotNull(sampleDocument);
+
+            //// Serialisiertes mit Sample vergleichen
+            //compareXmlNodes(sampleDocument.DocumentElement, serializedDocument.DocumentElement);
+        }
+
+
 
         [Fact]
         public void Serialize_old()
@@ -274,18 +306,18 @@ namespace AdtGekid.Tests
                       {
                           MeldendeStelle = "Meldstelle1",
                           Id = "ID264",
-                          BIC="INGDDEFFXXX",
-                          IBAN ="DE12500105170648489890",
-                          LANR ="LANR2",
-                          IKNR="IKNR1",
-                          BSNR ="BSNR1",
+                          BIC = "INGDDEFFXXX",
+                          IBAN = "DE12500105170648489890",
+                          LANR = "LANR2",
+                          IKNR = "IKNR1",
+                          BSNR = "BSNR1",
                           Anschrift = "Anschrift 2",
                           KlinikStationPraxis = "Station Praxis 1",
-                          Arztname="Arztname 1",
-                          PLZ ="01234",
-                          Ort ="Ort 7",
-                          Bankname ="Bankname 4",
-                          Kontoinhaber ="Inhaber 2"
+                          Arztname = "Arztname 1",
+                          PLZ = "01234",
+                          Ort = "Ort 7",
+                          Bankname = "Bankname 4",
+                          Kontoinhaber = "Inhaber 2"
                       },
                   },
                 Patienten = new Patient[]
@@ -342,7 +374,8 @@ namespace AdtGekid.Tests
                                         Id = "tum277",
                                         Datum = new DatumTyp("11.11.2015"),
                                         IcdCode = "C44.0",
-                                        IcdVersion = "GM_10_2014",
+                                        //IcdVersion = "GM_10_2014",
+                                        IcdVersion = "10 2014 GM",
                                         Text = "Diagnosetext 11",
                                         IcdoCode = "C44.0",
 
@@ -357,12 +390,12 @@ namespace AdtGekid.Tests
                                         {
                                             new FruehereTumorerkrankung()
                                             {
-                                                
+
                                                 Freitext = "Bronchial-Ca.",
                                                 IcdCode = "C34.0",
                                                 IcdVersion = "2013",
                                                 Diagnosedatum = "18.02.2013"
-                                            }                                            
+                                            }
                                         },
                                         Seitenlokalisation = "T",
                                         Diagnosesicherung = "2",
@@ -391,32 +424,8 @@ namespace AdtGekid.Tests
                                                 Lokalisation = "PUL"
                                             }
                                         },
-                                        //TnmKlassifizierungen = new TnmTyp[]
-                                        //{
-                                        //    new TnmTyp
-                                        //    {
-                                        //        Id = "tnm7638",
-                                        //        Datum = "20.03.2013",
-                                        //        Version = 7,
-                                        //        SymbolY = "y",
-                                        //        SymbolR = "r",
-                                        //        SymbolA = "a",
-                                        //        PraefixT = "c",
-                                        //        T = "T1a",
-                                        //        SymbolM = "(m)",
-                                        //        PraefixN = "p",
-                                        //        N = "N1",
-                                        //        PraefixM = "u",
-                                        //        M = "M0",
-                                        //        L = "L0",
-                                        //        V = "V1",
-                                        //        Pn = "PnX",
-                                        //        S = "S3"
-                                        //    }
-                                        //},
                                         TnmKlassifizierungKlinisch = new TnmTyp()
                                         {
-                                                Id = "tnm7638",
                                                 Datum = "20.03.2013",
                                                 Version = 7,
                                                 SymbolY = "y",
@@ -425,7 +434,7 @@ namespace AdtGekid.Tests
                                                 PraefixT = "c",
                                                 T = "T1a",
                                                 SymbolM = "(m)",
-                                                PraefixN = "p",
+                                                PraefixN = "c",
                                                 N = "N1",
                                                 PraefixM = "u",
                                                 M = "M0",
@@ -436,7 +445,6 @@ namespace AdtGekid.Tests
                                         },
                                          TnmKlassifizierungPathologisch = new TnmTyp()
                                         {
-                                                Id = "tnm7639",
                                                 Datum = "20.05.2013",
                                                 Version = 7,
                                                 SymbolY = "y",
@@ -485,7 +493,7 @@ namespace AdtGekid.Tests
                                             },
                                             TnmKlassifizierung = new TnmTyp
                                             {
-                                                Id = "ID3427",
+                                                //Id = "ID3427",
                                                 Datum = "16.04.2013",
                                                 Version = 7,
                                                 T = "T2b",
@@ -520,13 +528,11 @@ namespace AdtGekid.Tests
                                                     Zielgebiet ="3.1.",
                                                     SeiteZielgebiet = "L",
                                                     Applikationsart = "M",
-                                                    //Einzeldosis = "2Gy",
                                                     Einzeldosis = new StrahlendosisTyp()
                                                     {
                                                        Dosis = 2
-                                                       , Einheit = "Gy"                                                        
+                                                       , Einheit = "Gy"
                                                     },
-                                                    //Gesamtdosis = "23Gy"
                                                     Gesamtdosis = new StrahlendosisTyp()
                                                     {
                                                        Dosis = 23
@@ -553,7 +559,7 @@ namespace AdtGekid.Tests
                                                        Dosis = 23
                                                        , Einheit = "GBq"
                                                     }
-                                                    
+
                                                 },
                                             },
                                             Nebenwirkungen = new NebenwirkungTyp[]
@@ -619,7 +625,7 @@ namespace AdtGekid.Tests
                                             //},
                                             TnmKlassifizierung = new TnmTyp
                                             {
-                                                Id = "tnm01",
+                                                //Id = "tnm01",
                                                 Datum = "01.09.2014",
                                                 Version = 7,
                                                 T = "T4",
@@ -648,7 +654,7 @@ namespace AdtGekid.Tests
                                             AllgemeinerLeistungszustand = "4",
                                             Tod = new VerlaufTod {
                                                 Sterbedatum = "11.11.2011"
-                                                , Tumorbedingt = JnuTyp.Ja                                                
+                                                , Tumorbedingt = JnuTyp.Ja
                                                 , Todesursachen = new MengeTodesursache()
                                                 {
                                                     UrsachenIcdCodes = new Collection<string> {"C22.0", "C23.0"}
@@ -666,6 +672,129 @@ namespace AdtGekid.Tests
                                     {
                                         new Tumorkonferenz{Datum = "08.06.2013", Id = "TB31268", Typ = "praeth", Anmerkung = "Anmerkung TB"}
                                     },
+                                },
+                                new Meldung()
+                                {
+                                    Anmerkung = "Schnellere Meldung",
+                                    Anlass = Meldeanlass.Diagnose,
+                                    Datum = "13.05.2018",
+                                    MelderId = "ID264",
+                                    Id = "Meldung3268",
+                                    Begruendung = "I",
+                                    Tumorzuordnung = new Tumorzuordnung()
+                                    {
+                                        Id = "tum278",
+                                        Diagnosedatum = "28.08.2017",
+                                        IcdCode = "C50.4",
+                                        Seitenlokalisation = "R"
+                                    },
+                                    Diagnose = new Diagnose()
+                                    {
+                                        Id = "tum278",
+                                        Datum = new DatumTyp("28.08.2017"),
+                                        IcdCode = "C50.4",
+                                        //IcdVersion = "GM_10_2014",
+                                        IcdVersion = "10 2017 GM",
+                                        Text = "Diagnosetext Mamma",
+                                        IcdoCode = "C50.4",
+
+                                        IcdoVersion = "32",
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item32,
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item31,
+                                        IcdoFreitext = "str1234",
+                                        Anmerkung = "Diagnoseanmerkung",
+                                        //AllgemeinerLeistungszustandEnumValue = AllgemeinerLeistungszustandTyp.NotSpecified,
+                                        AllgemeinerLeistungszustand = "90%",
+                                        FruehereTumorerkrankungen = new FruehereTumorerkrankung[]
+                                        {
+                                            new FruehereTumorerkrankung()
+                                            {
+
+                                                Freitext = "Melanom",
+                                                IcdCode = "C43.7",
+                                                IcdVersion = "Sonstige",
+                                                Diagnosedatum = "01.01.1999"
+                                            }
+                                        },
+                                        Seitenlokalisation = "R",
+                                        Diagnosesicherung = "2",
+                                        Histologien = new HistologieTyp[]
+                                        {
+                                            new HistologieTyp()
+                                            {
+                                                Id = "histo01",
+                                                Datum = "10.07.2017",
+                                                EinsendeNr = "str987654",
+                                                Code = "8720/3",
+                                                IcdOVersion = "32",
+                                                Freitext = "str987654",
+                                                Grading = "3",
+                                                LkUntersucht = 33,
+                                                LkBefallen = 34,
+                                                SentinelLkUntersucht = 35,
+                                                SentinelLkBefallen = 36
+                                            }
+                                        },
+                                        TnmKlassifizierungKlinisch = new TnmTyp()
+                                        {
+                                                Datum = "20.09.2017",
+                                                Version = 7,
+                                                SymbolY = null,
+                                                SymbolR = "r",
+                                                SymbolA = "",
+                                                PraefixT = "c",
+                                                T = "T1",
+                                                SymbolM = "",
+                                                PraefixN = "p",
+                                                N = "N0",
+                                                PraefixM = "u",
+                                                M = "M0",
+                                                L = "",
+                                                V = "",
+                                                Pn = "",
+                                                S = ""
+                                        },
+                                        TnmKlassifizierungPathologisch = new TnmTyp()
+                                        {
+                                                Datum = "23.09.2017",
+                                                Version = 7,
+                                                SymbolY = null,
+                                                SymbolR = null,
+                                                SymbolA = null,
+                                                PraefixT = "p",
+                                                T = "T1a",
+                                                SymbolM = null,
+                                                PraefixN = "p",
+                                                N = "N1",
+                                                PraefixM = "u",
+                                                M = null,
+                                                L = null,
+                                                V = null,
+                                                Pn = null,
+                                                S = null
+                                        },
+                                        WeitereKlassifikationen = new WeitereKlassifikation[]
+                                        {
+                                            new WeitereKlassifikation
+                                            {
+                                                Name = "Klasse 23",
+                                                Datum = "11.03.2013",
+                                                Stadium = "ABC"
+                                            }
+                                        },
+                                        ModulMamma = new ModulMamma()
+                                        {
+                                            PraethMenopausenstatusEnumValue = MammaPraethMenospausenstatus.PraeAndPerimenopausal
+                                            , HormonrezeptorStatusOestrogenEnumValue = MammaHormonrezeptor.P
+                                            , HormonrezeptorStatusProgesteronEnumValue = MammaHormonrezeptor.N
+                                            , IntraopPraeparatkontrolleEnumValue = MammaIntraopPraeparatkontrolle.U
+                                            , PraeopDrahtmarkierungEnumValue = MammaPraeopDrahtmarkierung.U
+                                            , TumorgroesseInvasiv = "23"
+                                            , TumorgroesseDCIS = "19"
+
+                                        }
+                                    },
+                                                                                                                                 
                                 }
                             }
                         }
@@ -767,7 +896,7 @@ namespace AdtGekid.Tests
                                        
                                         TnmKlassifizierungKlinisch = new TnmTyp()
                                         {
-                                                Id = "tnm7638",
+                                                //Id = "tnm7638",
                                                 Datum = "20.03.2013",
                                                 Version = 7,
                                                
@@ -779,7 +908,7 @@ namespace AdtGekid.Tests
                                         },
                                          TnmKlassifizierungPathologisch = new TnmTyp()
                                         {
-                                                Id = "tnm7639",
+                                                //Id = "tnm7639",
                                                 Datum = "20.05.2013",
                                                 Version = 7,                                              
                                                 PraefixT = "p",
@@ -816,7 +945,7 @@ namespace AdtGekid.Tests
                                             },
                                             TnmKlassifizierung = new TnmTyp
                                             {
-                                                Id = "ID3427",
+                                                //Id = "ID3427",
                                                 Datum = "16.04.2013",
                                                 Version = 7,
                                                 T = "T2b",
@@ -893,7 +1022,7 @@ namespace AdtGekid.Tests
                                                                                     
                                             TnmKlassifizierung = new TnmTyp
                                             {
-                                                Id = "tnm01",
+                                                //Id = "tnm01",
                                                 Datum = "01.09.2014",
                                                 Version = 7,
                                                 T = "T4",
