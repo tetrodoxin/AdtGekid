@@ -6,16 +6,16 @@ using System.Xml.Serialization;
 
 using AdtGekid.Validation;
 
-namespace AdtGekid.Module.Mamma
+namespace AdtGekid.Module
 {
+       
     /// <summary>
-    /// Enthält Daten zu einer Tumordiagnose.
-    /// </summary>
+    /// Enthält spezifische Daten zum Mamma-Tumoren
+    /// </summary>    
     [Serializable()]
     [XmlType("Modul_Mamma_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public partial class ModulMamma
     {
-
         private MammaPraethMenospausenstatus? _praethMenopausenstatus;
 
         private MammaHormonrezeptor? _hormonrezeptorStatusOestrogen;
@@ -34,6 +34,12 @@ namespace AdtGekid.Module.Mamma
 
         private string _typeName = "ModulMamma";
 
+        /// <summary>
+        /// Prätherapeutischer Menopausenstatus der Patientin
+        /// Postmenopausal bedeutet mehr als ein Jahr keine Menstruationsblutung 
+        /// oder Estradiol(E 2) und Follikelstimulierendes Hormon(FSH) im eindeutigen 
+        /// post-menopausalen Bereich
+        /// </summary>
         [XmlIgnore]
         public string PraethMenopausenstatus
         {
@@ -55,7 +61,10 @@ namespace AdtGekid.Module.Mamma
         [XmlIgnore]
         public bool PraethMenopausenstatusEnumValueSpecified => PraethMenopausenstatusEnumValue.HasValue;
 
-
+        /// <summary>
+        /// HormonrezeptorStatus: Östrogen
+        /// Rezeptorstatus Positiv/Negativ (gemäß: Immunreaktiver Score (IRS) Remmele W et al. 1987)
+        /// </summary>
         [XmlIgnore]
         public string HormonrezeptorStatusOestrogen 
         {
@@ -84,6 +93,22 @@ namespace AdtGekid.Module.Mamma
         [XmlIgnore]
         public bool HormonrezeptorStatusOestrogenEnumValueSpecified => _hormonrezeptorStatusOestrogen.HasValue;
 
+        /// <summary>
+        /// HormonrezeptorStatus: Progesteron
+        /// Rezeptorstatus Positiv/Negativ (gemäß: Immunreaktiver Score (IRS) Remmele W et al. 1987). 
+        /// Bei unterschiedlichem Ausfall für Östrogen und Progesteron ist der höhere Score 
+        /// zu dokumentieren.
+        /// </summary>
+        [XmlIgnore]
+        public string HormonrezeptorStatusProgesteron
+        {
+            get { return _hormonrezeptorStatusProgesteron.ToString(); }
+            set
+            {
+                if (!value.IsNothing())
+                    _hormonrezeptorStatusProgesteron = value.TryParseAsEnumOrThrow<MammaHormonrezeptor>(_typeName, nameof(this.HormonrezeptorStatusProgesteron));
+            }
+        }
 
         [XmlElement("HormonrezeptorStatus_Progesteron", Order = 3)]
         public MammaHormonrezeptor? HormonrezeptorStatusProgesteronEnumValue
@@ -101,6 +126,10 @@ namespace AdtGekid.Module.Mamma
         [XmlIgnore]
         public bool HormonrezeptorStatusProgesteronEnumValueSpecified => _hormonrezeptorStatusProgesteron.HasValue;
 
+        /// <summary>
+        /// Her2neu Status:
+        /// Rezeptorstatus Positiv/Negativ (gemäß Immunreaktiven Scores nach Leitlinie)
+        /// </summary>
         [XmlIgnore]
         public string Her2neuStatus
         {
@@ -128,6 +157,10 @@ namespace AdtGekid.Module.Mamma
         [XmlIgnore]
         public bool Her2neuStatusEnumValueSpecified => _her2neuStatus.HasValue;
 
+
+        /// <summary>
+        /// Angabe präoperative Drahtmarkierung gesteuert durch das angegebene bildgebende Verfahren durchgeführt.
+        /// </summary>
         [XmlIgnore]
         public string PraeopDrahtmarkierung
         {
@@ -155,6 +188,11 @@ namespace AdtGekid.Module.Mamma
         [XmlIgnore]
         public bool PraeopDrahtmarkierungEnumValueSpecified => _praeopDrahtmarkierung.HasValue;
 
+        /// <summary>
+        /// Intraoperatives Präparatröntgen/Sonographie:
+        /// Angabe ob Präparat intraoperativ mammografiert/sonografiert nach präoperativer 
+        /// Drahtmarkierung durch Mammografie oder Sonographie
+        /// </summary>
         [XmlIgnore]
         public string IntraopPraeparatkontrolle 
         {
@@ -183,6 +221,10 @@ namespace AdtGekid.Module.Mamma
         public bool IntraopPraeparatkontrolleEnumValueSpecified => _intraopPraeparatkontrolle.HasValue;
 
 
+        /// <summary>
+        /// Maximaler Durchmesser des invasiven Karzinoms in mm. 
+        /// Bei mehreren Herden ist der größte Durchmesser anzugeben.
+        /// </summary>
         [XmlElement("TumorgroesseInvasiv", Order = 7)]
         public string TumorgroesseInvasiv
         {
@@ -196,6 +238,9 @@ namespace AdtGekid.Module.Mamma
             }           
         }
 
+        /// <summary>
+        /// Maximaler Durchmesser des DCIS in mm, wenn kein invasiver Anteil vorliegt.
+        /// </summary>
         [XmlElement("TumorgroesseDCIS", Order = 8)]
         public string TumorgroesseDCIS
         {

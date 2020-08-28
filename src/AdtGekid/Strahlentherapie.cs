@@ -29,6 +29,8 @@ using AdtGekid.Validation;
 
 namespace AdtGekid
 {
+    using Module;
+
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungST", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class Strahlentherapie
@@ -45,7 +47,7 @@ namespace AdtGekid
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 7)]
+        [XmlElement("Anmerkung", Order = 8)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -141,5 +143,11 @@ namespace AdtGekid
         }
 
         public bool StellungOpEnumValueSpecified => StellungOpEnumValue.HasValue;
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 9)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
     }
 }

@@ -57,8 +57,11 @@
     <Compile Include="HistoGrading.cs" />
     <Compile Include="IcdVersionTyp.cs" />
     <Compile Include="Meldebegruendung.cs" />
-    <Compile Include="Module\Mamma\Mamma.cs" />
-    <Compile Include="Module\Mamma\MammaEnums.cs" />
+    <Compile Include="Module\Allgemein.cs" />
+    <Compile Include="Module\Darm.cs" />
+    <Compile Include="Module\DarmEnums.cs" />
+    <Compile Include="Module\Mamma.cs" />
+    <Compile Include="Module\MammaEnums.cs" />
     <Compile Include="MorphologieIcdOVersion.cs" />
     <Compile Include="NebenwirkungEnums.cs" />
     <Compile Include="OpIntention.cs" />
@@ -138,11 +141,7 @@
   <ItemGroup>
     <Content Include="readme.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Module\Allgemein\" />
-    <Folder Include="Module\Kolorektal\" />
-    <Folder Include="Module\Prostata\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -29,7 +29,7 @@ using AdtGekid.Validation;
 
 namespace AdtGekid
 {
-    using Module.Mamma;
+    using Module;
 
     /// <summary>
     /// Enthält Daten zu einer Tumordiagnose.
@@ -80,7 +80,7 @@ namespace AdtGekid
             }
         }
 
-        [XmlElement("Allgemeiner_Leistungszustand", Order = 17)]
+        [XmlElement("Allgemeiner_Leistungszustand", Order = 19)]
         public AllgemeinerLeistungszustandTyp? AllgemeinerLeistungszustandEnumValue
         {
             get { return _allgemeinerLeistungszustand; }
@@ -93,7 +93,7 @@ namespace AdtGekid
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 18)]
+        [XmlElement("Anmerkung", Order = 20)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -198,8 +198,24 @@ namespace AdtGekid
         [XmlArray("Menge_Weitere_Klassifikation", Order = 15)]
         public WeitereKlassifikation[] WeitereKlassifikationen { get; set; }
 
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Mamma-Tumoren
+        /// </summary>
         [XmlElement("Modul_Mamma", Order = 16)]
-        public ModulMamma ModulMamma { get; set; }
+        public ModulMamma ModulMammaSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Darm-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Darm", Order = 17)]
+        public ModulDarm ModulDarmSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 18)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
 
 
         /// <summary>

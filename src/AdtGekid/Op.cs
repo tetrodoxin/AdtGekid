@@ -34,6 +34,9 @@ using System.Collections.ObjectModel;
 
 namespace AdtGekid
 {
+
+    using Module;
+
     /// <summary>
     /// Daten zu einer operativen Therapie.
     /// </summary>
@@ -52,16 +55,7 @@ namespace AdtGekid
 
         private string _typeName = "Operation";
 
-        /// <summary>
-        /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
-        /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
-        /// </summary>
-        [XmlElement("Anmerkung", Order = 10)]
-        public string Anmerkung
-        {
-            get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
-        }
+      
 
         /// <summary>
         /// Histologische Daten nach der Operation, sofern vorhanden.
@@ -102,7 +96,7 @@ namespace AdtGekid
         /// Liste der Operateure.
         /// </summary>
         [XmlArrayItem("Name_Operateur", IsNullable = false)]
-        [XmlArray("Menge_Operateur", Order = 9)]
+        [XmlArray("Menge_Operateur", Order = 12)]
         public Collection<string> Operateure
         {
             get { return _operateure; }
@@ -207,5 +201,36 @@ namespace AdtGekid
         /// </summary>
         [XmlElement("Residualstatus", Order = 7)]
         public ResidualstatusTyp Residualstatus { get; set; }
+
+        
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Mamma-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Mamma", Order = 9)]
+        public ModulMamma ModulMammaSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Darm-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Darm", Order = 10)]
+        public ModulDarm ModulDarmSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 11)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
+
+        /// <summary>
+        /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
+        /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
+        /// </summary>
+        [XmlElement("Anmerkung", Order = 13)]
+        public string Anmerkung
+        {
+            get { return _anmerkung; }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
+        }
+
     }
 }

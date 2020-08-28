@@ -170,3 +170,6 @@ $RECYCLE.BIN/
 /.vs/AdtGekid/v15/Server/sqlite3/db.lock
 /.vs/AdtGekid/v16/TestStore/1/testlog.manifest
 /.vs/AdtGekid/v16/TestStore/1/119.testlog
+/.vs/AdtGekid/v16/TestStore/1/191.testlog
+/.vs/AdtGekid/v16/TestStore/1/192.testlog
+/src/AdtGekid.Tests/ADT_GEKID_v2_1_1.cs

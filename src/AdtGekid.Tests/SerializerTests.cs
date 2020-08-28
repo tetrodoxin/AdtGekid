@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 
 namespace AdtGekid.Tests
 {
-    using Module.Mamma;
+    using Module;
 
     public class SerializerTests
     {
@@ -782,19 +782,94 @@ namespace AdtGekid.Tests
                                                 Stadium = "ABC"
                                             }
                                         },
-                                        ModulMamma = new ModulMamma()
+                                        ModulMammaSection = new ModulMamma()
                                         {
                                             PraethMenopausenstatusEnumValue = MammaPraethMenospausenstatus.PraeAndPerimenopausal
-                                            , HormonrezeptorStatusOestrogenEnumValue = MammaHormonrezeptor.P
-                                            , HormonrezeptorStatusProgesteronEnumValue = MammaHormonrezeptor.N
-                                            , IntraopPraeparatkontrolleEnumValue = MammaIntraopPraeparatkontrolle.U
-                                            , PraeopDrahtmarkierungEnumValue = MammaPraeopDrahtmarkierung.U
+                                            , HormonrezeptorStatusOestrogenEnumValue = MammaHormonrezeptor.Positiv
+                                            , HormonrezeptorStatusProgesteronEnumValue = MammaHormonrezeptor.Negativ
+                                            , IntraopPraeparatkontrolleEnumValue = MammaIntraopPraeparatkontrolle.Unbekannt
+                                            , PraeopDrahtmarkierungEnumValue = MammaPraeopDrahtmarkierung.Unbekannt
                                             , TumorgroesseInvasiv = "23"
                                             , TumorgroesseDCIS = "19"
 
                                         }
                                     },
-                                                                                                                                 
+
+                                },
+                                new Meldung()
+                                {
+                                    Anmerkung = "Meldung mit Modul Darm",
+                                    Anlass = Meldeanlass.Diagnose,
+                                    Datum = "28.08.2020",
+                                    MelderId = "ID264",
+                                    Id = "Meldung3269",
+                                    Begruendung = "I",
+                                    Tumorzuordnung = new Tumorzuordnung()
+                                    {
+                                        Id = "tum279",
+                                        Diagnosedatum = "23.06.2019",
+                                        IcdCode = "C20",
+                                        Seitenlokalisation = "T"
+                                    },
+                                    Diagnose = new Diagnose()
+                                    {
+                                        Id = "tum278",
+                                        Datum = new DatumTyp("23.06.2019"),
+                                        IcdCode = "C20",
+                                        //IcdVersion = "GM_10_2014",
+                                        IcdVersion = "10 2018 GM",
+                                        Text = "Diagnosetext Darm",
+                                        IcdoCode = "C20.9",
+
+                                        IcdoVersion = "32",
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item32,
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item31,
+                                        IcdoFreitext = "str1234",
+                                        Anmerkung = "Diagnoseanmerkung",
+                                        //AllgemeinerLeistungszustandEnumValue = AllgemeinerLeistungszustandTyp.NotSpecified,
+                                        AllgemeinerLeistungszustand = "70%",
+                                        FruehereTumorerkrankungen = new FruehereTumorerkrankung[]
+                                        {
+                                            new FruehereTumorerkrankung()
+                                            {
+
+                                                Freitext = "Melanom",
+                                                IcdCode = "C43.7",
+                                                IcdVersion = "Sonstige",
+                                                Diagnosedatum = "01.01.1999"
+                                            }
+                                        },
+                                        Seitenlokalisation = "T",
+                                        Diagnosesicherung = "2",
+                                        Histologien = new HistologieTyp[]
+                                        {
+                                            new HistologieTyp()
+                                            {
+                                                Id = "histo02",
+                                                Datum = "18.06.2019",
+                                                EinsendeNr = "str20190610",
+                                                Code = "8140/3",
+                                                IcdOVersion = "32",
+                                                Freitext = "Adenokarzinom o.n.A.",
+                                                Grading = "2",
+                                            }
+                                        },
+                                        ModulDarmSection = new ModulDarm()
+                                        {
+                                            RektumAbstandAnokutanlinie = "95",
+                                            RektumAbstandAboralerResektionsrand = "20",
+                                            RektumAbstandCircResektionsebene = "2",
+                                            RektumQualitaetTME = "P",
+                                            //RektumQualitaetTMEEnumValue = DarmRektumQualitaetTME.PME
+                                            RektumMRTDuennschichtAngabemesorektaleFaszie = "D",
+                                            //ArtEingriffEnumValue = DarmArtEingriff.Elektiv,
+                                            ArtEingriff = "E",
+                                            //RektumAnzeichnungStomapositionEnumValue = DarmRektumAnzeichnungStomaposition.Durchgefuehrt
+                                            RektumAnzeichnungStomaposition = "D"
+                                            
+                                        }
+                                    },
+
                                 }
                             }
                         }

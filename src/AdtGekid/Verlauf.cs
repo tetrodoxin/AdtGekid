@@ -29,6 +29,8 @@ using AdtGekid.Validation;
 
 namespace AdtGekid
 {
+    using Module;
+
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungVerlauf", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class Verlauf
@@ -76,7 +78,7 @@ namespace AdtGekid
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 12)]
+        [XmlElement("Anmerkung", Order = 13)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -214,5 +216,12 @@ namespace AdtGekid
         }
 
         public bool TumorstatusLymphknotenEnumValueSpecified => TumorstatusLymphknotenEnumValue.HasValue;
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 12)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
+
     }
 }

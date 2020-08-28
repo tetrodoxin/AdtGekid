@@ -31,6 +31,8 @@ using System.Collections.ObjectModel;
 
 namespace AdtGekid
 {
+    using Module;
+
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungSYST", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class SystemischeTherapie
@@ -50,7 +52,7 @@ namespace AdtGekid
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 12)]
+        [XmlElement("Anmerkung", Order = 13)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -216,5 +218,11 @@ namespace AdtGekid
             get { return _therapieartAnmerkung; }
             set { _therapieartAnmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.TherapieartAnmerkung)); }
         }
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 12)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
     }
 }
