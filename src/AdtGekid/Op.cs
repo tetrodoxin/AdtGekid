@@ -36,6 +36,7 @@ namespace AdtGekid
 {
 
     using Module;
+    using Module.Prostata;
 
     /// <summary>
     /// Daten zu einer operativen Therapie.
@@ -96,7 +97,7 @@ namespace AdtGekid
         /// Liste der Operateure.
         /// </summary>
         [XmlArrayItem("Name_Operateur", IsNullable = false)]
-        [XmlArray("Menge_Operateur", Order = 12)]
+        [XmlArray("Menge_Operateur", Order = 13)]
         public Collection<string> Operateure
         {
             get { return _operateure; }
@@ -216,16 +217,22 @@ namespace AdtGekid
         public ModulDarm ModulDarmSection { get; set; }
 
         /// <summary>
+        /// Bereich mit spezifischen Angaben zu Prostata-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Prostata", Order = 11)]
+        public ModulProstata ModulProstataSection { get; set; }
+
+        /// <summary>
         /// Bereich mit bestimmten Entitäten übergreifenden Angaben
         /// </summary>
-        [XmlElement("Modul_Allgemein", Order = 11)]
+        [XmlElement("Modul_Allgemein", Order = 12)]
         public ModulAllgemein ModulAllgemeinSection { get; set; }
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 13)]
+        [XmlElement("Anmerkung", Order = 14)]
         public string Anmerkung
         {
             get { return _anmerkung; }

@@ -14,7 +14,7 @@ namespace AdtGekid.Module
     /// </summary>    
     [Serializable()]
     [XmlType("Modul_Mamma_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public partial class ModulMamma
+    public class ModulMamma
     {
         private MammaPraethMenospausenstatus? _praethMenopausenstatus;
 
@@ -32,7 +32,7 @@ namespace AdtGekid.Module
 
         private string _tumorgroesseDCIS;
 
-        private string _typeName = "ModulMamma";
+        private string _typeName = nameof(ModulMamma);
 
         /// <summary>
         /// Prätherapeutischer Menopausenstatus der Patientin
@@ -43,7 +43,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string PraethMenopausenstatus
         {
-            get { return _praethMenopausenstatus.ToString(); }
+            get { return _praethMenopausenstatus?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
@@ -68,7 +68,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string HormonrezeptorStatusOestrogen 
         {
-            get { return _hormonrezeptorStatusOestrogen.ToString(); }
+            get { return _hormonrezeptorStatusOestrogen?.ToString(); }
             set
             {
                 if (!value.IsNothing())
@@ -102,7 +102,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string HormonrezeptorStatusProgesteron
         {
-            get { return _hormonrezeptorStatusProgesteron.ToString(); }
+            get { return _hormonrezeptorStatusProgesteron?.ToString(); }
             set
             {
                 if (!value.IsNothing())
@@ -133,7 +133,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string Her2neuStatus
         {
-            get { return _her2neuStatus.ToString(); }
+            get { return _her2neuStatus?.ToString(); }
             set
             {
                 if (!value.IsNothing())
@@ -164,7 +164,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string PraeopDrahtmarkierung
         {
-            get { return _praeopDrahtmarkierung.ToString(); }
+            get { return _praeopDrahtmarkierung?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
@@ -196,7 +196,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string IntraopPraeparatkontrolle 
         {
-            get { return _intraopPraeparatkontrolle.ToString(); }
+            get { return _intraopPraeparatkontrolle?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())

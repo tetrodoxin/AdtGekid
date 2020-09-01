@@ -34,10 +34,7 @@ namespace AdtGekid
         ///     Item2 = 2
         ///     [XmlEnum("3")]
         ///     Item3 = 3,
-        /// }
-        /// <summary>
-        /// Default (keine XML-Repräsentation!)
-        /// </summary>        
+        /// }          
         /// </code>
         /// </example>
         /// <typeparam name="TEnum">Der Typ der Enumeration</typeparam>

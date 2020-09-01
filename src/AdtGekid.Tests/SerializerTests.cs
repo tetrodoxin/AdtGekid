@@ -11,14 +11,15 @@ using System.Collections.ObjectModel;
 namespace AdtGekid.Tests
 {
     using Module;
+    using Module.Prostata;
 
     public class SerializerTests
     {
-        public const string SchemaFileName = @"ADT_GEKID_v2.0.0.xsd";
+        //public const string SchemaFileName = @"ADT_GEKID_v2.0.0.xsd";
+        public const string SchemaFileName = @"ADT_GEKID_v2.1.1.xsd";
 
-       
-        [Fact]
-    
+
+        [Fact]    
         public void Serialize()
         {
             string outputFileName = "serializer_output.xml";
@@ -284,8 +285,6 @@ namespace AdtGekid.Tests
 
         private static Root createTestRootObject()
         {
-
-
             return new Root()
             {
                 SchemaVersion = "2.0.0",
@@ -859,14 +858,95 @@ namespace AdtGekid.Tests
                                             RektumAbstandAnokutanlinie = "95",
                                             RektumAbstandAboralerResektionsrand = "20",
                                             RektumAbstandCircResektionsebene = "2",
-                                            RektumQualitaetTME = "P",
-                                            //RektumQualitaetTMEEnumValue = DarmRektumQualitaetTME.PME
+                                            //RektumQualitaetTME = "P",
+                                            RektumQualitaetTMEEnumValue = DarmRektumQualitaetTME.PME,
                                             RektumMRTDuennschichtAngabemesorektaleFaszie = "D",
                                             //ArtEingriffEnumValue = DarmArtEingriff.Elektiv,
                                             ArtEingriff = "E",
                                             //RektumAnzeichnungStomapositionEnumValue = DarmRektumAnzeichnungStomaposition.Durchgefuehrt
                                             RektumAnzeichnungStomaposition = "D"
-                                            
+                                        },
+                                    },
+
+                                },
+                                new Meldung()
+                                {
+                                    Anmerkung = "Meldung mit Modul Prostata",
+                                    Anlass = Meldeanlass.Diagnose,
+                                    Datum = "31.08.2020",
+                                    MelderId = "ID264",
+                                    Id = "Meldung3270",
+                                    Begruendung = "I",
+                                    Tumorzuordnung = new Tumorzuordnung()
+                                    {
+                                        Id = "tum280",
+                                        Diagnosedatum = "14.11.2019",
+                                        IcdCode = "C61",
+                                        Seitenlokalisation = "T"
+                                    },
+                                    Diagnose = new Diagnose()
+                                    {
+                                        Id = "tum278",
+                                        Datum = new DatumTyp("14.11.2019"),
+                                        IcdCode = "C61",
+                                        //IcdVersion = "GM_10_2014",
+                                        IcdVersion = "10 2018 GM",
+                                        Text = "Diagnosetext Prostata",
+                                        IcdoCode = "C61.9",
+
+                                        IcdoVersion = "32",
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item32,
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item31,
+                                        IcdoFreitext = "str1234",
+                                        Anmerkung = "Diagnoseanmerkung Prostata",
+                                        //AllgemeinerLeistungszustandEnumValue = AllgemeinerLeistungszustandTyp.NotSpecified,
+                                        AllgemeinerLeistungszustand = "100%",
+                                        FruehereTumorerkrankungen = new FruehereTumorerkrankung[]
+                                        {
+                                            new FruehereTumorerkrankung()
+                                            {
+
+                                                Freitext = "Melanom",
+                                                IcdCode = "C43.7",
+                                                IcdVersion = "Sonstige",
+                                                Diagnosedatum = "01.01.1999"
+                                            }
+                                        },
+                                        Seitenlokalisation = "T",
+                                        Diagnosesicherung = "2",
+                                        Histologien = new HistologieTyp[]
+                                        {
+                                            new HistologieTyp()
+                                            {
+                                                Id = "histo02",
+                                                Datum = "14.11.2019",
+                                                EinsendeNr = "str20191114",
+                                                Code = "8140/3",
+                                                IcdOVersion = "32",
+                                                Freitext = "Adenokarzinom o.n.A.",
+                                                Grading = "2",
+                                            }
+                                        },
+                                        ModulProstataSection = new ModulProstata()
+                                        {
+                                            GleasonScore = new ProstataGleasonScore()
+                                            {
+                                                GleasonGradPrimaer = "4",
+                                                GleasonGradSekundaer = "3",
+                                                GleasonScoreErgebnis = "7"
+                                            },
+                                            AnlassGleasonScoreEnumValue = ProstataAnlassGleasonScore.OP,
+                                            DatumStanzen = new System.DateTime(2019,11,10),
+                                            AnzahlPositiveStanzen = 4,
+                                            AnzahlStanzen = 12,
+                                            PSA = new decimal(40.3),
+                                            DatumPSA =  new System.DateTime(2019,11,10),
+                                            KomplikationPostOp = JnuTyp.Nein
+                                        },
+                                        ModulAllgemeinSection = new ModulAllgemein()
+                                        {
+                                            DatumSozialdienstkontakt = new DatumNuTyp("03.07.2020"),
+                                            DatumStudienrekrutierung = new DatumNuTyp("15.08.2020")
                                         }
                                     },
 

@@ -33,7 +33,7 @@ namespace AdtGekid.Module
         Postmenopausal = 3,
 
         /// <summary>
-        /// Wert = U
+        /// Unbekannt (Wert = U)
         /// </summary>
         [XmlEnum("U")]
         Unbekannt,

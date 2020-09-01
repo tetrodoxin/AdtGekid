@@ -48,6 +48,7 @@
     <Compile Include="Absender.cs" />
     <Compile Include="Adresse.cs" />
     <Compile Include="AllgemeinerLeistungszustandTyp.cs" />
+    <Compile Include="DatumNuTyp.cs" />
     <Compile Include="DatumTyp.cs" />
     <Compile Include="Diagnosesicherung.cs" />
     <Compile Include="EnumStaticHelpers.cs" />
@@ -62,6 +63,10 @@
     <Compile Include="Module\DarmEnums.cs" />
     <Compile Include="Module\Mamma.cs" />
     <Compile Include="Module\MammaEnums.cs" />
+    <Compile Include="Module\Prostata\Prostata.cs" />
+    <Compile Include="Module\Prostata\ProstataCaBefallStanze.cs" />
+    <Compile Include="Module\Prostata\ProstataEnums.cs" />
+    <Compile Include="Module\Prostata\ProstataGleasonScore.cs" />
     <Compile Include="MorphologieIcdOVersion.cs" />
     <Compile Include="NebenwirkungEnums.cs" />
     <Compile Include="OpIntention.cs" />

@@ -9,13 +9,12 @@ namespace AdtGekid.Module
 {
     using Validation;
 
-
     /// <summary>
     /// Enthält spezifische Daten zum Darm-Tumoren (Kolorektal-Ca.)
     /// </summary>
     [Serializable()]
     [XmlType("Modul_Darm_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public partial class ModulDarm
+    public class ModulDarm
     {
         private string _rektumAbstandAnokutanlinie;
 
@@ -37,7 +36,7 @@ namespace AdtGekid.Module
 
         private DarmRASMutation? _mutationRAS;
 
-        private string _typeName = "ModulDarm";
+        private string _typeName = nameof(ModulDarm);
 
         /// <summary>
         /// Höhe des Sitzes des Rektumkarzinoms ab Anokutanlinie bei Rektum-Ca.
@@ -94,7 +93,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string RektumQualitaetTME
         {
-            get { return _rektumQualitaetTME.ToString(); }
+            get { return _rektumQualitaetTME?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
@@ -143,7 +142,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string ArtEingriff
         {
-            get { return _artEingriff.ToString(); }
+            get { return _artEingriff?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
@@ -173,7 +172,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string RektumAnzeichnungStomaposition
         {
-            get { return _rektumAnzeichnungStomaposition.ToString(); }
+            get { return _rektumAnzeichnungStomaposition?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
@@ -207,7 +206,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string RektumGradAnastomoseninsuffizienz
         {
-            get { return _rektumGradAnastomoseninsuffizienz.ToString(); }
+            get { return _rektumGradAnastomoseninsuffizienz?.ToString(); }
             set
             {
                 if (!value.IsNothing())
@@ -237,7 +236,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string KlassifizierungASA
         {
-            get { return _klassifizierungASA.ToString(); }
+            get { return _klassifizierungASA?.ToString("d"); }
             set
             {
                 if (!value.IsNothing())
@@ -268,7 +267,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string RASMutation
         {
-            get { return _mutationRAS.ToString(); }
+            get { return _mutationRAS?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())

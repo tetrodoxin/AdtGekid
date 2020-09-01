@@ -30,6 +30,7 @@ using AdtGekid.Validation;
 namespace AdtGekid
 {
     using Module;
+    using Module.Prostata;
 
     /// <summary>
     /// Enthält Daten zu einer Tumordiagnose.
@@ -80,7 +81,7 @@ namespace AdtGekid
             }
         }
 
-        [XmlElement("Allgemeiner_Leistungszustand", Order = 19)]
+        [XmlElement("Allgemeiner_Leistungszustand", Order = 20)]
         public AllgemeinerLeistungszustandTyp? AllgemeinerLeistungszustandEnumValue
         {
             get { return _allgemeinerLeistungszustand; }
@@ -93,7 +94,7 @@ namespace AdtGekid
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 20)]
+        [XmlElement("Anmerkung", Order = 21)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -212,9 +213,15 @@ namespace AdtGekid
         public ModulDarm ModulDarmSection { get; set; }
 
         /// <summary>
+        /// Bereich mit spezifischen Angaben zu Prostata-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Prostata", Order = 18)]
+        public ModulProstata ModulProstataSection { get; set; }
+
+        /// <summary>
         /// Bereich mit bestimmten Entitäten übergreifenden Angaben
         /// </summary>
-        [XmlElement("Modul_Allgemein", Order = 18)]
+        [XmlElement("Modul_Allgemein", Order = 19)]
         public ModulAllgemein ModulAllgemeinSection { get; set; }
 
 

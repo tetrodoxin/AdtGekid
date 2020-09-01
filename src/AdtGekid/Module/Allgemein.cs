@@ -13,18 +13,20 @@ namespace AdtGekid.Module
     /// </summary>
     [Serializable()]
     [XmlType("Modul_Allgemein_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public partial class ModulAllgemein
+    public class ModulAllgemein
     {
         /// <summary>
         /// Datum des ersten Sozialdienstkontaktes im Rahmen der Erst- oder Rezidivbehandlung
-        /// </summary>
-        public DatumTyp DatumSozialdienstkontakt { get; set; }
+        /// </summary>        
+        [XmlElement("DatumSozialdienstkontakt", Order = 1)]
+        public DatumNuTyp DatumSozialdienstkontakt { get; set; }
 
 
         /// <summary>
-        /// Teilnahme an einer Studie mit Ethikvotum
+        /// Datum der Teilnahme an einer Studie mit Ethikvotum
         /// </summary>
-        public DatumTyp DatumStudienrekrutierung { get; set; }     
+        [XmlElement("DatumStudienrekrutierung", Order = 2)]
+        public DatumNuTyp DatumStudienrekrutierung { get; set; }     
     }
 
 }

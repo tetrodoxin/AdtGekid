@@ -245,6 +245,37 @@ namespace AdtGekid.Validation
         public static string ValidateOrThrow(this string value, string regexPattern, string validatedAdtObject = null, string validatedAdtField = null)
             => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, regexPattern, validatedAdtObject, validatedAdtField);
 
-              
-   }
+
+        /// <summary>
+        /// Prüft ob ein <see cref="int"/>-Wert innerhalb des angegebenen Bereichs ist,
+        /// wobei <paramref name="minInclusive"/> und <paramref name="maxInclusive"/> eingeschlossen werden
+        /// </summary>
+        /// <param name="val">Der zu prüfende Wert</param>
+        /// <param name="minInclusive">Der Startwert</param>
+        /// <param name="maxInclusive">Der Maximalwert</param>        
+        /// <returns>Den Wert, wenn er innerhalb des angegebenen Bereichs liegt</returns>
+        public static int BetweenOrThrow(this int val, int minInclusive, int maxInclusive)
+        {            
+            if (!(val.CompareTo(minInclusive) >= 0 && val.CompareTo(maxInclusive) <= 0))
+                 throw new ValidationArgumentException($"Der Wert {val} liegt außerhalb des angegebenen Bereichs von {minInclusive} und {maxInclusive}");
+
+            return val;
+        }
+
+        /// <summary>
+        /// Prüft ob ein <see cref="int"/>-Wert innerhalb des angegebenen Bereichs ist,
+        /// wobei <paramref name="min"/> und <paramref name="max"/> eingeschlossen werden
+        /// </summary>
+        /// <param name="val">Der zu prüfende Wert</param>
+        /// <param name="min">Der Startwert</param>
+        /// <param name="max">Der Maximalwert</param>        
+        /// <returns>Den Wert, wenn er innerhalb des angegebenen Bereichs liegt</returns>
+        public static decimal BetweenOrThrow(this decimal val, decimal min, decimal max)
+        {
+            if (!(val.CompareTo(min) >= 0 && val.CompareTo(max) <= 0))
+                throw new ValidationArgumentException($"Der Wert {val} liegt außerhalb des angegebenen Bereichs von {min} und {max}");
+
+            return val;
+        }
+    }
 }

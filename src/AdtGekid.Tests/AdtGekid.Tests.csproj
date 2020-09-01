@@ -70,11 +70,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ADT_GEKID_v1.0.5.xsd">
+    <None Include="ADT_GEKID_v2.0.0.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ADT_GEKID_v2.0.0.xsd">
+    <None Include="ADT_GEKID_v2.1.1.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

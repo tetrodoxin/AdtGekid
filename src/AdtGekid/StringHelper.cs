@@ -113,5 +113,16 @@ namespace AdtGekid
                 return null;
             }
         }
+
+        /// <summary>
+        /// Prüft ob die angegebene Zeichenfolge mit dem Typ <see cref="int"/> 
+        /// kompatibel ist.
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool IsIntegerCompatible(this string str)
+        {
+            return int.TryParse(str, out _);
+        }
     }
 }
