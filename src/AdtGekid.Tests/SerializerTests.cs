@@ -797,11 +797,134 @@ namespace AdtGekid.Tests
                                 },
                                 new Meldung()
                                 {
+                                    Anmerkung = "Schnellere Meldung",
+                                    Anlass = Meldeanlass.Diagnose,
+                                    Datum = "13.05.2018",
+                                    MelderId = "ID264",
+                                    Id = "Meldung3269",
+                                    Begruendung = "I",
+                                    Tumorzuordnung = new Tumorzuordnung()
+                                    {
+                                        Id = "tum279",
+                                        Diagnosedatum = "28.09.2017",
+                                        IcdCode = "C50.1",
+                                        Seitenlokalisation = "T"
+                                    },
+                                    Diagnose = new Diagnose()
+                                    {
+                                        Id = "tum278",
+                                        Datum = new DatumTyp("28.09.2017"),
+                                        IcdCode = "C50.1",
+                                        //IcdVersion = "GM_10_2014",
+                                        IcdVersion = "10 2017 GM",
+                                        Text = "Diagnosetext Mamma2",
+                                        IcdoCode = "C50.1",
+
+                                        IcdoVersion = "32",
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item32,
+                                        //IcdoVersionEnumValue = TopographieIcdOVersionTyp.Item31,
+                                        IcdoFreitext = "ICD-O-Freitext",
+                                        Anmerkung = "Diagnoseanmerkung",
+                                        //AllgemeinerLeistungszustandEnumValue = AllgemeinerLeistungszustandTyp.NotSpecified,
+                                        AllgemeinerLeistungszustand = "90%",
+                                        FruehereTumorerkrankungen = new FruehereTumorerkrankung[]
+                                        {
+                                            new FruehereTumorerkrankung()
+                                            {
+
+                                                Freitext = "Melanom",
+                                                IcdCode = "C43.7",
+                                                IcdVersion = "Sonstige",
+                                                Diagnosedatum = "01.01.1999"
+                                            }
+                                        },
+                                        Seitenlokalisation = "T",
+                                        Diagnosesicherung = "2",
+                                        Histologien = new HistologieTyp[]
+                                        {
+                                            new HistologieTyp()
+                                            {
+                                                Id = "histo01",
+                                                Datum = "10.07.2017",
+                                                EinsendeNr = "str987654",
+                                                Code = "8480/3",
+                                                IcdOVersion = "32",
+                                                Freitext = "str987654",
+                                                Grading = "2",
+                                                LkUntersucht = 33,
+                                                LkBefallen = 34,
+                                                SentinelLkUntersucht = 35,
+                                                SentinelLkBefallen = 36
+                                            }
+                                        },
+                                        TnmKlassifizierungKlinisch = new TnmTyp()
+                                        {
+                                                Datum = "20.09.2017",
+                                                Version = 7,
+                                                SymbolY = null,
+                                                SymbolR = "r",
+                                                SymbolA = "",
+                                                PraefixT = "c",
+                                                T = "T1c",
+                                                SymbolM = "",
+                                                PraefixN = "p",
+                                                N = "N0",
+                                                PraefixM = "u",
+                                                M = "M1",
+                                                L = "",
+                                                V = "",
+                                                Pn = "",
+                                                S = ""
+                                        },
+                                        TnmKlassifizierungPathologisch = new TnmTyp()
+                                        {
+                                                Datum = "23.10.2017",
+                                                Version = 7,
+                                                SymbolY = null,
+                                                SymbolR = null,
+                                                SymbolA = null,
+                                                PraefixT = "p",
+                                                T = "T1a",
+                                                SymbolM = null,
+                                                PraefixN = "p",
+                                                N = "N1",
+                                                PraefixM = "u",
+                                                M = null,
+                                                L = null,
+                                                V = null,
+                                                Pn = null,
+                                                S = null
+                                        },
+                                        WeitereKlassifikationen = new WeitereKlassifikation[]
+                                        {
+                                            new WeitereKlassifikation
+                                            {
+                                                Name = "Klasse 23",
+                                                Datum = "11.03.2013",
+                                                Stadium = "ABC"
+                                            }
+                                        },
+                                        ModulMammaSection = new ModulMamma()
+                                        {
+                                            PraethMenopausenstatus= "1"
+                                            , HormonrezeptorStatusOestrogen= "P"
+                                            , HormonrezeptorStatusProgesteron = "N"
+                                            , IntraopPraeparatkontrolle = "U"
+                                            , PraeopDrahtmarkierung = "U"
+                                            , TumorgroesseInvasiv = "23"
+                                            , TumorgroesseDCIS = "19"
+
+                                        }
+                                    },
+
+                                },
+                                new Meldung()
+                                {
                                     Anmerkung = "Meldung mit Modul Darm",
                                     Anlass = Meldeanlass.Diagnose,
                                     Datum = "28.08.2020",
                                     MelderId = "ID264",
-                                    Id = "Meldung3269",
+                                    Id = "Meldung3270",
                                     Begruendung = "I",
                                     Tumorzuordnung = new Tumorzuordnung()
                                     {
@@ -866,6 +989,11 @@ namespace AdtGekid.Tests
                                             //RektumAnzeichnungStomapositionEnumValue = DarmRektumAnzeichnungStomaposition.Durchgefuehrt
                                             RektumAnzeichnungStomaposition = "D"
                                         },
+                                        ModulAllgemeinSection = new ModulAllgemein()
+                                        {
+                                            DatumSozialdienstkontakt = new DatumNuTyp(DatumNuNonNumericValues.N),
+                                            DatumStudienrekrutierung = new DatumNuTyp(DatumNuNonNumericValues.U)
+                                        }
                                     },
 
                                 },
@@ -875,7 +1003,7 @@ namespace AdtGekid.Tests
                                     Anlass = Meldeanlass.Diagnose,
                                     Datum = "31.08.2020",
                                     MelderId = "ID264",
-                                    Id = "Meldung3270",
+                                    Id = "Meldung3271",
                                     Begruendung = "I",
                                     Tumorzuordnung = new Tumorzuordnung()
                                     {
@@ -941,7 +1069,86 @@ namespace AdtGekid.Tests
                                             AnzahlStanzen = 12,
                                             PSA = new decimal(40.3),
                                             DatumPSA =  new System.DateTime(2019,11,10),
-                                            KomplikationPostOp = JnuTyp.Nein
+                                            KomplikationPostOp = JnuTyp.Nein,
+                                            CaBefallStanze = new ProstataCaBefallStanze(80)                                                                                        
+                                        },
+                                        ModulAllgemeinSection = new ModulAllgemein()
+                                        {
+                                            DatumSozialdienstkontakt = new DatumNuTyp("03.07.2020"),
+                                            DatumStudienrekrutierung = new DatumNuTyp("15.08.2020")                                            
+                                        }
+                                    },
+                                },
+                                new Meldung()
+                                {
+                                    Anmerkung = "Meldung2 mit Modul Prostata",
+                                    Anlass = Meldeanlass.Diagnose,
+                                    Datum = "01.09.2020",
+                                    MelderId = "ID264",
+                                    Id = "Meldung3272",
+                                    Begruendung = "I",
+                                    Tumorzuordnung = new Tumorzuordnung()
+                                    {
+                                        Id = "tum280",
+                                        Diagnosedatum = "14.12.2019",
+                                        IcdCode = "C61",
+                                        Seitenlokalisation = "T"
+                                    },
+                                    Diagnose = new Diagnose()
+                                    {
+                                        Id = "tum279",
+                                        Datum = new DatumTyp("14.12.2019"),
+                                        IcdCode = "C61",                                        
+                                        IcdVersion = "10 2018 GM",
+                                        Text = "Diagnosetext Prostata2",
+                                        IcdoCode = "C61.9",
+
+                                        IcdoVersion = "32",                                        
+                                        IcdoFreitext = "str1234",
+                                        Anmerkung = "Diagnoseanmerkung Prostata2",                                        
+                                        AllgemeinerLeistungszustand = "70%",
+                                        FruehereTumorerkrankungen = new FruehereTumorerkrankung[]
+                                        {
+                                            new FruehereTumorerkrankung()
+                                            {
+
+                                                Freitext = "Melanom",
+                                                IcdCode = "C43.7",
+                                                IcdVersion = "Sonstige",
+                                                Diagnosedatum = "01.01.1999"
+                                            }
+                                        },
+                                        Seitenlokalisation = "T",
+                                        Diagnosesicherung = "2",
+                                        Histologien = new HistologieTyp[]
+                                        {
+                                            new HistologieTyp()
+                                            {
+                                                Id = "histo02",
+                                                Datum = "14.12.2019",
+                                                EinsendeNr = "str20191214",
+                                                Code = "8140/3",
+                                                IcdOVersion = "32",
+                                                Freitext = "Adenokarzinom o.n.A.",
+                                                Grading = "2",
+                                            }
+                                        },
+                                        ModulProstataSection = new ModulProstata()
+                                        {
+                                            GleasonScore = new ProstataGleasonScore()
+                                            {
+                                                GleasonGradPrimaer = "4",
+                                                GleasonGradSekundaer = "3",
+                                                GleasonScoreErgebnis = "7"
+                                            },
+                                            AnlassGleasonScoreEnumValue = ProstataAnlassGleasonScore.OP,
+                                            DatumStanzen = new System.DateTime(2019,11,10),
+                                            AnzahlPositiveStanzen = 4,
+                                            AnzahlStanzen = 12,
+                                            PSA = new decimal(40.3),
+                                            DatumPSA =  new System.DateTime(2019,11,10),
+                                            KomplikationPostOp = JnuTyp.Nein,
+                                            CaBefallStanze = new ProstataCaBefallStanze(ProstataCaBefallStanzeEnum.Unbekannt)                                                                                       
                                         },
                                         ModulAllgemeinSection = new ModulAllgemein()
                                         {

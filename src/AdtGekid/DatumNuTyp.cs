@@ -54,7 +54,7 @@ namespace AdtGekid
     }
 
 
-    /// <summary>
+    /// <summary>  
     /// Datentyp für DatumNU-Typen nach ADT_GEKID
     /// (z.B. für Datum Studienrekrutierung/Sozialdienstkontakt)
     /// Dient der geforderten Formatierung und der Vermeidung
@@ -71,6 +71,7 @@ namespace AdtGekid
         private const string DateFormatString = "dd.MM.yyyy";
         private DateTime? _date;
         private DatumNuNonNumericValues? _nonNumericValue;
+        private object _value;
 
 
         /// <summary>
@@ -79,25 +80,17 @@ namespace AdtGekid
         [XmlIgnore]
         public bool HasDateValue => _date.HasValue;
 
+        /// <summary>
+        /// Datums-Wert oder NU-Wert (Property für XML-Choice)
+        /// </summary>
         [XmlElement("Datum", typeof(System.DateTime), DataType = "date")]
         [XmlElement("NU", typeof(DatumNuNonNumericValues))]
-        public object Item
+        public object Value
         {
-            get
-            {
-                if (_date.HasValue)
-                    return _date.Value;
-                else if (_nonNumericValue.HasValue)
-                    return _nonNumericValue.Value;
-
-                return null;
-            }
-        }
-
-        [XmlIgnore]
-        public bool ItemSpecified => Item != null;
-
-        //[XmlElement("Datum")]
+            get { return _value; }
+            set { _value = value; }
+        }       
+       
         [XmlIgnore]
         public string Datum 
         { 
@@ -120,7 +113,8 @@ namespace AdtGekid
                 if (!value.IsNothing())
                 {
                     _nonNumericValue = value.TryParseAsEnumOrThrow<DatumNuNonNumericValues>(_typeName, nameof(this.NonNumericValue));
-                    _date = null;
+                    _value = _nonNumericValue;
+                    _date = null;                   
                 }
             } 
         }
@@ -129,8 +123,10 @@ namespace AdtGekid
         public DatumNuNonNumericValues? NonNumericValueEnum
         {
             get { return _nonNumericValue; } 
-            set { 
+            set 
+            { 
                 _nonNumericValue = value;
+                _value = value;
                 if (value != null)
                     _date = null;
             }
@@ -141,7 +137,7 @@ namespace AdtGekid
         /// Dies soll z.B. dann nicht geschehen, wenn das Datum vorhanden ist.
         /// </summary>
         [XmlIgnore]
-        public bool ExtendedValueSpecified => _nonNumericValue.HasValue && !_date.HasValue;
+        public bool NonNumericValueEnumSpecified => _nonNumericValue.HasValue && !_date.HasValue;
 
         /// <summary>
         /// Erstellt eine leere Instanz von <see cref="DatumNuTyp"/>.
@@ -150,15 +146,17 @@ namespace AdtGekid
         {
             _date = null;
             _nonNumericValue = null;
+            _value = null;
         }
 
         /// <summary>
         /// Erstellt eine neue Instanz von <see cref="DatumNuTyp"/> mit gegebenem Enumerations-Wert.
         /// </summary>
         /// <param name="date">Der zu verwendende Werts der Enumeration <see cref="DatumNuTyp"/></param>
-        public DatumNuTyp(DatumNuNonNumericValues extendedValue) : this()
+        public DatumNuTyp(DatumNuNonNumericValues nonNumericValue) : this()
         {            
-            _nonNumericValue = extendedValue;
+            _nonNumericValue = nonNumericValue;
+            _value = nonNumericValue;
         }
 
         /// <summary>
@@ -168,6 +166,7 @@ namespace AdtGekid
         public DatumNuTyp(DateTime date) : this()
         {
             _date = date;
+            _value = date;
         }
 
         /// <summary>
@@ -191,7 +190,7 @@ namespace AdtGekid
             if (!string.IsNullOrEmpty(datumString))
             {
                 setDateFromString(datumString, true);
-            }
+            }          
         }
 
         /// <summary>
@@ -517,7 +516,8 @@ namespace AdtGekid
 
             try
             {
-                _date = new DateTime(nums[2], Math.Max(nums[1], 1), Math.Max(nums[0], 1));               
+                _date = new DateTime(nums[2], Math.Max(nums[1], 1), Math.Max(nums[0], 1));
+                _value = _date;
                 return true;
             }
             catch
