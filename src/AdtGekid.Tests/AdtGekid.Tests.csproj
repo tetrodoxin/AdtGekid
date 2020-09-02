@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FruehereTumorerkrankungTests.cs" />
     <Compile Include="DatumTypTests.cs" />
     <Compile Include="EnumHelperTests.cs" />
     <Compile Include="JnuTypTests.cs" />

@@ -14,7 +14,7 @@ namespace AdtGekid
     /// </summary>
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungDiagnoseFruehere_Tumorerkrankung", AnonymousType = true, Namespace = Root.GekidNamespace)]
-    public class FruehereTumorerkrankung
+    public class FruehereTumorerkrankung : IComparable
     {
 
         private string _freitext;
@@ -89,6 +89,39 @@ namespace AdtGekid
             set
             {
                 _diagnoseDatum = value;
+            }
+        }
+
+        int IComparable.CompareTo(object obj)
+        {
+            // Null-Instanzen zuerst (Diese
+            if (obj == null) return 1;
+
+            var otherFruehereErkrankung = obj as FruehereTumorerkrankung;
+
+            if (otherFruehereErkrankung != null)
+            {
+                // Wir vernachlässigen vorgeschriebene Sortierung bei
+                // Datumsangaben mit Schätzwerten z.B. 13.09.2020 tag-geschätzt und 13.09.2020
+                var diagDatum = (DateTime)this.Diagnosedatum;
+                var otherDiagdatum = (DateTime)otherFruehereErkrankung.Diagnosedatum;
+
+                if (diagDatum == otherDiagdatum)
+                {
+                    return 0;
+                }
+                else if (diagDatum < otherDiagdatum)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"Object is not of typ { nameof(FruehereTumorerkrankung) }");
             }
         }
     }

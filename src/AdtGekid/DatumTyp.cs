@@ -41,7 +41,7 @@ namespace AdtGekid
     /// </summary>
     /// <seealso cref="System.Xml.Serialization.IXmlSerializable" />
     /// <seealso cref="System.IEquatable{AdtGekid.DatumTyp}" />
-    public class DatumTyp : IXmlSerializable, IEquatable<DatumTyp>
+    public class DatumTyp : IXmlSerializable, IEquatable<DatumTyp>, IComparable<DatumTyp>
     {
         private const string DateFormatString = "dd.MM.yyyy";
         private DateTime? _date;
@@ -409,6 +409,39 @@ namespace AdtGekid
             {
                 var d = _date.Value;
                 return $"{(_dayUnknown ? 0 : d.Day):D2}.{(_monthUnknown ? 0 : d.Month):D2}.{d.Year:D4}";
+            }
+        }
+
+        int IComparable<DatumTyp>.CompareTo(DatumTyp other)
+        {
+            // Null-Instanzen zuerst (null wird vor aktueller Instanz sortiert
+            if (other == null) return 1;
+
+            var otherDatum = other as DatumTyp;
+
+            if (otherDatum != null)
+            {
+                // Wir vernachlässigen vorgeschriebene Sortierung bei
+                // Datumsangaben mit Schätzwerten z.B. 13.09.2020 tag-geschätzt und 13.09.2020
+                var diagDatum = (DateTime)this;
+                var otherDiagdatum = (DateTime)other;
+
+                if (diagDatum == otherDiagdatum)
+                {
+                    return 0;
+                }
+                else if (diagDatum < otherDiagdatum)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"Object is not of typ { nameof(FruehereTumorerkrankung) }");
             }
         }
     }

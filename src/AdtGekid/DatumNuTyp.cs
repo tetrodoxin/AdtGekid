@@ -542,6 +542,6 @@ namespace AdtGekid
         private string getDateString()
         {
            return _date.Value.ToString(DateFormatString);           
-        }
+        }      
     }
 }
