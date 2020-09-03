@@ -7,6 +7,8 @@ using System.Text;
 using Xunit;
 using Xunit.Extensions;
 
+using System.Collections;
+
 namespace AdtGekid.Tests
 {
     public class DatumTypTests
@@ -412,5 +414,174 @@ namespace AdtGekid.Tests
 
             Assert.False(o1 != o2);
         }
+
+        /// <summary>
+        /// Compare Greater Than test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareGt_Test()
+        {
+            var o1 = new DatumTyp(2017, 07, 19);
+            var o2 = new DatumTyp(2016, 07, 19);
+
+            Assert.True(o1 > o2);
+        }
+
+        /// <summary>
+        /// Compare Greater Than NEGATIVE test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareGt_Negative_Test()
+        {
+            var o1 = new DatumTyp(2016, 07, 20);
+            var o2 = new DatumTyp(2017, 07, 20);
+
+            Assert.False(o1 > o2);
+        }
+
+
+        /// <summary>
+        /// Compare Greater Than test with unknown month/day
+        /// </summary>
+        [Fact]
+        public void OperatorCompareGt_UnknownDay_Test()
+        {            
+            var o1 = new DatumTyp(new DateTime(2016, 07, 19), false, true);
+            var o2 = new DatumTyp(2016, 07, 19);
+
+            var o3 = new DatumTyp(new DateTime(2016, 07, 19), true, false);
+            var o4 = new DatumTyp(new DateTime(2016, 07, 19), false, true);
+
+            var o5 = new DatumTyp(new DateTime(2016, 07, 19), false, true);
+            var o6 = new DatumTyp(new DateTime(2016, 07, 19), false, false);
+
+            Assert.True(o1 > o2);
+            Assert.True(o3 > o4);
+            Assert.True(o5 > o6);
+        }
+     
+        /// <summary>
+        /// Compare Greater Than Equals Equals Test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareGte_Equals_Test()
+        {
+            var o1 = new DatumTyp(2017, 07, 20);
+            var o2 = new DatumTyp(2017, 07, 20);
+            var o3 = new DatumTyp(2017, 07, 20);
+            var o4 = new DatumTyp(2016, 07, 20);
+
+            Assert.True(o1 >= o2);
+            Assert.True(o3 >= o4);
+        }
+        
+        /// <summary>
+        /// Compare Greater Than Equals NEGATIVE Test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareGte_Negative_Test()
+        {
+            var o1 = new DatumTyp(2016, 07, 20);
+            var o2 = new DatumTyp(2017, 07, 20);
+
+            Assert.False(o1 >= o2);
+        }
+
+        /// <summary>
+        /// Compare Equals Test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareEq_Test()
+        {
+            var o1 = new DatumTyp(2017, 07, 20);
+            var o2 = new DatumTyp(2017, 07, 20);
+
+            Assert.True(o1 == o2);
+        }
+
+        /// <summary>
+        /// Compare Equals NEGATIVE Test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareEq_Negative_Test()
+        {
+            var o1 = new DatumTyp(2017, 07, 20);
+            var o2 = new DatumTyp(2016, 07, 20);
+
+            Assert.False(o1 == o2);
+        }
+
+        /// <summary>
+        /// Compare Lower Than test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareLt_Test()
+        {
+            var o1 = new DatumTyp(2016, 07, 19);
+            var o2 = new DatumTyp(2017, 07, 19);
+
+            Assert.True(o1 < o2);
+        }
+
+        /// <summary>
+        /// Compare Lower Than NEGATIVE test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareLt_Negative_Test()
+        {
+            var o1 = new DatumTyp(2017, 07, 20);
+            var o2 = new DatumTyp(2016, 07, 20);
+
+            Assert.False(o1 < o2);
+        }
+
+        /// <summary>
+        /// Compare Lower Than Equals Equals Test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareLte_Equals_Test()
+        {
+            var o1 = new DatumTyp(2017, 07, 20);
+            var o2 = new DatumTyp(2017, 07, 20);
+
+            var o3 = new DatumTyp(2016, 07, 20);
+            var o4 = new DatumTyp(2017, 07, 20);
+
+            Assert.True(o1 <= o2);    
+            Assert.True(o3 <= o4);
+        }
+           
+        /// <summary>
+        /// Compare Lower Than Equals NEGATIVE Test
+        /// </summary>
+        [Fact]
+        public void OperatorCompareLte_Negative_Test()
+        {
+            var o1 = new DatumTyp(2017, 07, 20);
+            var o2 = new DatumTyp(2016, 07, 20);
+
+            Assert.False(o1 <= o2);
+        }
+
+        /// <summary>
+        /// Compare Greater Than test with unknown month/day
+        /// </summary>
+        [Fact]
+        public void OperatorCompareLt_UnknownDay_Test()
+        {
+            var o1 = new DatumTyp(2016, 07, 19);            
+            var o2 = new DatumTyp(new DateTime(2016, 07, 19), false, true);
+
+            var o3 = new DatumTyp(new DateTime(2016, 07, 19), false, true);
+            var o4 = new DatumTyp(new DateTime(2016, 07, 19), true, false);
+
+            var o5 = new DatumTyp(new DateTime(2016, 07, 19), false, false);
+            var o6 = new DatumTyp(new DateTime(2016, 07, 19), false, true);
+
+            Assert.True(o1 < o2);
+            Assert.True(o3 < o4);
+            Assert.True(o5 < o6);
+        }
+
     }
 }
