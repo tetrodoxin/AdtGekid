@@ -82,7 +82,7 @@ namespace AdtGekid.Module.Prostata
 
 
         [XmlIgnore]
-        public bool AnlassGleasonScoreSpecified => _anlassGleasonScore.HasValue;
+        public bool AnlassGleasonScoreEnumValueSpecified => AnlassGleasonScoreEnumValue.HasValue;
 
 
 

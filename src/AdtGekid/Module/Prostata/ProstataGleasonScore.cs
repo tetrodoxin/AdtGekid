@@ -99,7 +99,7 @@ namespace AdtGekid.Module.Prostata
             set
             {
                 if (!value.IsNothing())
-                    _gleasonScoreErgebnis = value.TryParseAsEnumOrThrow<ProstataGleasonScoreErgebnis>(_typeName, nameof(GleasonScoreErgebnis));
+                    _gleasonScoreErgebnis = value.TryParseEnumByXmlEnumAttributeOrThrow<ProstataGleasonScoreErgebnis>(_typeName, nameof(GleasonScoreErgebnis));
             }
         }
 

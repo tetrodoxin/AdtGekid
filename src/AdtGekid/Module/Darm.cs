@@ -115,7 +115,7 @@ namespace AdtGekid.Module
         }
 
         [XmlIgnore]
-        public bool RektumQualitaetTMEEnumValueTMESpecified => _rektumQualitaetTME.HasValue;
+        public bool RektumQualitaetTMEEnumValueSpecified => _rektumQualitaetTME.HasValue;
 
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string RektumGradAnastomoseninsuffizienz
         {
-            get { return _rektumGradAnastomoseninsuffizienz?.ToString(); }
+            get { return _rektumGradAnastomoseninsuffizienz?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())

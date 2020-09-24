@@ -59,7 +59,7 @@ namespace AdtGekid
             get { return _zielgebiet.ToXmlEnumAttributeName(); }            
             set
             {
-                _zielgebiet = value.TryParseEnumByXmlEnumAttributeOrThrow<BestrahlungZielgebiet>();
+                _zielgebiet = value.TryParseEnumByXmlEnumAttributeOrThrow<BestrahlungZielgebiet>(nameof(Bestrahlung), nameof(Zielgebiet),true, false); ;
             }
         }
 

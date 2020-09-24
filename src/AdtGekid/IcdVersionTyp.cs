@@ -42,6 +42,33 @@ namespace AdtGekid
         [XmlEnum("Sonstige")]
         Sonstige = 1,
 
+        [XmlEnum("10 2004 GM")]
+        GM_10_2004 = 2004,
+
+        [XmlEnum("10 2005 GM")]
+        GM_10_2005 = 2005,
+
+        [XmlEnum("10 2006 GM")]
+        GM_10_2006 = 2006,
+
+        [XmlEnum("10 2007 GM")]
+        GM_10_2007 = 2007,
+
+        [XmlEnum("10 2008 GM")]
+        GM_10_2008 = 2008,
+
+        [XmlEnum("10 2009 GM")]
+        GM_10_2009 = 2009,
+
+        [XmlEnum("10 2010 GM")]
+        GM_10_2010 = 2010,
+
+        [XmlEnum("10 2011 GM")]
+        GM_10_2011 = 2011,
+
+        [XmlEnum("10 2012 GM")]
+        GM_10_2012 = 2012,
+        
         [XmlEnum("10 2013 GM")]
         GM_10_2013 = 2013,
 
@@ -61,6 +88,9 @@ namespace AdtGekid
         GM_10_2018 = 2018,
 
         [XmlEnum("10 2019 GM")]
-        GM_10_2019 = 2019
+        GM_10_2019 = 2019,
+
+        [XmlEnum("10 2020 GM")]
+        GM_10_2020 = 2020
     }
 }

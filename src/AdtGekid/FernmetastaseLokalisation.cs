@@ -38,6 +38,6 @@ namespace AdtGekid
 
         OTH,
 
-        G
+        GEN
     }
 }

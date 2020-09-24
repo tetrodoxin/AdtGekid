@@ -63,8 +63,8 @@ namespace AdtGekid
             
             ThrowIfNoEnumeration(typeof(TEnum));
 
-            if (value.IsNothing() && !allowNullOrEmpty)
-                throw new ArgumentException($"{validatedAdtObject}.{validatedAdtField} kann nicht null oder leer sein!");
+            if (!allowNullOrEmpty)
+                throwIfNullOrEmpty(value, validatedAdtObject, validatedAdtField);
          
             TEnum enumValue;
             var parsed = Enum.TryParse<TEnum>(value, ignoreCase, out enumValue);
@@ -84,10 +84,14 @@ namespace AdtGekid
             return enumValue;
         }
 
-        public static TEnum TryParseEnumByXmlEnumAttributeOrThrow<TEnum>(this string value, string validatedAdtObject = null, string validatedAdtField = null, bool ignoreCase = true)
+        public static TEnum TryParseEnumByXmlEnumAttributeOrThrow<TEnum>(this string value, string validatedAdtObject = null
+            , string validatedAdtField = null, bool ignoreCase = true, bool allowNullOrEmpty = true)
          where TEnum : struct
         {
             ThrowIfNoEnumeration(typeof(TEnum));
+
+            if (!allowNullOrEmpty)
+                throwIfNullOrEmpty(value, validatedAdtObject, validatedAdtField);
 
             foreach (var enVal in Enum.GetValues(typeof(TEnum)))
             {
@@ -187,6 +191,18 @@ namespace AdtGekid
         {
             if (!type.IsEnum)
                 throw new InvalidOperationException("Der angegebene Typ ist keine Enumeration!");
+        }
+
+        /// <summary>
+        /// Wirft eine <see cref="ArgumentException"/>
+        /// wenn der angegebene Wert leer oder <c>null</c> ist
+        /// </summary>
+        /// <param name="adtObject">Das entsprechende ADT-Object</param>
+        /// <param name="adtField">Das betroffene ADT-Feld</param>
+        private static void throwIfNullOrEmpty(this string currentValue, string adtObject, string adtField)
+        {
+            if (currentValue.IsNothing())
+                throw new ArgumentException($"{adtObject}.{adtField} kann nicht null oder leer sein!");
         }
              
     }

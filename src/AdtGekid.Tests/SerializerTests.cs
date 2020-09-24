@@ -542,7 +542,7 @@ namespace AdtGekid.Tests
                                                 {
                                                     BeginnDatum = "04.04.2015",
                                                     EndeDatum = "02.05.2015",
-                                                    Zielgebiet ="6.1.",
+                                                    Zielgebiet ="5.7.1.",
                                                     SeiteZielgebiet = "M",
                                                     Applikationsart = "K",
                                                     //Einzeldosis = "1GBq",
@@ -1138,8 +1138,8 @@ namespace AdtGekid.Tests
                                             GleasonScore = new ProstataGleasonScore()
                                             {
                                                 GleasonGradPrimaer = "4",
-                                                GleasonGradSekundaer = "3",
-                                                GleasonScoreErgebnis = "7"
+                                                GleasonGradSekundaer = "5",
+                                                GleasonScoreErgebnis = "9"
                                             },
                                             AnlassGleasonScoreEnumValue = ProstataAnlassGleasonScore.OP,
                                             DatumStanzen = new System.DateTime(2019,11,10),

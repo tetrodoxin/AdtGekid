@@ -12,6 +12,12 @@ namespace AdtGekid
     public enum SchemaVersion
     {       
         [XmlEnum("2.0.0")]
-        Item_2_0_0
+        Item_2_0_0,
+        [XmlEnum("2.0.1")]
+        Item_2_0_1,
+        [XmlEnum("2.1.0")]
+        Item_2_1_0,
+        [XmlEnum("2.1.1")]
+        Item_2_1_1,
     }
 }

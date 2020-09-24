@@ -99,7 +99,11 @@ namespace AdtGekid
         [XmlEnum("3.2.-")]
         Item3_2Minus,        
         [XmlEnum("3.3.")]
-        Item3_3,        
+        Item3_3,
+        [XmlEnum("3.3.+")]
+        Item3_3Plus,
+        [XmlEnum("3.3.-")]
+        Item3_3Minus,
         [XmlEnum("3.4.")]
         Item3_4,        
         [XmlEnum("3.4.+")]

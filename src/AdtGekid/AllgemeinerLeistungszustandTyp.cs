@@ -37,22 +37,22 @@ namespace AdtGekid
     [XmlType("Allgemeiner_Leistungszustand_Typ", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public enum AllgemeinerLeistungszustandTyp
     {           
-        NotSpecified = 0,
+        NotSpecified = -1,
 
         [XmlEnum("0")]
-        Item0,
+        Item0 = 0,
         
         [XmlEnum("1")]
-        Item1,
+        Item1 = 1,
         
         [XmlEnum("2")]
-        Item2,
+        Item2 = 2,
         
         [XmlEnum("3")]
-        Item3,
+        Item3 = 3,
         
         [XmlEnum("4")]
-        Item4,
+        Item4 = 4,
 
         [XmlEnum("U")]
         U,        

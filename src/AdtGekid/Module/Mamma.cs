@@ -68,7 +68,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string HormonrezeptorStatusOestrogen 
         {
-            get { return _hormonrezeptorStatusOestrogen?.ToString(); }
+            get { return _hormonrezeptorStatusOestrogen?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
@@ -102,7 +102,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string HormonrezeptorStatusProgesteron
         {
-            get { return _hormonrezeptorStatusProgesteron?.ToString(); }
+            get { return _hormonrezeptorStatusProgesteron?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
@@ -133,7 +133,7 @@ namespace AdtGekid.Module
         [XmlIgnore]
         public string Her2neuStatus
         {
-            get { return _her2neuStatus?.ToString(); }
+            get { return _her2neuStatus?.ToXmlEnumAttributeName(); }
             set
             {
                 if (!value.IsNothing())
