@@ -41,7 +41,8 @@ namespace AdtGekid
     /// </summary>
     /// <seealso cref="System.Xml.Serialization.IXmlSerializable" />
     /// <seealso cref="System.IEquatable{AdtGekid.DatumTyp}" />
-    public class DatumTyp : IXmlSerializable, IEquatable<DatumTyp>
+    /// <seealso cref="System.IComparable{AdtGekid.DatumTyp}" />
+    public class DatumTyp : IXmlSerializable, IEquatable<DatumTyp>, IComparable
     {
         private const string DateFormatString = "dd.MM.yyyy";
         private DateTime? _date;
@@ -328,6 +329,106 @@ namespace AdtGekid
                 return null;
             }
         }
+
+        /// <summary>
+        /// Implementiert die <see cref="IComparable"/>-Schnittstelle,
+        /// die zur Sortierung von Objekten dient.
+        /// </summary>
+        /// <param name="other">Das Vergleichsobjekt</param>
+        /// <returns>
+        /// -1: wenn aktuelles Objekt sich vor Vergleichsobjekt
+        ///  0: aktuelles Objekt gleicht Vergleichsobjekt
+        ///  1: aktuelles Objekt folgt auf/nach Vergleichsobjekt
+        /// </returns>
+        public int CompareTo(object other)
+        {
+            // Null-Instanzen zuerst (null wird vor aktueller Instanz sortiert
+            if (other == null) return 1;
+
+            var otherDatum = other as DatumTyp;
+
+            if (other != null)
+            {                   
+                var otherDt = (DateTime)otherDatum;
+
+                var cn1 = getCompareNumberForUnknowns(_dayUnknown, _monthUnknown);
+                var cn2 = getCompareNumberForUnknowns(otherDatum.DayUnknown, otherDatum.MonthUnknown);
+
+                if (_date == otherDt && _monthUnknown == otherDatum.MonthUnknown && _dayUnknown == otherDatum.DayUnknown)
+                {
+                    return 0;
+                }
+                else if (_date < otherDt || (_date == otherDt && cn1 < cn2))                    
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                throw new ArgumentException($"Object is not of type { nameof(DatumTyp) }");
+            }
+        }
+
+        /// <summary>
+        /// Konvertiert die <see cref="bool"/>-Werte für <see cref="monthUnknown"/>
+        /// und <see cref="dayUnknown"/> zusammen in eine vergleichbare Zahl vom Typ <see cref="int"/>
+        /// damit Daten mit geschätzen Angaben auch sortiert weren können, 
+        /// wobei die Zahl höher ausfällt, wenn Angaben geschätzte werden, 
+        /// was bedeutet, dass geschätze Angaben in der Sortierung nach ungeschätzten folgen.
+        /// </summary>
+        /// <param name="dayUnknown">Angabe ob Tag geschätzt</param>
+        /// <param name="monthUnknown">Angabe ob Monat geschätzt</param>
+        /// <returns>Die Vergleichbare Zahl</returns>
+        private int getCompareNumberForUnknowns(bool dayUnknown, bool monthUnknown)
+        {            
+            bool[] bits = { dayUnknown, monthUnknown };
+            var ba = new System.Collections.BitArray(bits);
+
+            // Bits in ein Byte konvertieren (dayUnknown = Stelle 0-Bit, monthUnknown = Stelle 1-Bit)
+            byte[] bytes = new byte[1];
+            ba.CopyTo(bytes, 0);
+
+            return Convert.ToInt32(bytes[0]);
+        }
+
+      
+
+        /// <summary>
+        /// Implementiert den > Operator
+        /// </summary>
+        /// <param name="date1">Linker Operand</param>
+        /// <param name="date2">Rechter Operand</param>
+        /// <returns>Das Ergebnis des Vergleichs.</returns>
+        public static bool operator >(DatumTyp date1, DatumTyp date2) => date1.CompareTo(date2) == 1;
+      
+        /// <summary>
+        /// Implementiert den > Operator
+        /// </summary>
+        /// <param name="date1">Linker Operand</param>
+        /// <param name="date2">Rechter Operand</param>
+        /// <returns>Das Ergebnis des Vergleichs.</returns>
+        public static bool operator < (DatumTyp date1, DatumTyp date2) => date1.CompareTo(date2) == -1;        
+
+        /// <summary>
+        /// Implementiert den > Operator
+        /// </summary>
+        /// <param name="date1">Linker Operand</param>
+        /// <param name="date2">Rechter Operand</param>
+        /// <returns>Das Ergebnis des Vergleichs.</returns>
+        public static bool operator >= (DatumTyp date1, DatumTyp date2) => date1.CompareTo(date2) >= 0;        
+
+        /// <summary>
+        /// Implementiert den > Operator
+        /// </summary>
+        /// <param name="date1">Linker Operand</param>
+        /// <param name="date2">Rechter Operand</param>
+        /// <returns>Das Ergebnis des Vergleichs.</returns>
+        public static bool operator <= (DatumTyp date1, DatumTyp date2) => date1.CompareTo(date2) <= 0;        
+
 
         private static void throwFormatException(string str = null)
         {

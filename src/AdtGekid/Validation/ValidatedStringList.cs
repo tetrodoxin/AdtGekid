@@ -29,7 +29,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace AdtGekid
+namespace AdtGekid.Validation
 {
     public class ValidatedStringList : Collection<string>
     {

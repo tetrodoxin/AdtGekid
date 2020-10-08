@@ -4,11 +4,13 @@ This project is in german, since it covers purely data structures, that are nece
 
 Entitätsklassen für den onkologischen Basisdatensatz nach ADT/GEKID, wie er im neuen KFRG (Krebsfrüherkennungs- und -registergesetz) Anwendung findet (http://www.tumorzentren.de/onkol-basisdatensatz.html).
 
-version 1.0.5.19 (Maddogtannen)
-- Verlauf.Datum-Validation: Date musn't be in future
+version 2.1.1.0 (MadDogTannen)
+- Added ICD-/ OPS-versions missing in 2.0.0
+- Added Module for "Prostata"
 
-version 1.0.5.18 (Maddogtannen)
-- Detailled errors with information of fields validated
+version 2.0.0.0 (Maddogtannen)
+- On the lines of ADT/GEKID Version 2.0.0, many types are enumerations now
+- Added Modules for "Allgemein", "Mamma" and "Darm
 
 version 1.0.5.17 (Maddogtannen)
 - Empty container elements like Menge_Frueherer_Name will not be serialized any more

@@ -28,6 +28,7 @@ using System.Xml.Serialization;
 
 namespace AdtGekid
 {
+    using Validation;
     /// <summary>
     /// Basistyp für alle Meldungen.
     /// Bildet den Root-Knoten des XML.
@@ -39,9 +40,34 @@ namespace AdtGekid
     {
         public const string GekidNamespace = "http://www.gekid.de/namespace";
 
+        private SchemaVersion _version;
+
+        [XmlIgnore]
+        public string SchemaVersion
+        {
+            get { return _version.ToXmlEnumAttributeName();  }
+            //set
+            //{
+            //    _version = value.ValidateNeitherNullNorEmpty(typeof(Root).Name,nameof(this.SchemaVersion));
+            //}
+            set
+            {
+                _version = value.TryParseAsEnumOrThrow<SchemaVersion>(typeof(Root).Name,nameof(this.SchemaVersion));
+            }
+        }
+
+        [XmlAttribute("Schema_Version")]
+        public SchemaVersion SchemaVersionEnumValue
+        {
+            get { return _version; }
+            set { _version = value; }
+        }
+
+
+
         [XmlElement("Absender", Order = 1)]
         public Absender Absender { get; set; }
-
+       
         [XmlArrayItem("Patient", IsNullable = false)]
         [XmlArray("Menge_Patient", Order = 2)]
         public Patient[] Patienten { get; set; }
@@ -49,6 +75,7 @@ namespace AdtGekid
         [XmlArrayItem("Melder", IsNullable = false)]
         [XmlArray("Menge_Melder", Order = 3)]
         public MelderTyp[] Melder { get; set; }
-        
+
+
     }
 }

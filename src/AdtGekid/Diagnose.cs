@@ -29,6 +29,9 @@ using AdtGekid.Validation;
 
 namespace AdtGekid
 {
+    using Module;
+    using Module.Prostata;
+
     /// <summary>
     /// Enthält Daten zu einer Tumordiagnose.
     /// </summary>
@@ -38,16 +41,16 @@ namespace AdtGekid
     {
         private static char[] AllowedConfirmCodes = "1245679".ToCharArray();
 
-        private string _seitenlokalisation;
+        private SeitenlokalisationTyp? _seitenlokalisation;
         private string _icdoCode;
-        private string _diagnosesicherung;
-        private string _allgemeinerLeistungszustand;
+        private Diagnosesicherung _diagnosesicherung;
+        private AllgemeinerLeistungszustandTyp? _allgemeinerLeistungszustand;
         private string _anmerkung;
         private string _fruehereTumorerkrankungen;
         private string _text;
-        private string _icdVersion;
+        private IcdVersionTyp? _icdVersion;
         private string _icdoFreitext;
-        private string _icdoVersion;
+        private TopographieIcdOVersionTyp? _icdoVersion;
         private string _id;
         private IcdTyp _icdCode;
 
@@ -66,18 +69,32 @@ namespace AdtGekid
         /// </summary>
         /// <value>
         /// 0 - 4 für ECOG oder 0% bis 100% für Karnofsky oder 'U' für unbekannt.</value>
-        [XmlElement("Allgemeiner_Leistungszustand", Order = 15)]
+        [XmlIgnore]
         public string AllgemeinerLeistungszustand
         {
-            get { return _allgemeinerLeistungszustand; }
-            set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
+            get { return _allgemeinerLeistungszustand?.ToXmlEnumAttributeName(); }
+            //set { _allgemeinerLeistungszustand = value.ValidateOrThrow(LeistungszustandValidator.Instance, _entity, nameof(this.AllgemeinerLeistungszustand)); }
+            set 
+            {
+                if (!value.IsNothing())
+                    _allgemeinerLeistungszustand = value.TryParseAsEnumOrThrow<AllgemeinerLeistungszustandTyp>(_entity, nameof(AllgemeinerLeistungszustand)); 
+            }
         }
+
+        [XmlElement("Allgemeiner_Leistungszustand", Order = 20)]
+        public AllgemeinerLeistungszustandTyp? AllgemeinerLeistungszustandEnumValue
+        {
+            get { return _allgemeinerLeistungszustand; }
+            set { _allgemeinerLeistungszustand = value; }
+        }
+
+        public bool AllgemeinerLeistungszustandEnumValueSpecified => AllgemeinerLeistungszustandEnumValue.HasValue;
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 16)]
+        [XmlElement("Anmerkung", Order = 21)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -100,8 +117,22 @@ namespace AdtGekid
         /// <summary>
         /// Höchste erreichte Diagnosesicherheit zum Diagnosedatum (siehe ICD-O-3, S. 60)
         /// </summary>
-        [XmlElement("Diagnosesicherung", Order = 8)]
+        [XmlIgnore]
         public string Diagnosesicherung
+        {
+            get
+            {
+                return ((int)_diagnosesicherung).ToString();
+            }
+            //set
+            //{
+            //    _diagnosesicherung = value.ValidateOrThrow(AllowedConfirmCodes, _entity, nameof(this.Diagnosesicherung));
+            //}
+            set { _diagnosesicherung = value.TryParseAsEnumOrThrow<Diagnosesicherung>(_entity, nameof(this.Diagnosesicherung)); }
+        }
+
+        [XmlElement("Diagnosesicherung", Order = 8)]
+        public Diagnosesicherung DiagnosesicherungEnumValue
         {
             get
             {
@@ -109,7 +140,7 @@ namespace AdtGekid
             }
             set
             {
-                _diagnosesicherung = value.ValidateOrThrow(AllowedConfirmCodes, _entity, nameof(this.Diagnosesicherung));
+                _diagnosesicherung = value;
             }
         }
 
@@ -117,19 +148,20 @@ namespace AdtGekid
         /// Tumorerkrankungen, die in der Anamnese zu einem früheren Zeitpunkt
         /// diagnnostiziert/behandelt wurden.
         /// </summary>
-        [XmlElement("Fruehere_Tumorerkrankungen", Order = 10)]
-        public string FruehereTumorerkrankungen
-        {
-            get { return _fruehereTumorerkrankungen; }
-            set { _fruehereTumorerkrankungen = value.ValidateMaxLength(500, _entity, nameof(this.FruehereTumorerkrankungen)); }
-        }
+        //[XmlElement("Fruehere_Tumorerkrankungen", Order = 10)]
+        //public string FruehereTumorerkrankungen
+        //{
+        //    get { return _fruehereTumorerkrankungen; }
+        //    set { _fruehereTumorerkrankungen = value.ValidateMaxLength(500, _entity, nameof(this.FruehereTumorerkrankungen)); }
+        //}
 
         /// <summary>
-        /// Array mit Angaben über Fernmetastasen zum Diagnosezeitpunkt.
+        /// Array mit Tumorerkrankungen, die in der Anamnese zu einem früheren Zeitpunkt
+        /// diagnostiziert/behandelt wurden.
         /// </summary>
-        [XmlArrayItem("Fernmetastase", IsNullable = false)]
-        [XmlArray("Menge_FM", Order = 12)]
-        public Fernmetastase[] Fernmetastasen { get; set; }
+        [XmlArrayItem("Fruehere_Tumorerkrankung", IsNullable = false)]
+        [XmlArray("Menge_Fruehere_Tumorerkrankung", Order = 10)]
+        public FruehereTumorerkrankung[] FruehereTumorerkrankungen { get; set; }
 
         /// <summary>
         /// Array mit histologischen Angaben zur Diagnose nach ICD-O
@@ -139,18 +171,59 @@ namespace AdtGekid
         public HistologieTyp[] Histologien { get; set; }
 
         /// <summary>
+        /// Array mit Angaben über Fernmetastasen zum Diagnosezeitpunkt.
+        /// </summary>
+        [XmlArrayItem("Fernmetastase", IsNullable = false)]
+        [XmlArray("Menge_FM", Order = 12)]
+        public Fernmetastase[] Fernmetastasen { get; set; }
+
+       
+        /// <summary>
         /// Array mit Angaben zur Klassifizierung nach TNM.
         /// </summary>
-        [XmlArrayItem("TNM", IsNullable = false)]
-        [XmlArray("Menge_TNM", Order = 13)]
-        public TnmTyp[] TnmKlassifizierungen { get; set; }
+        //[XmlArrayItem("TNM", IsNullable = false)]
+        //[XmlArray("Menge_TNM", Order = 13)]
+        //public TnmTyp[] TnmKlassifizierungen { get; set; }
+
+        [XmlElement("cTNM", Order = 13)]
+        public TnmTyp TnmKlassifizierungKlinisch{ get; set; }
+
+        [XmlElement("pTNM", Order = 14)]
+        public TnmTyp TnmKlassifizierungPathologisch { get; set; }
+
 
         /// <summary>
         /// Array mit Angaben zur Einstufung nach anderen Klassifikationen.
         /// </summary>
         [XmlArrayItem("Weitere_Klassifikation", IsNullable = false)]
-        [XmlArray("Menge_Weitere_Klassifikation", Order = 14)]
+        [XmlArray("Menge_Weitere_Klassifikation", Order = 15)]
         public WeitereKlassifikation[] WeitereKlassifikationen { get; set; }
+
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Mamma-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Mamma", Order = 16)]
+        public ModulMamma ModulMammaSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Darm-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Darm", Order = 17)]
+        public ModulDarm ModulDarmSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Prostata-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Prostata", Order = 18)]
+        public ModulProstata ModulProstataSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 19)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
+
 
         /// <summary>
         /// Bezeichnung der meldepflichtigen Tumorerkrankung.
@@ -180,12 +253,33 @@ namespace AdtGekid
         /// <summary>
         /// Bezeichnung der zur Kodierung verwendeten ICD-10-GM Version
         /// </summary>
-        [XmlElement("Primaertumor_ICD_Version", Order = 2)]
+        [XmlIgnore]
         public string IcdVersion
         {
-            get { return _icdVersion; }
-            set { _icdVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdVersion)); }
+            get { return _icdVersion?.ToXmlEnumAttributeName(); }
+            set
+            {          
+                if (!value.IsNothing())
+                    _icdVersion = value.TryParseAsEnumOrThrow<IcdVersionTyp>(_entity, nameof(this.IcdVersion), false); 
+            }
+
         }
+
+        [XmlElement("Primaertumor_ICD_Version", Order = 2)]
+        public IcdVersionTyp? IcdVersionEnumValue
+        {
+            get { return _icdVersion; }
+            set { _icdVersion = value;  }
+        }
+
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool IcdVersionEnumValueSpecified => IcdVersionEnumValue.HasValue;
+
+
 
         /// <summary>
         /// (Lokalisations-)Code der Topographie (Sitz des Primärtumors) einer meldepflichtigen
@@ -218,22 +312,55 @@ namespace AdtGekid
         /// <summary>
         /// Bezeichnung der zur Kodierung verwendeten ICD-O Version
         /// </summary>
-        [XmlElement("Primaertumor_Topographie_ICD_O_Version", Order = 5)]
+        [XmlIgnore]
         public string IcdoVersion
         {
-            get { return _icdoVersion; }
-            set { _icdoVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdoVersion)); }
+            get { return ((int?)_icdoVersion).ToString(); }
+            //set { _icdoVersion = value.ValidateMaxLength(25, _entity, nameof(this.IcdoVersion)); }
+            set { _icdoVersion = value.TryParseAsEnumOrThrow<TopographieIcdOVersionTyp>(_entity, nameof(this.IcdoVersion)); }
         }
+
+        [XmlElement("Primaertumor_Topographie_ICD_O_Version", Order = 5)]
+        public TopographieIcdOVersionTyp? IcdoVersionEnumValue
+        {
+            get { return _icdoVersion; }
+            set { _icdoVersion = value; }
+        }
+
+
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool IcdoVersionEnumValueSpecified => IcdoVersionEnumValue.HasValue;
 
         /// <summary>
         /// Angabe der betroffenen organspezifischen Seite.
         /// </summary>
-        [XmlElement("Seitenlokalisation", Order = 9)]
+
+        [XmlIgnore]
         public string Seitenlokalisation
         {
-            get { return _seitenlokalisation; }
-            set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _entity, nameof(this.Seitenlokalisation)); }
+            get { return _seitenlokalisation.ToString(); }
+            //set { _seitenlokalisation = value.ValidateOrThrow(SeitenlokalisationValidator.Instance, _entity, nameof(this.Seitenlokalisation)); }
+            set { _seitenlokalisation = value.TryParseAsEnumOrThrow<SeitenlokalisationTyp>(_entity, nameof(this.Seitenlokalisation)); }
+
         }
+
+        [XmlElement("Seitenlokalisation", Order = 9)]
+        public SeitenlokalisationTyp? SeitenlokalisationEnumValue
+        {
+            get { return _seitenlokalisation; }
+            set { _seitenlokalisation = value; }
+        }
+
+        /// <summary>
+        /// Zur Möglichkeit der Steuerung der Serialisierung:
+        /// Bei <c>false</c> wird das entsprechende Element im XML nicht geschrieben
+        /// </summary>
+        [XmlIgnore]
+        public bool SeitenlokalisationEnumValueSpecified => SeitenlokalisationEnumValue.HasValue;
 
         /// <summary>
         /// Eindeutig identifizierendes Merkmal des Tumors.

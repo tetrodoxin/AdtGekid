@@ -217,7 +217,7 @@ namespace AdtGekid.Validation
         /// <summary>
         /// Prüft, ob ein Stringwert weder leer noch <c>null</c> ist.
         /// </summary>
-        /// <param name="value">Zu prüfender Stringwert..</param>
+        /// <param name="value">Zu prüfender Stringwert.</param>
         /// <returns>Der übergebene String.</returns>
         /// <exception cref="ArgumentException">Falls der übergebene String leer oder <c>null</c> war.</exception>
         public static string ValidateNeitherNullNorEmpty(this string value, string validatedAdtObject = null, string validatedAdtField = null)
@@ -230,6 +230,10 @@ namespace AdtGekid.Validation
             return value;
         }
 
+
+        
+
+
         /// <summary>
         /// Prüft einen String und gibt im Erfolgsfall die gültige (und evt. veränderte) Form zurück,
         /// wobei <see cref="StringValidatorBehavior.UpcaseTrimAllowEmpty"/> verwendet wird.
@@ -241,30 +245,37 @@ namespace AdtGekid.Validation
         public static string ValidateOrThrow(this string value, string regexPattern, string validatedAdtObject = null, string validatedAdtField = null)
             => ValidateOrThrow(value, StringValidatorBehavior.UpcaseTrimAllowEmpty, regexPattern, validatedAdtObject, validatedAdtField);
 
+
         /// <summary>
-        /// Prüft ob ein Datum nicht in der Zukunft liegt
+        /// Prüft ob ein <see cref="int"/>-Wert innerhalb des angegebenen Bereichs ist,
+        /// wobei <paramref name="minInclusive"/> und <paramref name="maxInclusive"/> eingeschlossen werden
         /// </summary>
-        /// <param name="date">Der zu prüfende Datumswert</param>
-        /// <returns>Das übergebende Datum, andernfalls wird eine <see cref="ValidationArgumentException"/> ausgelöst.</returns>
-        public static DatumTyp ValidateAintInFutureOrThrow(this DatumTyp date, string validatedAdtObject = null, string validatedAdtField = null)
-        {
-            if (!date.AintInFuture())
-            {
-                throw new ValidationArgumentException("Das Datum darf nicht in der Zukunft liegen!", validatedAdtObject, validatedAdtField);
-            }
-            return date;
+        /// <param name="val">Der zu prüfende Wert</param>
+        /// <param name="minInclusive">Der Startwert</param>
+        /// <param name="maxInclusive">Der Maximalwert</param>        
+        /// <returns>Den Wert, wenn er innerhalb des angegebenen Bereichs liegt</returns>
+        public static int BetweenOrThrow(this int val, int minInclusive, int maxInclusive)
+        {            
+            if (!(val.CompareTo(minInclusive) >= 0 && val.CompareTo(maxInclusive) <= 0))
+                 throw new ValidationArgumentException($"Der Wert {val} liegt außerhalb des angegebenen Bereichs von {minInclusive} und {maxInclusive}");
+
+            return val;
         }
 
         /// <summary>
-        /// Prüft, dass das Datum nicht in der Zukunft liegt.
+        /// Prüft ob ein <see cref="int"/>-Wert innerhalb des angegebenen Bereichs ist,
+        /// wobei <paramref name="min"/> und <paramref name="max"/> eingeschlossen werden
         /// </summary>
-        /// <param name="date">Das zu prüfende Datum.</param>
-        /// <returns>
-        /// <c>true</c>, falls das Datum nicht in der Zukunft liegt.
-        /// </returns>
-        public static bool AintInFuture(this DatumTyp date)
+        /// <param name="val">Der zu prüfende Wert</param>
+        /// <param name="min">Der Startwert</param>
+        /// <param name="max">Der Maximalwert</param>        
+        /// <returns>Den Wert, wenn er innerhalb des angegebenen Bereichs liegt</returns>
+        public static decimal BetweenOrThrow(this decimal val, decimal min, decimal max)
         {
-            return !date.HasValue|| date <= DateTime.Today;
+            if (!(val.CompareTo(min) >= 0 && val.CompareTo(max) <= 0))
+                throw new ValidationArgumentException($"Der Wert {val} liegt außerhalb des angegebenen Bereichs von {min} und {max}");
+
+            return val;
         }
     }
 }

@@ -32,6 +32,11 @@ namespace AdtGekid
     [XmlType("R_Typ", Namespace = Root.GekidNamespace)]
     public enum RTyp
     {
+        /// <summary>
+        /// Default (keine XML-Repräsentation!)
+        /// </summary>
+        NotSpecified = 0,
+
         R0,
 
         R1,

@@ -1,4 +1,4 @@
-#region license
+﻿#region license
 
 //MIT License
 
@@ -23,18 +23,33 @@
 //SOFTWARE.
 
 #endregion 
-using AdtGekid.Validation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace AdtGekid
+namespace AdtGekid.Validation
 {
-    public class LeistungszustandValidator : StringValidatorByRegex
+    /// <summary>
+    /// Stringvalidierer für Email Adressen.
+    /// </summary>
+    public class ThreeDigitNumberValidator : StringValidatorByRegex
     {
-        private static readonly Lazy<IValueValidator<string>> _instance = new Lazy<IValueValidator<string>>(() => new LeistungszustandValidator());
+        private static readonly Lazy<IValueValidator<string>> _instance = new Lazy<IValueValidator<string>>(() => new ThreeDigitNumberValidator());
+
         public static IValueValidator<string> Instance => _instance.Value;
 
-        private LeistungszustandValidator()
-            : base(@"^[0-4]|100%?|([0-9]?[0-9]%)|U$")
+        private ThreeDigitNumberValidator() : base(StringValidatorBehavior.TrimAllowEmpty, @"^\d(\d)?(\d)?|U$")
         { }
+
+        protected override string GetErrorTextForNonEmpty(string stringToValidate)
+        {
+            if(stringToValidate.Length > 3)
+            {
+                return "Maximal drei Stellen erlaubt.";
+            }
+
+            return base.GetErrorTextForNonEmpty(stringToValidate);
+        }
     }
 }

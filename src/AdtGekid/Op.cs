@@ -34,6 +34,10 @@ using System.Collections.ObjectModel;
 
 namespace AdtGekid
 {
+
+    using Module;
+    using Module.Prostata;
+
     /// <summary>
     /// Daten zu einer operativen Therapie.
     /// </summary>
@@ -42,26 +46,17 @@ namespace AdtGekid
     public class Op
     {
         private static char[] AllowedIntentionCodes = "KPDRSX".ToCharArray();
-        private string _intention;
+        private OpIntention _intention;
         private string _anmerkung;
         private string _id;
-        private string _opsVersion;
+        private OpsVersion _opsVersion;
         private Collection<string> _operateure;
-        private Collection<string> _komplikationen;
+        private Collection<OpKomplikation> _komplikationen;
         private Collection<string> _opsCodes;
 
         private string _typeName = "Operation";
 
-        /// <summary>
-        /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
-        /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
-        /// </summary>
-        [XmlElement("Anmerkung", Order = 10)]
-        public string Anmerkung
-        {
-            get { return _anmerkung; }
-            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
-        }
+      
 
         /// <summary>
         /// Histologische Daten nach der Operation, sofern vorhanden.
@@ -69,15 +64,23 @@ namespace AdtGekid
         [XmlElement("Histologie", Order = 5)]
         public HistologieTyp Histologie { get; set; }
 
+        [XmlIgnore]
+        public Collection<string> Komplikationen
+        {
+            get { return _komplikationen.AsStringCollection<OpKomplikation>(); }
+            //set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
+            set { _komplikationen = value.TryParseAsEnumCollectionOrThrow<OpKomplikation>(); }
+        }
+
         /// <summary>
         /// Liste von OP-Komplikationen.
         /// </summary>
         [XmlArrayItem("OP_Komplikation", IsNullable = false)]
         [XmlArray("Menge_Komplikation", Order = 8)]
-        public Collection<string> Komplikationen
+        public Collection<OpKomplikation> KomplikationenEnumValue
         {
             get { return _komplikationen; }
-            set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
+            set { _komplikationen = value; }
         }
 
         /// <summary>
@@ -85,14 +88,16 @@ namespace AdtGekid
         /// wenn es leer ist oder keine Elemente enthält
         /// </summary>
         [XmlIgnore]
-        public bool KomplikationenSpecified =>
-            Komplikationen == null || Komplikationen.Count == 0 ? false : true;
+        public bool KomplikationenEnumValueSpecified =>
+            _komplikationen != null && _komplikationen.Count > 0;
+
+
 
         /// <summary>
         /// Liste der Operateure.
         /// </summary>
         [XmlArrayItem("Name_Operateur", IsNullable = false)]
-        [XmlArray("Menge_Operateur", Order = 9)]
+        [XmlArray("Menge_Operateur", Order = 13)]
         public Collection<string> Operateure
         {
             get { return _operateure; }
@@ -130,10 +135,9 @@ namespace AdtGekid
 
         /// <summary>
         /// Liste von postoperativen TNM-Klassifizierungen.
-        /// </summary>
-        [XmlArrayItem("TNM", IsNullable = false)]
-        [XmlArray("Menge_TNM", Order = 6)]
-        public TnmTyp[] TnmKlassifizierungen { get; set; }
+        /// </summary>        
+        [XmlElement("TNM", Order = 6)]
+        public TnmTyp TnmKlassifizierung { get; set; }
 
         /// <summary>
         /// Datum der OP
@@ -151,30 +155,89 @@ namespace AdtGekid
             set { _id = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.Id)); }
         }
 
+        [XmlIgnore]       
+        public string Intention
+        {
+            get { return _intention.ToString(); }
+            //set { _intention = value.ValidateOrThrow(AllowedIntentionCodes, _typeName, nameof(this.Intention)); }
+            set { _intention = value.TryParseAsEnumOrThrow<OpIntention>(_typeName, nameof(this.Intention)); }
+        }
+
         /// <summary>
         /// Gibt an, mit welchem Ziel die OP durchgeführt wird
         /// </summary>
         [XmlElement("OP_Intention", Order = 1)]
-        public string Intention
+        public OpIntention IntentionEnumValue
         {
             get { return _intention; }
-            set { _intention = value.ValidateOrThrow(AllowedIntentionCodes, _typeName, nameof(this.Intention)); }
+            set { _intention = value; }
         }
 
         /// <summary>
         /// Gibt an, nach welcher Version (Jahr) der OPS klassifiziert wurde.
         /// </summary>
-        [XmlElement("OP_OPS_Version", Order = 4)]
+        [XmlIgnore]
         public string OpsVersion
         {
-            get { return _opsVersion; }
-            set { _opsVersion = value.ValidateMaxLength(16, _typeName, nameof(this.OpsVersion)); }
+            get { return ((int)_opsVersion).ToString(); }
+            //set { _opsVersion = value.ValidateMaxLength(16, _typeName, nameof(this.OpsVersion)); }
+            set { _opsVersion = value.TryParseAsEnumOrThrow<OpsVersion>(_typeName, nameof(this.OpsVersion)); }
         }
+
+        [XmlElement("OP_OPS_Version", Order = 4)]
+        public OpsVersion OpsVersionEnumValue
+        {
+            get { return _opsVersion; }
+            set
+            {
+                _opsVersion = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool OpsVersionEnumValueSpecified => OpsVersionEnumValue != AdtGekid.OpsVersion.NotSpecified;
 
         /// <summary>
         /// Daten über die lokale und gesamte Beurteilung des postoperativen Residualstatus
         /// </summary>
         [XmlElement("Residualstatus", Order = 7)]
         public ResidualstatusTyp Residualstatus { get; set; }
+
+        
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Mamma-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Mamma", Order = 9)]
+        public ModulMamma ModulMammaSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Darm-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Darm", Order = 10)]
+        public ModulDarm ModulDarmSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit spezifischen Angaben zu Prostata-Tumoren
+        /// </summary>
+        [XmlElement("Modul_Prostata", Order = 11)]
+        public ModulProstata ModulProstataSection { get; set; }
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 12)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
+
+        /// <summary>
+        /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
+        /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
+        /// </summary>
+        [XmlElement("Anmerkung", Order = 14)]
+        public string Anmerkung
+        {
+            get { return _anmerkung; }
+            set { _anmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.Anmerkung)); }
+        }
+
     }
 }

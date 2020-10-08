@@ -36,8 +36,8 @@ namespace AdtGekid
         private static char[] AllowedGradeCodes = "K345U".ToCharArray();
         private const string VersionPattern = @"^(Version )?4$";
 
-        private string _grad;
-        private string _version;
+        private NebenwirkungGrad _grad;
+        private NebenwirkungVersion _version;
         private string _art;
 
         private string _typeName = "Nebenwirkung";
@@ -58,21 +58,36 @@ namespace AdtGekid
         /// schen Therapie gekommen ist (sogenannte akute Nebenwirkungen bis zum 90.
         /// Tag nach Bestrahlungsbeginn).
         /// </summary>
-        [XmlElement("Nebenwirkung_Grad", Order = 1)]
+        [XmlIgnore]
         public string Grad
         {
+            get { return _grad.ToXmlEnumAttributeName(); }
+            //set { _grad = value.ValidateOrThrow(AllowedGradeCodes, _typeName, nameof(this.Grad)); }
+            set { _grad = value.TryParseAsEnumOrThrow<NebenwirkungGrad>(_typeName, nameof(this.Grad)); }
+        }
+
+        [XmlElement("Nebenwirkung_Grad", Order = 1)]
+        public NebenwirkungGrad GradEnumValue
+        {
             get { return _grad; }
-            set { _grad = value.ValidateOrThrow(AllowedGradeCodes, _typeName, nameof(this.Grad)); }
+            set { _grad = value; }
         }
 
         /// <summary>
         /// Gibt an, nach welcher CTC-Version die Nebenwirkungen angegeben sind.
         /// </summary>
-        [XmlElement("Nebenwirkung_Version", Order = 3)]
+        [XmlIgnore]
         public string Version
         {
+            get { return _version.ToXmlEnumAttributeName(); }
+            set { _version = value.TryParseAsEnumOrThrow<NebenwirkungVersion>(_typeName, nameof(this.Version)); }
+        }
+
+        [XmlElement("Nebenwirkung_Version", Order = 3)]
+        public NebenwirkungVersion VersionEnumValue
+        {
             get { return _version; }
-            set { _version = value.ValidateOrThrow(VersionPattern, _typeName, nameof(this.Version)); }
+            set { _version = value; }
         }
     }
 }

@@ -31,26 +31,28 @@ using System.Collections.ObjectModel;
 
 namespace AdtGekid
 {
+    using Module;
+
     [Serializable()]
     [XmlType("ADT_GEKIDPatientMeldungSYST", AnonymousType = true, Namespace = Root.GekidNamespace)]
     public class SystemischeTherapie
     {
-        private string _endeGrund;
-        private string _intention;
-        private string _stellungOp;
+        private SystemTherapieEndeGrund? _endeGrund;
+        private SystemTherapieIntention _intention;
+        private SystemTherapieStellungOp? _stellungOp;
         private string _anmerkung;
         private string _id;
         private string _protokoll;
         private string _therapieartAnmerkung;
         private Collection<string> _substanzen;
-        private Collection<string> _therapieArten;
+        private Collection<SystemTherapieart> _therapieArten;
 
         private string _typeName = typeof(SystemischeTherapie).Name;
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
         /// abbilden oder darüber hinausgehen, können hier genau erfasst werden.
         /// </summary>
-        [XmlElement("Anmerkung", Order = 12)]
+        [XmlElement("Anmerkung", Order = 13)]
         public string Anmerkung
         {
             get { return _anmerkung; }
@@ -75,11 +77,20 @@ namespace AdtGekid
         /// </summary>
         [XmlIgnore]
         public bool SubstanzenSpecified =>
-            Substanzen == null || Substanzen.Count == 0 ? false : true;
+            Substanzen != null && Substanzen.Count > 0;
 
+        [XmlIgnore]
+        public Collection<string> TherapieArten
+        {           
+            get { return _therapieArten.AsStringCollection<SystemTherapieart>(); }
+            //set { _komplikationen = value.EnsureValidatedStringList().WithValidator(OpKomplikationValidator.CreateInstance(_typeName, nameof(this.Komplikationen))); }
+            set { _therapieArten = value.TryParseAsEnumCollectionOrThrow<SystemTherapieart>(); }
+        }
+
+      
         [XmlArrayItem("SYST_Therapieart", IsNullable = false)]
         [XmlArray("Menge_Therapieart", Order = 3)]
-        public Collection<string> TherapieArten
+        public Collection<SystemTherapieart> TherapieArtenEnumCollection
         {
             get { return _therapieArten; }
             set { _therapieArten = value; }
@@ -90,8 +101,8 @@ namespace AdtGekid
         /// wenn es leer ist oder keine Elemente enthält
         /// </summary>
         [XmlIgnore]
-        public bool TherapieArtenSpecified =>
-            TherapieArten == null || TherapieArten.Count == 0 ? false : true;
+        public bool TherapieArtenEnumCollectionSpecified =>
+            _therapieArten != null && _therapieArten.Count > 0;
 
         [XmlElement("Residualstatus", Order = 10)]
         public ResidualstatusTyp Residualstatus { get; set; }
@@ -111,12 +122,25 @@ namespace AdtGekid
         /// <summary>
         /// Gibt den Grund an, warum die Systemtherapie beendet wurde.
         /// </summary>
-        [XmlElement("SYST_Ende_Grund", Order = 8)]
+        [XmlIgnore]
         public string EndeGrund
         {
-            get { return _endeGrund; }
-            set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.SystemischeTherapie, _typeName, nameof(this.EndeGrund)); }
+            get { return _endeGrund.ToString(); }
+            //set { _endeGrund = value.ValidateOrThrow(TherapieEndeGrundValidator.SystemischeTherapie, _typeName, nameof(this.EndeGrund)); }
+            set {
+                if (!value.IsNothing())
+                    _endeGrund = value.TryParseAsEnumOrThrow<SystemTherapieEndeGrund>(_typeName, nameof(this.EndeGrund)); 
+            }
         }
+
+        [XmlElement("SYST_Ende_Grund", Order = 8)]
+        public SystemTherapieEndeGrund? EndeGrundEnumValue
+        {
+            get { return _endeGrund; }
+            set { _endeGrund = value; }
+        }
+
+        public bool EndeGrundEnumValueSpecified => EndeGrundEnumValue.HasValue;
 
         /// <summary>
         /// eindeutig identifizierendes Merkmal der systemischen Therapie
@@ -134,12 +158,21 @@ namespace AdtGekid
         /// <summary>
         /// Gibt an, mit welcher Intention die systemische Therapie durchgeführt wird.
         /// </summary>
-        [XmlElement("SYST_Intention", Order = 1)]
+        [XmlIgnore]
         public string Intention
         {
-            get { return _intention; }
-            set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
+            get { return _intention.ToString(); }
+            //set { _intention = value.ValidateOrThrow(TherapieIntentionValidator.NichtOP, _typeName, nameof(this.Intention)); }
+            set { _intention = value.TryParseAsEnumOrThrow<SystemTherapieIntention>(_typeName, nameof(this.Intention)); }
         }
+
+        [XmlElement("SYST_Intention", Order = 1)]
+        public SystemTherapieIntention IntentionEnumValue
+        {
+            get { return _intention; }
+            set { _intention = value; }
+        }
+
 
         /// <summary>
         /// Gibt an, nach welchem Protokoll die Systemtherapie durchgeführt wird.
@@ -155,12 +188,25 @@ namespace AdtGekid
         /// Gibt an, in welchem Bezug zu einer operativen Therapie die systemische The-
         /// rapie steht.
         /// </summary>
-        [XmlElement("SYST_Stellung_OP", Order = 2)]
+        [XmlIgnore]
         public string StellungOp
         {
-            get { return _stellungOp; }
-            set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
+            get { return _stellungOp.ToString(); }
+            //set { _stellungOp = value.ValidateOrThrow(StellungOpValidator.Instance, _typeName, nameof(this.StellungOp)); }
+            set {
+                if (!value.IsNothing())
+                    _stellungOp = value.TryParseAsEnumOrThrow<SystemTherapieStellungOp>(_typeName, nameof(this.StellungOp)); 
+            }
         }
+
+        [XmlElement("SYST_Stellung_OP", Order = 2)]
+        public SystemTherapieStellungOp? StellungOpEnumValue
+        {
+            get { return _stellungOp; }            
+            set { _stellungOp = value; }
+        }
+
+        public bool StellungOpEnumValueSpecified => StellungOpEnumValue.HasValue;
 
         /// <summary>
         /// Sachverhalte, die sich in der Kodierung des Erfassungsdokumentes unpräzise
@@ -172,5 +218,11 @@ namespace AdtGekid
             get { return _therapieartAnmerkung; }
             set { _therapieartAnmerkung = value.ValidateMaxLength(500, _typeName, nameof(this.TherapieartAnmerkung)); }
         }
+
+        /// <summary>
+        /// Bereich mit bestimmten Entitäten übergreifenden Angaben
+        /// </summary>
+        [XmlElement("Modul_Allgemein", Order = 12)]
+        public ModulAllgemein ModulAllgemeinSection { get; set; }
     }
 }
