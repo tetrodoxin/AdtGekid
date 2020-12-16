@@ -277,5 +277,31 @@ namespace AdtGekid.Validation
 
             return val;
         }
+
+        /// <summary>
+        /// Prüft ob ein Datum nicht in der Zukunft liegt
+        /// </summary>
+        /// <param name="date">Der zu prüfende Datumswert</param>
+        /// <returns>Das übergebende Datum, andernfalls wird eine <see cref="ValidationArgumentException"/> ausgelöst.</returns>
+        public static DatumTyp ValidateAintInFutureOrThrow(this DatumTyp date, string validatedAdtObject = null, string validatedAdtField = null)
+        {
+            if (!date.AintInFuture())
+            {
+                throw new ValidationArgumentException("Das Datum darf nicht in der Zukunft liegen!", validatedAdtObject, validatedAdtField);
+            }
+            return date;
+        }
+
+        /// <summary>
+        /// Prüft, dass das Datum nicht in der Zukunft liegt.
+        /// </summary>
+        /// <param name="date">Das zu prüfende Datum.</param>
+        /// <returns>
+        /// <c>true</c>, falls das Datum nicht in der Zukunft liegt.
+        /// </returns>
+        public static bool AintInFuture(this DatumTyp date)
+        {
+            return !date.HasValue || date <= new DatumTyp(DateTime.Today);
+        }
     }
 }
