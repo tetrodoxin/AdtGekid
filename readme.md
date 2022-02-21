@@ -7,9 +7,9 @@ _This project is in german, since it covers purely data structures, that are nec
 
 Entitätsklassen für den onkologischen Basisdatensatz nach ADT/GEKID, wie er im neuen KFRG (Krebsfrüherkennungs- und -registergesetz) Anwendung findet ([siehe hier](http://www.tumorzentren.de/onkol-basisdatensatz.html)).
 
-Derzeitige Version: 1.0.5
+Derzeitige Version: 2.2.1 (wo MM = without Module Malignant Melanoma)
 
-Das originale XML-Schema-Dokument (Version 1.0.5) des BDT ist in den Testklassen enthalten. 
+Das originale XML-Schema-Dokument (Version 2.2.1) des BDT ist in den Testklassen enthalten. 
 Die Entitätsklassen enthalten Validierungen (soweit im BDT vorgegeben) für ihre Eigenschaften. Bei Validierungsfehlern wird eine Ausnahme des Typs `ArgumentException` ausgelöst. 
 An einigen Stellen wird anstatt von String-Arrays ein eigener Datentyp verwendet (`ValidatedStringList`), der die Validierung der einzelnen Strings ermöglicht.
 
