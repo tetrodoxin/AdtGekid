@@ -19,5 +19,7 @@ namespace AdtGekid
         Item_2_1_0,
         [XmlEnum("2.1.1")]
         Item_2_1_1,
+        [XmlEnum("2.2.1")]
+        Item_2_2_1,
     }
 }

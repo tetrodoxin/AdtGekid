@@ -65,6 +65,12 @@ namespace AdtGekid
         Item2019 = 2019,
 
         [XmlEnum("2020")]
-        Item2020 = 2020
+        Item2020 = 2020,
+
+        [XmlEnum("2021")]
+        Item2021 = 2021,
+
+        [XmlEnum("2022")]
+        Item2022 = 2022
     }
 }
