@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns="http://www.gekid.de/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.gekid.de/namespace" targetNamespace="http://www.gekid.de/namespace" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0.0 vom 01.04.2017">
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.gekid.de/namespace" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.gekid.de/namespace" targetNamespace="http://www.gekid.de/namespace" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.2.1 vom 7.1.2021">
 	<xs:element name="ADT_GEKID">
 		<xs:annotation>
 			<xs:documentation>Root element</xs:documentation>
@@ -58,14 +58,14 @@
 													</xs:element>
 													<xs:element name="Patienten_Geschlecht" minOccurs="0">
 														<xs:annotation>
-															<xs:documentation>Differenzierung einer Person nach ihrem Geschlechtsmerkmal. 
-
-M = Männlich
-W = Weiblich
-S = Sonstiges/intersexuell
-U = Unbekannt
-
-Die Angabe "X = unbestimmtes Geschlecht" wie z. B. auf der elektronischen Gesundheitskarte (siehe: https://www.kvno.de/60neues/2016/16_02_unbestimmtes_geschlecht/index.html) ist auf "S = Sonstiges/Intersexuell" abzubilden.</xs:documentation>
+															<xs:documentation>
+															Differenzierung einer Person nach ihrem Geschlechtsmerkmal. 
+															M = Männlich
+															W = Weiblich
+															S = Sonstiges/intersexuell
+															U = Unbekannt
+															Die Angabe "X = unbestimmtes Geschlecht" wie z. B. auf der elektronischen Gesundheitskarte (siehe: https://www.kvno.de/60neues/2016/16_02_unbestimmtes_geschlecht/index.html) ist auf "S = Sonstiges/Intersexuell" abzubilden.
+															</xs:documentation>
 														</xs:annotation>
 														<xs:simpleType>
 															<xs:restriction base="xs:string">
@@ -127,16 +127,12 @@ Die Angabe "X = unbestimmtes Geschlecht" wie z. B. auf der elektronischen Gesund
 																<xs:element name="Meldebegruendung" minOccurs="0">
 																	<xs:annotation>
 																		<xs:documentation>Widerspruch/Einwilligung des Patienten 
-
-I = Patientin/Patient wurde informiert und hat nicht widersprochen
-
-A = Ausnahme: Patientenunterrichtung entfallen wegen möglicher gesundheitlicher Nachteile
-
-D = Meldung von Ärzten ohne unmittelbaren Patientenkontakt
-
-W = Patient hat der personenbezogenen Speicherung widersprochen
-
-V = Verstorben</xs:documentation>
+																			I = Patientin/Patient wurde informiert und hat nicht widersprochen
+																			A = Ausnahme: Patientenunterrichtung entfallen wegen möglicher gesundheitlicher Nachteile
+																			D = Meldung von Ärzten ohne unmittelbaren Patientenkontakt
+																			W = Patient hat der personenbezogenen Speicherung widersprochen
+																			V = Verstorben
+																		</xs:documentation>
 																	</xs:annotation>
 																	<xs:simpleType>
 																		<xs:restriction base="xs:string">
@@ -190,14 +186,15 @@ V = Verstorben</xs:documentation>
 																			<xs:element name="Diagnosedatum" type="Datum_Typ" minOccurs="0"/>
 																			<xs:element name="Seitenlokalisation" type="Seitenlokalisation_Typ" minOccurs="0">
 																				<xs:annotation>
-																					<xs:documentation>Organspezifische Angabe der betroffenen Seite
-
-L = Links
-R = Rechts
-B = Beidseitig (sollte bei bestimmten Tumoren 2 Meldungen ergeben)
-M = Mittellinie/Mittig
-U = Unbekannt
-T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)</xs:documentation>
+																					<xs:documentation>
+																					Organspezifische Angabe der betroffenen Seite
+																					L = Links
+																					R = Rechts
+																					B = Beidseitig (sollte bei bestimmten Tumoren 2 Meldungen ergeben)
+																					M = Mittellinie/Mittig
+																					U = Unbekannt
+																					T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)
+																					</xs:documentation>
 																				</xs:annotation>
 																			</xs:element>
 																		</xs:sequence>
@@ -226,12 +223,17 @@ T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkranku
 																					<xs:restriction base="xs:string">
 																						<xs:enumeration value="31">
 																							<xs:annotation>
-																								<xs:documentation>ICD-O3; 1. Auflage 2003</xs:documentation>
+																								<xs:documentation>ICD-O-3, 2003</xs:documentation>
 																							</xs:annotation>
 																						</xs:enumeration>
 																						<xs:enumeration value="32">
 																							<xs:annotation>
-																								<xs:documentation>ICD-O3, 2. Auflage 2013</xs:documentation>
+																								<xs:documentation>ICD-O-3, 1. Revision 2014</xs:documentation>
+																							</xs:annotation>
+																						</xs:enumeration>
+																						<xs:enumeration value="33">
+																							<xs:annotation>
+																								<xs:documentation>ICD-O-3, 2. Revision 2019</xs:documentation>
 																							</xs:annotation>
 																						</xs:enumeration>
 																					</xs:restriction>
@@ -241,21 +243,16 @@ T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkranku
 																			<xs:element name="Diagnosedatum" type="Datum_Typ" minOccurs="0"/>
 																			<xs:element name="Diagnosesicherung" minOccurs="0">
 																				<xs:annotation>
-																					<xs:documentation>Höchste erreichte Diagnosesicherheit zum Diagnosedatum.(siehe ICD-O-3 S.60) 
-
-1 = Klinisch ohne tumorspezifische Diagnostik (nur körperliche Untersuchung) 
-
-2 = Klinisch: Klinische Diagnose vor dem Sterbedatum durchgeführt; schließt diagnostische Techniken, inklusive Röntgen, Endoskopie, weitere bildgebende Verfahren, Ultraschall, exploratorische Chirurgie (Laparatomie, etc.) und Autopsie, ohne mikroskopische Gewebediagnose, ein.  
-
-4 = Spezifische Tumormarker
-
-5 = Zytologisch: Untersuchung von Zellen aus primären Lokalisationen inklusive Flüssigkeitsaspirationen mittels Endoskopien oder Nadeln. Schließt mikroskopische Untersuchungen von peripheren Blutausstrichen und Ausstrichen von Beckenkammaspirationen ein.  
-
-6 = Histologie einer Metastase.
-
-7 = Histologisch: Histologie des Primärtumors: Histologische Untersuchung von Gewebe des Primärtumors einschließlich aller Schnitttechniken und Knochenmarksbiopsien. Dies schließt Proben des Primärtumors aus Autopsien ein. Histologische Untersuchung des Gewebes aus einer Metastase, einschließlich bei Autopsie. 
-
-9 = Unbekannt</xs:documentation>
+																					<xs:documentation>
+																					Höchste erreichte Diagnosesicherheit zum Diagnosedatum (siehe BfArM, ICD-O-3.2: Ergänzende Informationen, Abschnitt 4.5. "Sicherheit der Diagnose").
+																					1 = Klinisch ohne tumorspezifische Diagnostik (nur körperliche Untersuchung) 
+																					2 = Klinisch: Klinische Diagnose vor dem Sterbedatum durchgeführt; schließt diagnostische Techniken, inklusive Röntgen, Endoskopie, weitere bildgebende Verfahren, Ultraschall, exploratorische Chirurgie (Laparatomie, etc.) und Autopsie, ohne mikroskopische Gewebediagnose, ein.  
+																					4 = Spezifische Tumormarker
+																					5 = Zytologisch: Untersuchung von Zellen aus primären Lokalisationen inklusive Flüssigkeitsaspirationen mittels Endoskopien oder Nadeln. Schließt mikroskopische Untersuchungen von peripheren Blutausstrichen und Ausstrichen von Beckenkammaspirationen ein.
+																					6 = Histologie einer Metastase.
+																					7 = Histologisch: Histologie des Primärtumors: Histologische Untersuchung von Gewebe des Primärtumors einschließlich aller Schnitttechniken und Knochenmarksbiopsien. Dies schließt Proben des Primärtumors aus Autopsien ein. Histologische Untersuchung des Gewebes aus einer Metastase, einschließlich bei Autopsie. 
+																					9 = Unbekannt
+																					</xs:documentation>
 																				</xs:annotation>
 																				<xs:simpleType>
 																					<xs:restriction base="xs:string">
@@ -318,10 +315,11 @@ T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkranku
 																									<xs:element name="ICD_Version" type="ICD_Version_Typ" minOccurs="0"/>
 																									<xs:element name="Diagnosedatum" type="Datum_Typ" minOccurs="0">
 																										<xs:annotation>
-																											<xs:documentation>Diagnosedatum, falls vorhanden
-
-Ist Tag und/oder Monat unbekannt, bitte "00" einsetzen.
-Beispiel, wenn nur Diagnosejahr bekannt "00.00.JJJJ"</xs:documentation>
+																											<xs:documentation>
+																											Diagnosedatum, falls vorhanden
+																											Ist Tag und/oder Monat unbekannt, bitte "00" einsetzen.
+																											Beispiel: Nur Diagnosejahr bekannt: "00.00.JJJJ"
+																											</xs:documentation>
 																										</xs:annotation>
 																									</xs:element>
 																								</xs:sequence>
@@ -351,6 +349,8 @@ Beispiel, wenn nur Diagnosejahr bekannt "00.00.JJJJ"</xs:documentation>
 																			<xs:element name="Menge_Weitere_Klassifikation" type="Menge_Weitere_Klassifikation_Typ" minOccurs="0"/>
 																			<xs:element name="Modul_Mamma" type="Modul_Mamma_Typ" minOccurs="0"/>
 																			<xs:element name="Modul_Darm" type="Modul_Darm_Typ" minOccurs="0"/>
+																			<xs:element name="Modul_Prostata" type="Modul_Prostata_Typ" minOccurs="0"/>
+																			<xs:element name="Modul_Malignes_Melanom" type="Modul_Malignes_Melanom_Typ" minOccurs="0"/>
 																			<xs:element name="Modul_Allgemein" type="Modul_Allgemein_Typ" minOccurs="0"/>
 																			<xs:element name="Allgemeiner_Leistungszustand" type="Allgemeiner_Leistungszustand_Typ" minOccurs="0"/>
 																			<xs:element name="Anmerkung" type="xs:string" minOccurs="0"/>
@@ -366,14 +366,15 @@ Beispiel, wenn nur Diagnosejahr bekannt "00.00.JJJJ"</xs:documentation>
 																					<xs:sequence>
 																						<xs:element name="OP_Intention" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gibt an, mit welchem Ziel die Operation durchgeführt wird. 
-
-K = Kurativ
-P = Palliativ
-D = Diagnostisch
-R = Revision/Komplikation
-S= Sonstiges
-X = Fehlende Angabe  </xs:documentation>
+																								<xs:documentation>
+																									Gibt an, mit welchem Ziel die Operation durchgeführt wird. 
+																									K = Kurativ
+																									P = Palliativ
+																									D = Diagnostisch
+																									R = Revision/Komplikation 
+																									S = Sonstiges
+																									X = Fehlende Angabe
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -422,6 +423,51 @@ X = Fehlende Angabe  </xs:documentation>
 																						<xs:element name="OP_OPS_Version" minOccurs="0">
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
+																									<xs:enumeration value="2004">
+																										<xs:annotation>
+																											<xs:documentation>Version 2004</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2005">
+																										<xs:annotation>
+																											<xs:documentation>Version 2005</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2006">
+																										<xs:annotation>
+																											<xs:documentation>Version 2006</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2007">
+																										<xs:annotation>
+																											<xs:documentation>Version 2007</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2008">
+																										<xs:annotation>
+																											<xs:documentation>Version 2008</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2009">
+																										<xs:annotation>
+																											<xs:documentation>Version 2009</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2010">
+																										<xs:annotation>
+																											<xs:documentation>Version 2010</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2011">
+																										<xs:annotation>
+																											<xs:documentation>Version 2011</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2012">
+																										<xs:annotation>
+																											<xs:documentation>Version 2012</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
 																									<xs:enumeration value="2013">
 																										<xs:annotation>
 																											<xs:documentation>Version 2013</xs:documentation>
@@ -452,6 +498,26 @@ X = Fehlende Angabe  </xs:documentation>
 																											<xs:documentation>Version 2018</xs:documentation>
 																										</xs:annotation>
 																									</xs:enumeration>
+																									<xs:enumeration value="2019">
+																										<xs:annotation>
+																											<xs:documentation>Version 2019</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2020">
+																										<xs:annotation>
+																											<xs:documentation>Version 2020</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2021">
+																										<xs:annotation>
+																											<xs:documentation>Version 2021</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
+																									<xs:enumeration value="2022">
+																										<xs:annotation>
+																											<xs:documentation>Version 2022</xs:documentation>
+																										</xs:annotation>
+																									</xs:enumeration>
 																								</xs:restriction>
 																							</xs:simpleType>
 																						</xs:element>
@@ -467,93 +533,93 @@ X = Fehlende Angabe  </xs:documentation>
 																								<xs:sequence>
 																									<xs:element name="OP_Komplikation" maxOccurs="unbounded">
 																										<xs:annotation>
-																											<xs:documentation>Gibt an, ob eine oder keine Komplikation aufgetreten ist, bzw. wenn 
-eine aufgetreten ist, welche. 
+																											<xs:documentation>
+																											Gibt an, ob eine oder keine Komplikation aufgetreten ist, bzw. wenn eine aufgetreten ist, welche. 
 
-N = Nein
-U = Unbekannt
+																											N = Nein
+																											U = Unbekannt
 
-Wenn ja, dann Liste der aufgetretenen Komplikationen nach 
-Komplikationsschlüssel
-ABD  Abszeß in einem Drainagekanal
-ABS  Abszeß, intraabdominaler oder intrathorakaler
-ASF  Abszeß, subfaszialer
-ANI  Akute Niereninsuffizienz
-AEP  Alkoholentzugspsychose
-ALR  Allergische Reaktion ohne Schocksymptomatik
-ANS  Anaphylaktischer Schock
-AEE  Anastomoseninsuffizienz einer Enterostomie
-API  Apoplektischer Insult
-BIF  Biliäre Fistel
-BOG  Blutung, obere gastrointestinale (z.B "Stressulkus")
-BOE  Bolusverlegung eines Endotubus
-BSI  Bronchusstumpfinsuffizienz
-CHI  Cholangitis
-DAI  Darmanastomoseinsuffizienz
-DPS  Darmpassagestörungen (z.B. protrahierte Atonie, Subileus, Ileus)
-DIC  Disseminierte intravasale Koagulopathie
-DEP  Drogenentzugspsychose
-DLU  Druck- und Lagerungsschäden, z.B. Dekubitalulzera
-DSI  Duodenalstumpfinsuffizienz
-ENF  Enterale Fistel
-GER  Gerinnungsstörung
-HEM  Hämatemesis
-HUR  Hämaturie
-HAE  Hämorrhagischer Schock
-HFI  Harnfistel
-HNK  Hautnekrose im Operationsbereich
-HZI  Herzinsuffizienz
-HRS  Herzrhythmusstörungen
-HNA  Hirnnervenausfälle
-HOP  Hirnorganisches Psychosyndrom (z.B."Durchgangssyndrom")
-HYB  Hyperbilirubinämie
-HYF  Hypopharynxfistel
-IFV  Ileofemorale Venenthrombose
-KAS  Kardiogener Schock
-KES  Komplikationen einer Stomaanlage
-KIM  Komplikation eines Implantates (Gefäßprothese, Totalendoprothese, Katheter), z.B. Dislokation
-KRA  Krampfanfall
-KDS  Kurzdarmsyndrom
-LEV  Leberversagen
-LOE  Lungenödem
-LYF  Lymphfistel
-LYE  Lymphozele
-MES  Magenentleerungsstörung
-MIL  Mechanischer Ileus
-MED  Mediastinitis
-MAT  Mesenterialarterien- oder -venenthrombose
-MYI  Myokardinfarkt
-RNB  Nachblutung, revisionsbedürftig, anderweitig nicht erwähnt
-NAB  Nachblutung, nicht revisionsbedürftig, anderweitig nicht erwähnt
-NIN  Nahtinsuffizienz, anderweitig nicht erwähnt
-OES  Ösophagitis
-OSM  Osteitis, Osteomyelitis
-PAF  Pankreasfistel
-PIT  Pankreatitis
-PAB  Peranale Blutung
-PPA  Periphere Parese
-PAV  Peripherer arterieller Verschluß (Embolie, Thrombose)
-PER  Peritonitis
-PLB  Platzbauch
-PEY  Pleuraempyem
-PLE  Pleuraerguß
-PMN  Pneumonie
-PNT  Pneumothorax
-PDA  Protrahierte Darmatonie (paralytischer Ileus)
-PAE  Pulmonalarterienembolie
-RPA  Rekurrensparese
-RIN  Respiratorische Insuffizienz
-SKI  Septische Komplikation eines Implantates
-SES  Septischer Schock
-SFH  Störungen des Flüssigkeits-, Elektrolyt- und Säurebasenhaushaltes
-SON  Sonstige Komplikation
-STK  Stomakomplikation (z.B. Blutung, Nekrose, Stenose)
-TZP  Thrombozytopenie
-TIA  TIA (transitorische ischämische Attacke) oder
-     RIND (reversibles ischämisches neurologisches Defizit)
-TRZ  Transfusionszwischenfall
-WUH  Wundhämatom (konservativ therapiert)
-WSS  Wundheilungsstörung, subkutane</xs:documentation>
+																											Wenn ja, dann Liste der aufgetretenen Komplikationen nach 
+																											Komplikationsschlüssel
+																											ABD  Abszeß in einem Drainagekanal
+																											ABS  Abszeß, intraabdominaler oder intrathorakaler
+																											ASF  Abszeß, subfaszialer
+																											ANI  Akute Niereninsuffizienz
+																											AEP  Alkoholentzugspsychose
+																											ALR  Allergische Reaktion ohne Schocksymptomatik
+																											ANS  Anaphylaktischer Schock
+																											AEE  Anastomoseninsuffizienz einer Enterostomie
+																											API  Apoplektischer Insult
+																											BIF  Biliäre Fistel
+																											BOG  Blutung, obere gastrointestinale (z.B "Stressulkus")
+																											BOE  Bolusverlegung eines Endotubus
+																											BSI  Bronchusstumpfinsuffizienz
+																											CHI  Cholangitis
+																											DAI  Darmanastomoseinsuffizienz
+																											DPS  Darmpassagestörungen (z.B. protrahierte Atonie, Subileus, Ileus)
+																											DIC  Disseminierte intravasale Koagulopathie
+																											DEP  Drogenentzugspsychose
+																											DLU  Druck- und Lagerungsschäden, z.B. Dekubitalulzera
+																											DSI  Duodenalstumpfinsuffizienz
+																											ENF  Enterale Fistel
+																											GER  Gerinnungsstörung
+																											HEM  Hämatemesis
+																											HUR  Hämaturie
+																											HAE  Hämorrhagischer Schock
+																											HFI  Harnfistel
+																											HNK  Hautnekrose im Operationsbereich
+																											HZI  Herzinsuffizienz
+																											HRS  Herzrhythmusstörungen
+																											HNA  Hirnnervenausfälle
+																											HOP  Hirnorganisches Psychosyndrom (z.B."Durchgangssyndrom")
+																											HYB  Hyperbilirubinämie
+																											HYF  Hypopharynxfistel
+																											IFV  Ileofemorale Venenthrombose
+																											KAS  Kardiogener Schock
+																											KES  Komplikationen einer Stomaanlage
+																											KIM  Komplikation eines Implantates (Gefäßprothese, Totalendoprothese, Katheter), z.B. Dislokation
+																											KRA  Krampfanfall
+																											KDS  Kurzdarmsyndrom
+																											LEV  Leberversagen
+																											LOE  Lungenödem
+																											LYF  Lymphfistel
+																											LYE  Lymphozele
+																											MES  Magenentleerungsstörung
+																											MIL  Mechanischer Ileus
+																											MED  Mediastinitis
+																											MAT  Mesenterialarterien- oder -venenthrombose
+																											MYI  Myokardinfarkt
+																											RNB  Nachblutung, revisionsbedürftig, anderweitig nicht erwähnt
+																											NAB  Nachblutung, nicht revisionsbedürftig, anderweitig nicht erwähnt
+																											NIN  Nahtinsuffizienz, anderweitig nicht erwähnt
+																											OES  Ösophagitis
+																											OSM  Osteitis, Osteomyelitis
+																											PAF  Pankreasfistel
+																											PIT  Pankreatitis
+																											PAB  Peranale Blutung
+																											PPA  Periphere Parese
+																											PAV  Peripherer arterieller Verschluß (Embolie, Thrombose)
+																											PER  Peritonitis
+																											PLB  Platzbauch
+																											PEY  Pleuraempyem
+																											PLE  Pleuraerguß
+																											PMN  Pneumonie
+																											PNT  Pneumothorax
+																											PDA  Protrahierte Darmatonie (paralytischer Ileus)
+																											PAE  Pulmonalarterienembolie
+																											RPA  Rekurrensparese
+																											RIN  Respiratorische Insuffizienz
+																											SKI  Septische Komplikation eines Implantates
+																											SES  Septischer Schock
+																											SFH  Störungen des Flüssigkeits-, Elektrolyt- und Säurebasenhaushaltes
+																											SON  Sonstige Komplikation
+																											STK  Stomakomplikation (z.B. Blutung, Nekrose, Stenose)
+																											TZP  Thrombozytopenie
+																											TIA  (transitorische ischämische Attacke) oder RIND (reversibles ischämisches neurologisches Defizit)
+																											TRZ  Transfusionszwischenfall
+																											WUH  Wundhämatom (konservativ therapiert)
+																											WSS  Wundheilungsstörung, subkutane
+																											</xs:documentation>
 																										</xs:annotation>
 																										<xs:simpleType>
 																											<xs:restriction base="xs:string">
@@ -958,6 +1024,8 @@ WSS  Wundheilungsstörung, subkutane</xs:documentation>
 																						</xs:element>
 																						<xs:element name="Modul_Mamma" type="Modul_Mamma_Typ" minOccurs="0"/>
 																						<xs:element name="Modul_Darm" type="Modul_Darm_Typ" minOccurs="0"/>
+																						<xs:element name="Modul_Prostata" type="Modul_Prostata_Typ" minOccurs="0"/>
+																						<xs:element name="Modul_Malignes_Melanom" type="Modul_Malignes_Melanom_Typ" minOccurs="0"/>
 																						<xs:element name="Modul_Allgemein" type="Modul_Allgemein_Typ" minOccurs="0"/>
 																						<xs:element name="Menge_Operateur" minOccurs="0">
 																							<xs:complexType>
@@ -982,12 +1050,13 @@ WSS  Wundheilungsstörung, subkutane</xs:documentation>
 																					<xs:sequence>
 																						<xs:element name="ST_Intention" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gibt an, mit welcher Intention die Strahlentherapie durchgeführt wird. 
-
-K = Kurativ
-P = Palliativ
-S = Sonstiges 
-X = Keine Angabe</xs:documentation>
+																								<xs:documentation>
+																								Gibt an, mit welcher Intention die Strahlentherapie durchgeführt wird. 
+																								K = Kurativ
+																								P = Palliativ
+																								S = Sonstiges 
+																								X = Keine Angabe
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -1017,13 +1086,14 @@ X = Keine Angabe</xs:documentation>
 																						</xs:element>
 																						<xs:element name="ST_Stellung_OP" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gibt an, in welchem Bezug zu einer operativen Therapie die Bestrahlung steht  
-
-O = Ohne Bezug zu einer operativen Therapie
-A = Adjuvant
-N = Neoadjuvant
-I = Intraoperativ
-S = Sonstiges</xs:documentation>
+																								<xs:documentation>
+																									Gibt an, in welchem Bezug zu einer operativen Therapie die Bestrahlung steht.  
+																									O = Ohne Bezug zu einer operativen Therapie
+																									A = Adjuvant
+																									N = Neoadjuvant
+																									I = Intraoperativ
+																									S = Sonstiges
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -1273,6 +1343,16 @@ S = Sonstiges</xs:documentation>
 																															<xs:enumeration value="3.3.">
 																																<xs:annotation>
 																																	<xs:documentation>Brustwand (z.B. Rezidiven n. Ablatio Sarkome)</xs:documentation>
+																																</xs:annotation>
+																															</xs:enumeration>
+																															<xs:enumeration value="3.3.+">
+																																<xs:annotation>
+																																	<xs:documentation>Brustwand (z.B. Rezidiven n. Ablatio Sarkome) mit Lymphknoten</xs:documentation>
+																																</xs:annotation>
+																															</xs:enumeration>
+																															<xs:enumeration value="3.3.-">
+																																<xs:annotation>
+																																	<xs:documentation>Brustwand (z.B. Rezidiven n. Ablatio Sarkome) ohne Lymphknoten</xs:documentation>
 																																</xs:annotation>
 																															</xs:enumeration>
 																															<xs:enumeration value="3.4.">
@@ -1810,13 +1890,14 @@ S = Sonstiges</xs:documentation>
 																												</xs:element>
 																												<xs:element name="ST_Seite_Zielgebiet" minOccurs="0">
 																													<xs:annotation>
-																														<xs:documentation>Gibt Seitenlokalisation des Zielgebietes an 
-
-L = Links
-R = Rechts
-B = Beidseits
-M = Mittig
-U = Unbekannt</xs:documentation>
+																														<xs:documentation>
+																															Gibt Seitenlokalisation des Zielgebietes an 
+																															L = Links
+																															R = Rechts
+																															B = Beidseits
+																															M = Mittig
+																															U = Unbekannt
+																														</xs:documentation>
 																													</xs:annotation>
 																													<xs:simpleType>
 																														<xs:restriction base="xs:string">
@@ -1853,29 +1934,23 @@ U = Unbekannt</xs:documentation>
 																												<xs:element name="ST_Ende_Datum" type="Datum_Typ" minOccurs="0"/>
 																												<xs:element name="ST_Applikationsart" minOccurs="0">
 																													<xs:annotation>
-																														<xs:documentation>Gibt an, mit welcher Technik die Strahlentherapie durchgeführt wird. 
-
-P = Perkutan (Teletherapie)
-
-K = Endokavitäre Kontakttherapie (Brachytherapie)
-
-I = Interstitielle Kontakttherapie (Brachytherapie)
-
-M = Metabolische Therapie (Radionuklide)
-
-wenn P: zusätzliche Box
-RC = Radiochemotherapie/Sensitizer: ja/nein
-
-wenn K oder I: zusätzliche Box
-HDR = High dose rate therapy
-PDR = Pulsed dose rate therapy
-LDR = Low dose rate therapy
-
-wenn M 
-SIRT = Selektive Interne Radio-Therapie
-PRRT = Peptid-Radio-Rezeptor-Therapie
-
-S = Sonstiges</xs:documentation>
+																														<xs:documentation>
+																															Gibt an, mit welcher Technik die Strahlentherapie durchgeführt wird. 
+																															P = Perkutan (Teletherapie)
+																															K = Endokavitäre Kontakttherapie (Brachytherapie)
+																															I = Interstitielle Kontakttherapie (Brachytherapie)
+																															M = Metabolische Therapie (Radionuklide)
+																															wenn P: zusätzliche Box
+																															RC = Radiochemotherapie/Sensitizer: ja/nein
+																															wenn K oder I: zusätzliche Box
+																															HDR = High dose rate therapy
+																															PDR = Pulsed dose rate therapy
+																															LDR = Low dose rate therapy
+																															wenn M 
+																															SIRT = Selektive Interne Radio-Therapie
+																															PRRT = Peptid-Radio-Rezeptor-Therapie
+																															S = Sonstiges
+																														</xs:documentation>
 																													</xs:annotation>
 																													<xs:simpleType>
 																														<xs:restriction base="xs:string">
@@ -1886,14 +1961,18 @@ S = Sonstiges</xs:documentation>
 																															</xs:enumeration>
 																															<xs:enumeration value="PRCJ">
 																																<xs:annotation>
-																																	<xs:documentation>Perkutan (Teletherapie) Radiochemotherapie/Sensitizer: ja
-Radiochemotherapie/Sensitizer: ja</xs:documentation>
+																																	<xs:documentation>
+																																		Perkutan (Teletherapie) Radiochemotherapie/Sensitizer: ja
+																																		Radiochemotherapie/Sensitizer: ja
+																																	</xs:documentation>
 																																</xs:annotation>
 																															</xs:enumeration>
 																															<xs:enumeration value="PRCN">
 																																<xs:annotation>
-																																	<xs:documentation>Perkutan (Teletherapie) Radiochemotherapie/Sensitizer: nein
-Radiochemotherapie/Sensitizer: nein</xs:documentation>
+																																	<xs:documentation>
+																																		Perkutan (Teletherapie) Radiochemotherapie/Sensitizer: nein
+																																		Radiochemotherapie/Sensitizer: nein
+																																	</xs:documentation>
 																																</xs:annotation>
 																															</xs:enumeration>
 																															<xs:enumeration value="K">
@@ -1969,14 +2048,15 @@ Radiochemotherapie/Sensitizer: nein</xs:documentation>
 																						</xs:element>
 																						<xs:element name="ST_Ende_Grund" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gibt den Grund an, warum die Strahlentherapie beendet wurde. 
-
-A = Abbruch wegen Nebenwirkungen
-E = Reguläres Ende
-V = Patient verweigert weitere Therapie
-P = Abbruch wegen Progress
-U = unbekannt
-S = Abbruch aus sonstigen Gründen</xs:documentation>
+																								<xs:documentation>
+																									Gibt den Grund an, warum die Strahlentherapie beendet wurde. 
+																									A = Abbruch wegen Nebenwirkungen
+																									E = Reguläres Ende
+																									V = Patient verweigert weitere Therapie
+																									P = Abbruch wegen Progress
+																									U = unbekannt
+																									S = Abbruch aus sonstigen Gründen
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2039,12 +2119,13 @@ S = Abbruch aus sonstigen Gründen</xs:documentation>
 																					<xs:sequence>
 																						<xs:element name="SYST_Intention" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gibt an, mit welcher Intention die Systemische Therapie durchgeführt wird.  
-
-K = Kurativ
-P = Palliativ
-S = Sonstiges
-X = Keine Angabe</xs:documentation>
+																								<xs:documentation>
+																									Gibt an, mit welcher Intention die Systemische Therapie durchgeführt wird.  
+																									K = Kurativ
+																									P = Palliativ
+																									S = Sonstiges
+																									X = Keine Angabe
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2074,13 +2155,14 @@ X = Keine Angabe</xs:documentation>
 																						</xs:element>
 																						<xs:element name="SYST_Stellung_OP" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gibt an, in welchem Bezug zu einer operativen Therapie die systemische Therapie steht 
-
-O = Ohne Bezug zu einer operativen Therapie
-A = Adjuvant
-N = Neoadjuvant
-I = intraoperativ
-S = Sonstiges</xs:documentation>
+																								<xs:documentation>
+																									Gibt an, in welchem Bezug zu einer operativen Therapie die systemische Therapie steht 
+																									O = Ohne Bezug zu einer operativen Therapie
+																									A = Adjuvant
+																									N = Neoadjuvant
+																									I = intraoperativ
+																									S = Sonstiges
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2118,18 +2200,18 @@ S = Sonstiges</xs:documentation>
 																								<xs:sequence>
 																									<xs:element name="SYST_Therapieart" maxOccurs="unbounded">
 																										<xs:annotation>
-																											<xs:documentation>Gibt an, welche Art der Therapie bzw. abwartende Strategie durchgeführt wurde  
-
-CH = Chemotherapie 
-HO = Hormontherapie
-IM = Immun- und Antikörpertherapie
-KM = Knochenmarktransplantation
-WS = Wait and see
-AS = Active Surveillance
-ZS = Zielgerichtete Substanzen
-SO = Sonstiges
-
-Mehrfachangaben möglich</xs:documentation>
+																											<xs:documentation>
+																												Gibt an, welche Art der Therapie bzw. abwartende Strategie durchgeführt wurde  
+																												(Mehrfachangaben möglich)
+																												CH = Chemotherapie 
+																												HO = Hormontherapie
+																												IM = Immun- und Antikörpertherapie
+																												KM = Knochenmarktransplantation
+																												WS = Wait and see
+																												AS = Active Surveillance
+																												ZS = Zielgerichtete Substanzen
+																												SO = Sonstiges
+																											</xs:documentation>
 																										</xs:annotation>
 																										<xs:simpleType>
 																											<xs:restriction base="xs:string">
@@ -2192,15 +2274,16 @@ Mehrfachangaben möglich</xs:documentation>
 																						</xs:element>
 																						<xs:element name="SYST_Ende_Grund" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gibt den Grund an, warum die Systemtherapie beendet wurde. 
-
-A = Abbruch wegen Nebenwirkungen
-E = Reguläres Ende
-V = Patient verweigert weitere Therapie
-R = Reguläres Ende mit Dosisreduktion
-P = Abbruch wegen Progress
-U = Unbekannt
-S = Abbruch aus sonstigen Gründen</xs:documentation>
+																								<xs:documentation>
+																									Gibt den Grund an, warum die Systemtherapie beendet wurde. 
+																									A = Abbruch wegen Nebenwirkungen
+																									E = Reguläres Ende
+																									V = Patient verweigert weitere Therapie
+																									R = Reguläres Ende mit Dosisreduktion
+																									P = Abbruch wegen Progress
+																									U = Unbekannt
+																									S = Abbruch aus sonstigen Gründen
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2277,17 +2360,18 @@ S = Abbruch aus sonstigen Gründen</xs:documentation>
 																						<xs:element name="Untersuchungsdatum_Verlauf" type="Datum_Typ" minOccurs="0"/>
 																						<xs:element name="Gesamtbeurteilung_Tumorstatus" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Gesamtbeurteilung der Erkrankung unter Berücksichtigung aller Manifestationen.  
-
-V = Vollremission (complete remission, CR)
-T = Teilremission / mindestens 50% Rückgang des Tumors (partial remission, PR)
-K = Keine Änderung (no change, NC) = stable disease
-P = Progression
-D = Divergentes Geschehen
-B = Klinische Besserung des Zustandes, Kriterien für Teilremission jedoch nicht erfüllt (minimal response, MR)
-R = Vollremission mit residualen Auffälligkeiten (CRr)
-U = Beurteilung unmöglich
-X = Fehlende Angaben</xs:documentation>
+																								<xs:documentation>
+																									Gesamtbeurteilung der Erkrankung unter Berücksichtigung aller Manifestationen.  
+																									V = Vollremission (complete remission, CR)
+																									T = Teilremission / mindestens 50% Rückgang des Tumors (partial remission, PR)
+																									K = Keine Änderung (no change, NC) = stable disease
+																									P = Progression
+																									D = Divergentes Geschehen
+																									B = Klinische Besserung des Zustandes, Kriterien für Teilremission jedoch nicht erfüllt (minimal response, MR)
+																									R = Vollremission mit residualen Auffälligkeiten (CRr)
+																									U = Beurteilung unmöglich
+																									X = Fehlende Angaben
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2342,16 +2426,17 @@ X = Fehlende Angaben</xs:documentation>
 																						</xs:element>
 																						<xs:element name="Verlauf_Lokaler_Tumorstatus" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Beurteilung der Situation im Primärtumorbereich  
-
-K = Kein Tumor nachweisbar
-T = Tumorreste (Residualtumor)
-P = Tumorreste Residualtumor Progress
-N = Tumorreste Residualtumor No Change
-R = Lokalrezidiv
-F = Fraglicher Befund
-U = Unbekannt
-X = Fehlende Angabe</xs:documentation>
+																								<xs:documentation>
+																									Beurteilung der Situation im Primärtumorbereich  
+																									K = Kein Tumor nachweisbar
+																									T = Tumorreste (Residualtumor)
+																									P = Tumorreste Residualtumor Progress
+																									N = Tumorreste Residualtumor No Change
+																									R = Lokalrezidiv
+																									F = Fraglicher Befund
+																									U = Unbekannt
+																									X = Fehlende Angabe
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2401,16 +2486,17 @@ X = Fehlende Angabe</xs:documentation>
 																						</xs:element>
 																						<xs:element name="Verlauf_Tumorstatus_Lymphknoten" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Beurteilung der Situation im Bereich der regionären Lymphknoten  
-
-K = Kein Lymphknotenbefall nachweisbar
-R = Neu aufgetretenes Lymphknotenrezidiv
-T = Bekannter Lymphknotenbefall Residuen
-P = Bekannter Lymphknotenbefall Progress
-N = Bekannter Lymphknotenbefall No Change
-F = Fraglicher Befund
-U = Unbekannt
-X = Fehlende Angabe</xs:documentation>
+																								<xs:documentation>
+																									Beurteilung der Situation im Bereich der regionären Lymphknoten  
+																									K = Kein Lymphknotenbefall nachweisbar
+																									R = Neu aufgetretenes Lymphknotenrezidiv
+																									T = Bekannter Lymphknotenbefall Residuen
+																									P = Bekannter Lymphknotenbefall Progress
+																									N = Bekannter Lymphknotenbefall No Change
+																									F = Fraglicher Befund
+																									U = Unbekannt
+																									X = Fehlende Angabe
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2460,17 +2546,18 @@ X = Fehlende Angabe</xs:documentation>
 																						</xs:element>
 																						<xs:element name="Verlauf_Tumorstatus_Fernmetastasen" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Beurteilung der Situation im Bereich der Fernmetastasen  
-
-K = Keine Fernmetastasen nachweisbar
-M = Verbliebene Fernmetastase(n)
-R = Neu aufgetretene Fernmetastase(n) bzw. Metastasenrezidiv
-T = Fernmetastasenl Residuen
-P = Fernmetastasen Progress
-N = Fernmetastasen No Change
-F = Fraglicher Befund
-U = Unbekannt
-X = Fehlende Angabe</xs:documentation>
+																								<xs:documentation>
+																									Beurteilung der Situation im Bereich der Fernmetastasen  
+																									K = Keine Fernmetastasen nachweisbar
+																									M = Verbliebene Fernmetastase(n)
+																									R = Neu aufgetretene Fernmetastase(n) bzw. Metastasenrezidiv
+																									T = Fernmetastasen Residuen
+																									P = Fernmetastasen Progress
+																									N = Fernmetastasen No Change
+																									F = Fraglicher Befund
+																									U = Unbekannt
+																									X = Fehlende Angabe
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2525,6 +2612,8 @@ X = Fehlende Angabe</xs:documentation>
 																						</xs:element>
 																						<xs:element name="Menge_FM" type="Menge_FM_Typ" minOccurs="0"/>
 																						<xs:element name="Allgemeiner_Leistungszustand" type="Allgemeiner_Leistungszustand_Typ" minOccurs="0"/>
+																						<xs:element name="Modul_Prostata" type="Modul_Prostata_Typ" minOccurs="0"/>
+																						<xs:element name="Modul_Malignes_Melanom" type="Modul_Malignes_Melanom_Typ" minOccurs="0"/>
 																						<xs:element name="Modul_Allgemein" type="Modul_Allgemein_Typ" minOccurs="0"/>
 																						<xs:element name="Tod" minOccurs="0">
 																							<xs:complexType>
@@ -2532,11 +2621,12 @@ X = Fehlende Angabe</xs:documentation>
 																									<xs:element name="Sterbedatum" type="Datum_Typ" minOccurs="0"/>
 																									<xs:element name="Tod_tumorbedingt" minOccurs="0">
 																										<xs:annotation>
-																											<xs:documentation>Krebs-Tod-Relation 
-
-J = Ja
-N = Nein
-U = Unbekannt</xs:documentation>
+																											<xs:documentation>
+																												Krebs-Tod-Relation 
+																												J = Ja
+																												N = Nein
+																												U = Unbekannt
+																											</xs:documentation>
 																										</xs:annotation>
 																										<xs:simpleType>
 																											<xs:restriction base="JNU_Typ"/>
@@ -2576,13 +2666,12 @@ U = Unbekannt</xs:documentation>
 																						<xs:element name="Tumorkonferenz_Datum" type="Datum_Typ" minOccurs="0"/>
 																						<xs:element name="Tumorkonferenz_Typ" minOccurs="0">
 																							<xs:annotation>
-																								<xs:documentation>Typ der Tumorkonferenz  
-
-praeth = prätherapeutisch (Festlegung der Gesamttherapiestrategie, z.B. neoadjuvant oder direkte Operation)
-
-postop = postoperativ (Planung der postoperativen Therapie, z.B. zur Frage adjuvante Therapie)
-
-postth = posttherapeutisch (manche Tumoren werden nicht operiert)</xs:documentation>
+																								<xs:documentation>
+																									Typ der Tumorkonferenz  
+																									praeth = prätherapeutisch (Festlegung der Gesamttherapiestrategie, z.B. neoadjuvant oder direkte Operation)
+																									postop = postoperativ (Planung der postoperativen Therapie, z.B. zur Frage adjuvante Therapie)
+																									postth = posttherapeutisch (manche Tumoren werden nicht operiert)
+																								</xs:documentation>
 																							</xs:annotation>
 																							<xs:simpleType>
 																								<xs:restriction base="xs:string">
@@ -2660,6 +2749,41 @@ postth = posttherapeutisch (manche Tumoren werden nicht operiert)</xs:documentat
 								<xs:documentation>Major-Update 2.0.0 vom 01.04.2017</xs:documentation>
 							</xs:annotation>
 						</xs:enumeration>
+						<xs:enumeration value="2.0.1">
+							<xs:annotation>
+								<xs:documentation>Hotfix 2.0.1 vom 01.06.2018</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="2.1.0">
+							<xs:annotation>
+								<xs:documentation>Minor-Update 2.1.0 vom 06.11.2017</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="2.1.1">
+							<xs:annotation>
+								<xs:documentation>Hotfix 2.1.1 vom 01.06.2018</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="2.1.2">
+							<xs:annotation>
+								<xs:documentation>Hotfix 2.1.2 vom 08.10.2020</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="2.1.3">
+							<xs:annotation>
+								<xs:documentation>Hotfix 2.1.3 vom 07.01.2021</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="2.2.0">
+							<xs:annotation>
+								<xs:documentation>Minor-Update 2.2.0 vom 01.08.2020</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="2.2.1">
+							<xs:annotation>
+								<xs:documentation>Hotfix 2.2.1 vom 07.01.2021</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
@@ -2718,6 +2842,51 @@ postth = posttherapeutisch (manche Tumoren werden nicht operiert)</xs:documentat
 	</xs:simpleType>
 	<xs:simpleType name="ICD_Version_Typ">
 		<xs:restriction base="xs:string">
+			<xs:enumeration value="10 2004 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2004 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2005 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2005 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2006 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2006 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2007 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2007 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2008 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2008 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2009 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2009 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2010 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2010 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2011 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2011 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2012 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2012 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
 			<xs:enumeration value="10 2013 GM">
 				<xs:annotation>
 					<xs:documentation>ICD 10 Version 2013 GM</xs:documentation>
@@ -2751,6 +2920,26 @@ postth = posttherapeutisch (manche Tumoren werden nicht operiert)</xs:documentat
 			<xs:enumeration value="10 2018 GM">
 				<xs:annotation>
 					<xs:documentation>ICD 10 Version 2018 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2019 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2019 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2020 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2020 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2021 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2021 GM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10 2022 GM">
+				<xs:annotation>
+					<xs:documentation>ICD 10 Version 2022 GM</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="Sonstige">
@@ -2812,12 +3001,17 @@ postth = posttherapeutisch (manche Tumoren werden nicht operiert)</xs:documentat
 					<xs:restriction base="xs:string">
 						<xs:enumeration value="31">
 							<xs:annotation>
-								<xs:documentation>ICD-O3; 1. Auflage 2003</xs:documentation>
+								<xs:documentation>ICD-O-3, 2003</xs:documentation>
 							</xs:annotation>
 						</xs:enumeration>
 						<xs:enumeration value="32">
 							<xs:annotation>
-								<xs:documentation>ICD-O3, 2. Auflage 2013</xs:documentation>
+								<xs:documentation>ICD-O-3, 1. Revision 2014</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="33">
+							<xs:annotation>
+								<xs:documentation>ICD-O-3, 2. Revision 2019</xs:documentation>
 							</xs:annotation>
 						</xs:enumeration>
 						<xs:enumeration value="bb">
@@ -2831,22 +3025,22 @@ postth = posttherapeutisch (manche Tumoren werden nicht operiert)</xs:documentat
 			<xs:element name="Morphologie_Freitext" type="xs:string" minOccurs="0"/>
 			<xs:element name="Grading" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Das histopathologische Grading von Tumoren wird durchgeführt, um Anhaltspunkte betreffend ihrer Aggressivität zu erhalten, die im Bezug zur Prognose und zur Behandlung steht. Das Grading sollte den Empfehlungen der WHO-Klassifikation maligner Tumoren folgen.
-
-0 = Malignes Melanom der Konjunktiva
-1 = Gut differenziert
-2 = Mäßig differenziert
-3 = Schlecht differenziert
-4 = Undifferenziert
-X = Nicht bestimmbar
-L = Low grade (G1 oder G2)
-M = Intermediate (G2 oder G3)
-H = High grade (G3 oder G4)
-B = Borderline
-U = Unbekannt
-T = Trifft nicht zu
-
-Bei der Klassifikation sind die einschlägigen Regeln der Literatur (TNM) zu beachten.</xs:documentation>
+					<xs:documentation>
+						Das histopathologische Grading von Tumoren wird durchgeführt, um Anhaltspunkte betreffend ihrer Aggressivität zu erhalten, die im Bezug zur Prognose und zur Behandlung steht. Das Grading sollte den Empfehlungen der WHO-Klassifikation maligner Tumoren folgen.
+						0 = Malignes Melanom der Konjunktiva
+						1 = Gut differenziert
+						2 = Mäßig differenziert
+						3 = Schlecht differenziert
+						4 = Undifferenziert
+						X = Nicht bestimmbar
+						L = Low grade (G1 oder G2)
+						M = Intermediate (G2 oder G3)
+						H = High grade (G3 oder G4)
+						B = Borderline
+						U = Unbekannt
+						T = Trifft nicht zu
+						Bei der Klassifikation sind die einschlägigen Regeln der Literatur (TNM) zu beachten.
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -2929,20 +3123,21 @@ Bei der Klassifikation sind die einschlägigen Regeln der Literatur (TNM) zu bea
 						<xs:element name="FM_Diagnosedatum" type="Datum_Typ" minOccurs="0"/>
 						<xs:element name="FM_Lokalisation" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Lokalisation der Fernmetastase 
-
-PUL = Lunge
-OSS = Knochen
-HEP = Leber
-BRA = Hirn
-LYM = Lymphknoten
-MAR = Knochenmark
-PLE = Pleura
-PER = Peritoneum
-ADR = Nebennieren
-SKI = Haut
-OTH = Andere Organe
-GEN = Generalisierte Metastasierung</xs:documentation>
+								<xs:documentation>
+									Lokalisation der Fernmetastase 
+									PUL = Lunge
+									OSS = Knochen
+									HEP = Leber
+									BRA = Hirn
+									LYM = Lymphknoten
+									MAR = Knochenmark
+									PLE = Pleura
+									PER = Peritoneum
+									ADR = Nebennieren
+									SKI = Haut
+									OTH = Andere Organe
+									GEN = Generalisierte Metastasierung
+								</xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="xs:string">
@@ -3019,14 +3214,15 @@ GEN = Generalisierte Metastasierung</xs:documentation>
 		<xs:sequence>
 			<xs:element name="Nebenwirkung_Grad" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Gibt an, zu welchem Schweregrad von Nebenwirkungen es bei der Bestrahlung gekommen ist (sogenannte akute Nebenwirkungen bis zum 90 Tag nach Bestrahlungsbeginn) 
-
-Art der Nebenwirkung nach CTC + Schweregrad
-K = Keine oder höchstens Grad 2
-3 = Stark/ausgeprägt
-4 = Lebensbedrohlich
-5 = Tödlich
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+						Gibt an, zu welchem Schweregrad von Nebenwirkungen es bei der Bestrahlung gekommen ist (sogenannte akute Nebenwirkungen bis zum 90 Tag nach Bestrahlungsbeginn) 
+						Art der Nebenwirkung nach CTC + Schweregrad
+						K = Keine oder höchstens Grad 2
+						3 = Stark/ausgeprägt
+						4 = Lebensbedrohlich
+						5 = Tödlich
+						U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3092,26 +3288,28 @@ U = Unbekannt</xs:documentation>
 		<xs:sequence>
 			<xs:element name="Lokale_Beurteilung_Residualstatus" type="R_Typ" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Lokale Beurteilung der Residualklassifikation nach Resektion, bezieht sich auf das, was reseziert wurde, meist Primärtumor, aber z.B. auch Lebermetastasen  
-
-R0 = Kein Residualtumor
-R1 = Mikroskopischer Residualtumor
-R2 = Makroskopischer Residualtumor
-R1(is) = In-Situ-Rest
-R1(cy+) = Cytologischer Rest
-RX = Vorhandensein von Residualtumor kann nicht beurteilt werden</xs:documentation>
+					<xs:documentation>
+						Lokale Beurteilung der Residualklassifikation nach Resektion, bezieht sich auf das, was reseziert wurde, meist Primärtumor, aber z.B. auch Lebermetastasen  
+						R0 = Kein Residualtumor
+						R1 = Mikroskopischer Residualtumor
+						R2 = Makroskopischer Residualtumor
+						R1(is) = In-Situ-Rest
+						R1(cy+) = Cytologischer Rest
+						RX = Vorhandensein von Residualtumor kann nicht beurteilt werden
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Gesamtbeurteilung_Residualstatus" type="R_Typ" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Gesamtbeurteilung der Residualklassifikation der Erkrankung einschließlich etwaiger Fernmetastasen
-
-R0 = Kein Residualtumor
-R1 = Mikroskopischer Residualtumor
-R2 = Makroskopischer Residualtumor
-R1(is) = In-Situ-Rest
-R1(cy+) = Cytologischer Rest
-RX = Vorhandensein von Residualtumor kann nicht beurteilt werden</xs:documentation>
+					<xs:documentation>
+						Gesamtbeurteilung der Residualklassifikation der Erkrankung einschließlich etwaiger Fernmetastasen
+						R0 = Kein Residualtumor
+						R1 = Mikroskopischer Residualtumor
+						R2 = Makroskopischer Residualtumor
+						R1(is) = In-Situ-Rest
+						R1(cy+) = Cytologischer Rest
+						RX = Vorhandensein von Residualtumor kann nicht beurteilt werden
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -3170,22 +3368,24 @@ RX = Vorhandensein von Residualtumor kann nicht beurteilt werden</xs:documentati
 		<xs:sequence>
 			<xs:element name="DatumSozialdienstkontakt" type="Datum_NU_Typ" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Datum des ersten Sozialdienstkontaktes im Rahmen der Erst- oder Rezidivbehandlung
-
-Ausprägungen:
-yyyy-mm-dd = Datum des Kontakts
-N = Nein – kein Kontakt
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+						Datum des ersten Sozialdienstkontaktes im Rahmen der Erst- oder Rezidivbehandlung
+						Ausprägungen:
+						yyyy-mm-dd = Datum des Kontakts
+						N = Nein – kein Kontakt
+						U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="DatumStudienrekrutierung" type="Datum_NU_Typ" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Teilnahme an einer Studie mit Ethikvotum
-
-Ausprägungen:
-yyyy-mm-dd = Einschlussdatum
-N = Keine Studienteilnahme
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+						Teilnahme an einer Studie mit Ethikvotum
+						Ausprägungen:
+						yyyy-mm-dd = Einschlussdatum
+						N = Keine Studienteilnahme
+						U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -3197,12 +3397,13 @@ U = Unbekannt</xs:documentation>
 		<xs:sequence>
 			<xs:element name="Praetherapeutischer_Menopausenstatus" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Prätherapeutischer Menopausenstatus der Patientin Postmenopausal bedeutet mehr als ein Jahr keine Menstruationsblutung oder Estradiol (E2) und Follikelstimulierendes Hormon (FSH) im eindeutigen postmenopausalen Bereich.
-
-1 = Prämenopausal
-3 = Postmenopausal
-U = Unbekannt
-Prämenopausal umfasst Perimenopausal</xs:documentation>
+					<xs:documentation>
+						Prätherapeutischer Menopausenstatus der Patientin Postmenopausal bedeutet mehr als ein Jahr keine Menstruationsblutung oder Estradiol (E2) und Follikelstimulierendes Hormon (FSH) im eindeutigen postmenopausalen Bereich.
+						1 = Prämenopausal
+						3 = Postmenopausal
+						U = Unbekannt
+						Hinweis: Prämenopausal umfasst Perimenopausal
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3227,45 +3428,51 @@ Prämenopausal umfasst Perimenopausal</xs:documentation>
 			</xs:element>
 			<xs:element name="HormonrezeptorStatus_Oestrogen" type="Hormonrezeptor_Typ" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Rezeptorstatus Positiv/Negativ (gemäß: Immun reaktiver Score (IRS) Remmele W et al. 1987)
-
-P = Positiv (IRS &gt;= 1)
-N = Negativ
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+					<![CDATA[
+						Rezeptorstatus Positiv/Negativ (gemäß: Immun reaktiver Score (IRS) Remmele W et al. 1987)
+						P = Positiv (IRS >= 1)
+						N = Negativ
+						U = Unbekannt
+					]]>
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="HormonrezeptorStatus_Progesteron" type="Hormonrezeptor_Typ" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Rezeptorstatus Positiv/Negativ (gemäß: Immunreaktiver Score (IRS) Remmele W et al. 1987).
-
-P = Positiv (IRS &gt;= 1)
-N = Negativ
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+					<![CDATA[
+						Rezeptorstatus Positiv/Negativ (gemäß: Immunreaktiver Score (IRS) Remmele W et al. 1987).
+						P = Positiv (IRS >= 1)
+						N = Negativ
+						U = Unbekannt</xs:documentation>
+					]]>
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="Her2neuStatus" type="Hormonrezeptor_Typ" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Rezeptorstatus Positiv/Negativ (gemäß immunreaktiven Scores nach Leitlinie)
-
-P = Positiv, d. h. 
-    IHC +++ oder
-    IHC ++ und ISH (FISH, CISH o. Ä.) positiv
-N = Negativ
-U = Unbekannt
-
-Bei FISH "borderline" muss die Festlegung auf negativ oder positiv durch den Kliniker in
-Absprache mit dem Pathologen erfolgen.</xs:documentation>
+					<xs:documentation>
+					Rezeptorstatus Positiv/Negativ (gemäß immunreaktiven Scores nach Leitlinie)
+					P = Positiv, d. h. 
+						IHC +++ oder
+						IHC ++ und ISH (FISH, CISH o. Ä.) positiv
+					N = Negativ
+					U = Unbekannt
+					Bei FISH "borderline" muss die Festlegung auf negativ oder positiv durch den Kliniker in Absprache mit dem Pathologen erfolgen.
+					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="PraeopDrahtmarkierung" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Es wurde eine präoperative Drahtmarkierung gesteuert durch das angegebene bildgebende Verfahren durchgeführt.
-
-M = Mammografie
-S = Sonografie
-T = MRT
-N = Keine Drahtmarkierung durch Bildgebung
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+					Es wurde eine präoperative Drahtmarkierung gesteuert durch das angegebene bildgebende Verfahren durchgeführt.
+					M = Mammografie
+					S = Sonografie
+					T = MRT
+					N = Keine Drahtmarkierung durch Bildgebung
+					U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3300,12 +3507,13 @@ U = Unbekannt</xs:documentation>
 			</xs:element>
 			<xs:element name="IntraopPraeparatkontrolle" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Das Präparat wird intraoperativ mammografiert/sonografiert nach präoperativer Drahtmarkierung durch Mammografie oder Sonografie.
-
-M = Mammografie
-S = Sonografie
-N = Nein
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+					Das Präparat wird intraoperativ mammografiert/sonografiert nach präoperativer Drahtmarkierung durch Mammografie oder Sonografie.
+					M = Mammografie
+					S = Sonografie
+					N = Nein
+					U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3347,15 +3555,16 @@ U = Unbekannt</xs:documentation>
 			<xs:element name="RektumAbstandCircResektionsebene" type="Zahl_3stellig_Typ" minOccurs="0"/>
 			<xs:element name="RektumQualitaetTME" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Qualität des TME-Präparats
-
-1 = Grad 1 (gut)
-2 = Grad 2 (moderat)
-3 = Grad 3 (schlecht)
-P = PME durchgeführt
-L = Lokale Exzision durchgeführt
-A = Andere Operation durchgeführt
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+					Qualität des TME-Präparats
+					1 = Grad 1 (gut)
+					2 = Grad 2 (moderat)
+					3 = Grad 3 (schlecht)
+					P = PME durchgeführt
+					L = Lokale Exzision durchgeführt
+					A = Andere Operation durchgeführt
+					U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3400,17 +3609,18 @@ U = Unbekannt</xs:documentation>
 			<xs:element name="RektumMRTDuennschichtAngabemesorektaleFaszie" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						<xs:pattern value="[1-9](\d)?|[DNU]"/>
+						<xs:pattern value="0|[1-9](\d)?|[DNU]"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
 			<xs:element name="ArtEingriff" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Modalität der Eingriffsdurchführung
-
-E = Elektiveingriff
-N = Notfalleingriff
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+					Modalität der Eingriffsdurchführung
+					E = Elektiveingriff
+					N = Notfalleingriff
+					U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3434,13 +3644,14 @@ U = Unbekannt</xs:documentation>
 			</xs:element>
 			<xs:element name="RektumAnzeichnungStomaposition" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Präoperative Anzeichnung der Stomaposition
-
-D = Anzeichnung durchgeführt
-N = Anzeichnung nicht durchgeführt
-K = Kein Stoma
-S = Stoma angelegt, Anzeichnung nicht bekannt
-U = Unbekannt</xs:documentation>
+					<xs:documentation>
+					Präoperative Anzeichnung der Stomaposition
+					D = Anzeichnung durchgeführt
+					N = Anzeichnung nicht durchgeführt
+					K = Kein Stoma
+					S = Stoma angelegt, Anzeichnung nicht bekannt
+					U = Unbekannt
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3474,18 +3685,20 @@ U = Unbekannt</xs:documentation>
 			</xs:element>
 			<xs:element name="GradRektumAnastomoseninsuffizienz" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Rektum:
-Grad A (keine therapeutische Konsequenz)
-Grad B (Antibiotikagabe oder interventionelle Drainage oder transanale Lavage/Drainage)
-Grad C ((Re)-Laparotomie)
-Anastomoseninsuffizienz nach elektivem Eingriff mit Anastomosenanlage
+					<xs:documentation>
+					Rektum:
+					Grad A (keine therapeutische Konsequenz)
+					Grad B (Antibiotikagabe oder interventionelle Drainage oder transanale Lavage/Drainage)
+					Grad C ((Re)-Laparotomie)
+					Anastomoseninsuffizienz nach elektivem Eingriff mit Anastomosenanlage
 
-B = Anastomoseninsuffizienz Grad B
-C = Anastomoseninsuffizienz Grad C
-K = Keine Insuffizienz oder höchstens Grad A
-U = Unbekannt
+					B = Anastomoseninsuffizienz Grad B
+					C = Anastomoseninsuffizienz Grad C
+					K = Keine Insuffizienz oder höchstens Grad A
+					U = Unbekannt
 
-Ausprägung gem. Rahbari, N.N., et al., Definition and grading of anastomotic leakage following anterior resection of the rectum: a proposal by the International Study Group of Rectal Cancer.Surgery, 2010. 147(3): p. 339-51.</xs:documentation>
+					Ausprägung gem. Rahbari, N.N., et al., Definition and grading of anastomotic leakage following anterior resection of the rectum: a proposal by the International Study Group of Rectal Cancer.Surgery, 2010. 147(3): p. 339-51.
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3514,13 +3727,14 @@ Ausprägung gem. Rahbari, N.N., et al., Definition and grading of anastomotic le
 			</xs:element>
 			<xs:element name="ASA" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Einstufung des Patienten nach der ASA-Klassifikation bei präoperativer Untersuchung durch den Anästhesisten.
-
-1 = Normaler, ansonsten gesunder Patient
-2 = Patient mit leichter Allgemeinerkrankung
-3 = Patient mit schwerer Allgemeinerkrankung und Leistungseinschränkung
-4 = Patient mit inaktivierender Allgemeinerkrankung, ständige Lebensbedrohung
-5 = Moribunder Patient</xs:documentation>
+					<xs:documentation>
+					Einstufung des Patienten nach der ASA-Klassifikation bei präoperativer Untersuchung durch den Anästhesisten.
+					1 = Normaler, ansonsten gesunder Patient
+					2 = Patient mit leichter Allgemeinerkrankung
+					3 = Patient mit schwerer Allgemeinerkrankung und Leistungseinschränkung
+					4 = Patient mit inaktivierender Allgemeinerkrankung, ständige Lebensbedrohung
+					5 = Moribunder Patient
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3554,12 +3768,13 @@ Ausprägung gem. Rahbari, N.N., et al., Definition and grading of anastomotic le
 			</xs:element>
 			<xs:element name="RASMutation" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Vorliegen einer Mutation im K-ras-Onkogen
-
-W = Wildtyp
-M = Mutation
-U = Unbekannt
-N = Nicht untersucht</xs:documentation>
+					<xs:documentation>
+					Vorliegen einer Mutation im K-ras-Onkogen
+					W = Wildtyp
+					M = Mutation
+					U = Unbekannt
+					N = Nicht untersucht
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3588,6 +3803,291 @@ N = Nicht untersucht</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="Modul_Prostata_Typ">
+		<xs:sequence>
+			<xs:element name="GleasonScore" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Wert des Gleason-Score:
+					GleasonGradPrimaer + GleasonGradSekundaer = GleasonScoreErgebnis
+					mod. nach ISUP 2005 bei primärem Ca-Nachweis und im OP-Präparat
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GleasonGradPrimaer" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>primärer Gleason Grad zum Gleason-Score</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="1"/>
+									<xs:enumeration value="2"/>
+									<xs:enumeration value="3"/>
+									<xs:enumeration value="4"/>
+									<xs:enumeration value="5"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="GleasonGradSekundaer" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>sekundärer Gleason Grad zum Gleason-Score</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="1"/>
+									<xs:enumeration value="2"/>
+									<xs:enumeration value="3"/>
+									<xs:enumeration value="4"/>
+									<xs:enumeration value="5"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="GleasonScoreErgebnis" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Ergebnis Gleason-Score</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="2"/>
+									<xs:enumeration value="3"/>
+									<xs:enumeration value="4"/>
+									<xs:enumeration value="5"/>
+									<xs:enumeration value="6"/>
+									<xs:enumeration value="7"/>
+									<xs:enumeration value="7a"/>
+									<xs:enumeration value="7b"/>
+									<xs:enumeration value="8"/>
+									<xs:enumeration value="9"/>
+									<xs:enumeration value="10"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AnlassGleasonScore" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Anlass der Bestimmung des Scores OP oder Stanze
+					Ausprägungen:
+					O = Op
+					S = Stanze
+					U = Unbekannt
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="O">
+							<xs:annotation>
+								<xs:documentation>Op</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="S">
+							<xs:annotation>
+								<xs:documentation>Stanze</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="U">
+							<xs:annotation>
+								<xs:documentation>Unbekannt</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DatumStanzen" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Datum der Entnahme der Stanzen
+					Ausprägung: yyyy-mm-dd
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AnzahlStanzen" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Anzahl der entnommenen Stanzen
+					Ausprägungen: natürliche Zahl von 0 - 99
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:maxExclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AnzahlPosStanzen" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Anzahl der positiven Stanzen
+					Ausprägungen: natürliche Zahl von 0 - 99
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger">
+						<xs:maxExclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CaBefallStanze" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Semiquantitative Abschätzung des Prozentsatzes der Gesamtkarzinomfläche/Gesamtstanzzylinderfläche der am schwersten befallenen Stanze
+					Ausprägungen:
+					natürliche Zahl in % (1 - 100)
+					U = Unbekannt
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="Prozentzahl">
+							<xs:annotation>
+								<xs:documentation>natürliche Zahl (1-100) in %</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:positiveInteger">
+									<xs:maxInclusive value="100"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="U">
+							<xs:annotation>
+								<xs:documentation>U = Unbekannt</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="U">
+										<xs:annotation>
+											<xs:documentation>Unbekannt</xs:documentation>
+										</xs:annotation>
+									</xs:enumeration>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PSA" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Aktuell relevanter PSA-Wert
+					Ausprägungen: Fließkommazahl in ng/ml (max. 3 Dezimalstellen nach dem Dezimalpunkt)
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:fractionDigits value="3"/>
+						<xs:minInclusive value="0"/>
+						<xs:maxExclusive value="100000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="DatumPSA" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Datum der Blutentnahme zur PSA-Bestimmung
+					Ausprägung: yyyy-mm-dd
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="KomplPostOP_ClavienDindo" type="JNU_Typ" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					Komplikation der Clavien-Dindo Grade III oder IV innerhalb der ersten 6 Monate nach Radikaler Prostatektomie
+					Ausprägungen:
+					J = Ja
+					N = keine oder höchsten Grad II
+					U = Unbekannt
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Modul_Malignes_Melanom_Typ">
+		<xs:sequence>
+			<xs:element name="Sicherheitsabstand_Primaertumor" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					<![CDATA[
+					Minimaler Sicherheitsabstand zum Primärtumor in Millimeter.
+					Ausprägungen:
+					-1 = nicht zu beurteilen
+					0 = kein Abstand
+					n = Abstand in mm (natürliche Zahl) 
+                    Hinweis:
+                    Es ist der endgültige kumulative Sicherheitsabstand, d. h. nach definitiver operativer Versorgung zu verwenden. 
+                    Es soll die sichere Untergrenze angegeben werden. 
+                    Ein Abstand von 0 entspricht lokal R1 oder R2, bzw. randständig. 
+                    ]]>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="-1"/>
+						<xs:maxInclusive value="150"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Tumordicke" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					<![CDATA[
+					Tumordicke in mm.
+					Ausprägungen:
+					Zahl von 0,1 bis 99,0.
+                    ]]>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:fractionDigits value="1"/>
+						<xs:minInclusive value="0.1"/>
+						<xs:maxInclusive value="99.0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="LDH" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					<![CDATA[
+					LDH-Wert in Unit/Liter (U/l).
+					Hinweis:
+					Für die Umrechung von Katal/l nach Unit/l gilt:
+					1µkat/l = 60 U/l
+					100 U/l = 1.67 µkat/l.
+                    ]]>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Ulzeration" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>
+					<![CDATA[
+					Pathologisches Kriterium der Ulzeration erfüllt.
+					Ausprägungen:
+					J  = Ja 
+					N = Nein 
+					U = Unbekannt
+					Hinweis:
+					Dieses Feld soll nur im TNM-Stadium pT1b angegeben werden, 
+					da dieses Stadium mit und ohne Ulzerationen definiert ist.
+					(Quelle: TNM-Klassifikation, 8. Auflage 2020, S. 188).
+                    ]]>
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="JNU_Typ"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:simpleType name="Hormonrezeptor_Typ">
 		<xs:restriction base="xs:string">
 			<xs:length value="1"/>
@@ -3610,14 +4110,15 @@ N = Nicht untersucht</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="Seitenlokalisation_Typ">
 		<xs:annotation>
-			<xs:documentation>Organspezifische Angabe der betroffenen Seite
-
-L = Links  
-R = Rechts 
-B = Beidseitig (sollte bei bestimmten Tumoren 2 Meldungen ergeben) 
-M = Mittellinie/Mittig 
-U = Unbekannt   
-T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)  </xs:documentation>
+			<xs:documentation>
+			Organspezifische Angabe der betroffenen Seite
+			L = Links  
+			R = Rechts 
+			B = Beidseitig (sollte bei bestimmten Tumoren 2 Meldungen ergeben) 
+			M = Mittellinie/Mittig 
+			U = Unbekannt   
+			T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkrankungen)
+			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="L">
@@ -3654,58 +4155,42 @@ T = Trifft nicht zu (Seitenangabe nicht sinnvoll, einschließlich Systemerkranku
 	</xs:simpleType>
 	<xs:simpleType name="Allgemeiner_Leistungszustand_Typ">
 		<xs:annotation>
-			<xs:documentation>ECOG oder Karnofsky
-
-Begründung eindeutige zeitliche Einordnung, insbesondere hinsichtlich Beurteilung der eingeschlagenen Therapiestrategien 
-
-0 = Normale, uneingeschränkte Aktivität wie vor der Erkrankung  
-(90 - 100% nach Karnofsky) 
-
-1 = Einschränkung bei körperlicher Anstrengung, aber gehfähig; leichte körperliche Arbeit bzw. Arbeit im Sitzen (z.B. leichte Hausarbeit oder Büroarbeit) möglich   
-(70 - 80% nach Karnofsky)  
-
-2 = Gehfähig, Selbstversorgung möglich, aber nicht arbeitsfähig; kann mehr als 50% der Wachzeit aufstehen  
-(50 - 60% nach Karnofsky)  
-
-3 = Nur begrenzte Selbstversorgung möglich; ist 50% oder mehr der Wachzeit an Bett oder Stuhl gebunden 
-(30 - 40% nach Karnofsky)  
-
-4 = Völlig pflegebedürftig, keinerlei Selbstversorgung möglich; völlig an Bett oder Stuhl gebunden  
-(10 - 20% nach Karnofsky)  
-
-Alternativ bei Karnofsky Angabe in % 
-
-U = Unbekannt </xs:documentation>
+			<xs:documentation>
+			ECOG oder Karnofsky
+			Begründung: Eindeutige zeitliche Einordnung, insbesondere hinsichtlich Beurteilung der eingeschlagenen Therapiestrategien 
+			0 = (90% - 100% nach Karnofsky): Normale, uneingeschränkte Aktivität wie vor der Erkrankung
+			1 = (70% - 80%  nach Karnofsky): Einschränkung bei körperlicher Anstrengung, aber gehfähig; leichte körperliche Arbeit bzw. Arbeit im Sitzen (z.B. leichte Hausarbeit oder Büroarbeit) möglich   
+			2 = (50% - 60%  nach Karnofsky): Gehfähig, Selbstversorgung möglich, aber nicht arbeitsfähig; kann mehr als 50% der Wachzeit aufstehen  
+			3 = (30% - 40%  nach Karnofsky): Nur begrenzte Selbstversorgung möglich; ist 50% oder mehr der Wachzeit an Bett oder Stuhl gebunden 
+			4 = (10% - 20%  nach Karnofsky): Völlig pflegebedürftig, keinerlei Selbstversorgung möglich; völlig an Bett oder Stuhl gebunden  
+			Alternativ bei Karnofsky Angabe in % 
+			U = Unbekannt
+			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="0">
 				<xs:annotation>
-					<xs:documentation>Normale, uneingeschränkte Aktivität wie vor der Erkrankung  
-(90 - 100 % nach Karnofsky)</xs:documentation>
+					<xs:documentation>Normale, uneingeschränkte Aktivität wie vor der Erkrankung (90 - 100 % nach Karnofsky)</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="1">
 				<xs:annotation>
-					<xs:documentation>Einschränkung bei körperlicher Anstrengung, aber gehfähig; leichte körperliche Arbeit bzw. Arbeit im Sitzen (z.B. leichte Hausarbeit oder Büroarbeit) möglich   
-(70 - 80 % nach Karnofsky)</xs:documentation>
+					<xs:documentation>Einschränkung bei körperlicher Anstrengung, aber gehfähig; leichte körperliche Arbeit bzw. Arbeit im Sitzen (z.B. leichte Hausarbeit oder Büroarbeit) möglich (70 - 80 % nach Karnofsky)</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="2">
 				<xs:annotation>
-					<xs:documentation>Gehfähig, Selbstversorgung möglich, aber nicht arbeitsfähig; kann mehr als 50% der Wachzeit aufstehen  
-(50 - 60 % nach Karnofsky)</xs:documentation>
+					<xs:documentation>Gehfähig, Selbstversorgung möglich, aber nicht arbeitsfähig; kann mehr als 50% der Wachzeit aufstehen (50 - 60 % nach Karnofsky)</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="3">
 				<xs:annotation>
-					<xs:documentation>Nur begrenzte Selbstversorgung möglich; ist 50% oder mehr der Wachzeit an Bett oder Stuhl gebunden 
-(30 - 40 % nach Karnofsky)</xs:documentation>
+					<xs:documentation>Nur begrenzte Selbstversorgung möglich; ist 50% oder mehr der Wachzeit an Bett oder Stuhl gebunden (30 - 40 % nach Karnofsky)</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="4">
 				<xs:annotation>
-					<xs:documentation>Völlig pflegebedürftig, keinerlei Selbstversorgung möglich; völlig an Bett oder Stuhl gebunden
-(10 - 20% nach Karnofsky) </xs:documentation>
+					<xs:documentation>Völlig pflegebedürftig, keinerlei Selbstversorgung möglich; völlig an Bett oder Stuhl gebunden (10 - 20% nach Karnofsky) </xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="U">
@@ -3777,11 +4262,11 @@ U = Unbekannt </xs:documentation>
 			</xs:element>
 			<xs:element name="TNM_y_Symbol" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Gibt an, ob die Klassifikation während oder nach initialer multimodaler Therapie erfolgt
-
-y = Klassifikation erfolgte während oder nach initialer multimodaler Therapie 
-
-(leer) = "native" Klassifikation</xs:documentation>
+					<xs:documentation>
+						Gibt an, ob die Klassifikation während oder nach initialer multimodaler Therapie erfolgt.
+						y = Klassifikation erfolgte während oder nach initialer multimodaler Therapie 
+						(leer) = "native" Klassifikation
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3796,11 +4281,11 @@ y = Klassifikation erfolgte während oder nach initialer multimodaler Therapie
 			</xs:element>
 			<xs:element name="TNM_r_Symbol" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Gibt an, ob die Klassifikation ein Rezidiv beurteilt 
-
-r = Klassifikation erfolgte zur Beurteilung eines Rezidivs 
-
-(leer) = "native" Klassifikation vor Eintreten eines Rezidivs</xs:documentation>
+					<xs:documentation>
+						Gibt an, ob die Klassifikation ein Rezidiv beurteilt 
+						r = Klassifikation erfolgte zur Beurteilung eines Rezidivs 
+						(leer) = "native" Klassifikation vor Eintreten eines Rezidivs
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3815,13 +4300,11 @@ r = Klassifikation erfolgte zur Beurteilung eines Rezidivs
 			</xs:element>
 			<xs:element name="TNM_a_Symbol" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Ausbreitung der Erkrankung
-
-Gibt an, ob die Klassifikation aus Anlass einer Autopsie erfolgte
-
-a = Klassifikation erfolgte durch Autopsie 
-
-(leer) = Klassifikation erfolgte nicht durch Autopsie
+					<xs:documentation>
+						Ausbreitung der Erkrankung
+						Gibt an, ob die Klassifikation aus Anlass einer Autopsie erfolgte
+						a = Klassifikation erfolgte durch Autopsie 
+						(leer) = Klassifikation erfolgte nicht durch Autopsie
 					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
@@ -3833,13 +4316,12 @@ a = Klassifikation erfolgte durch Autopsie
 			</xs:element>
 			<xs:element name="TNM_c_p_u_Praefix_T" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte 
-
-c oder (leer) = Kategorie wurde durch klinische Angaben festgestellt, bzw. erfüllt die Kriterien für p nicht 
-
-p = Feststellung der Kategorie erfolgte durch eine pathohistologische Untersuchung, mit der auch der höchste Grad der jeweiligen Kategorie hätte festgestellt werden können 
-
-u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostischer Relevanz, z.B. beim Rektumkarzinom) </xs:documentation>
+					<xs:documentation>
+						Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte 
+						c oder (leer) = Kategorie wurde durch klinische Angaben festgestellt, bzw. erfüllt die Kriterien für p nicht 
+						p = Feststellung der Kategorie erfolgte durch eine pathohistologische Untersuchung, mit der auch der höchste Grad der jeweiligen Kategorie hätte festgestellt werden können 
+						u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostischer Relevanz, z.B. beim Rektumkarzinom)
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3866,13 +4348,12 @@ u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostis
 			<xs:element name="TNM_m_Symbol" type="xs:string" minOccurs="0"/>
 			<xs:element name="TNM_c_p_u_Praefix_N" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte 
-
-c oder (leer) = Kategorie wurde durch klinische Angaben festgestellt, bzw. erfüllt die Kriterien für p nicht 
-
-p = Feststellung der Kategorie erfolgte durch eine pathohistologische Untersuchung, mit der auch der höchste Grad der jeweiligen Kategorie hätte festgestellt werden können 
-
-u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostischer Relevanz, z.B. beim Rektumkarzinom)</xs:documentation>
+					<xs:documentation>
+						Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte 
+						c oder (leer) = Kategorie wurde durch klinische Angaben festgestellt, bzw. erfüllt die Kriterien für p nicht 
+						p = Feststellung der Kategorie erfolgte durch eine pathohistologische Untersuchung, mit der auch der höchste Grad der jeweiligen Kategorie hätte festgestellt werden können 
+						u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostischer Relevanz, z.B. beim Rektumkarzinom)
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3880,13 +4361,13 @@ u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostis
 						<xs:enumeration value="c">
 							<xs:annotation>
 								<xs:documentation>c oder (leer) = Kategorie wurde durch klinische Angaben festgestellt, bzw. erfüllt die Kriterien für p nicht 
-								</xs:documentation>
+											</xs:documentation>
 							</xs:annotation>
 						</xs:enumeration>
 						<xs:enumeration value="p">
 							<xs:annotation>
 								<xs:documentation> Feststellung der Kategorie erfolgte durch eine pathohistologische Untersuchung, mit der auch der höchste Grad der jeweiligen Kategorie hätte festgestellt werden können 
-								</xs:documentation>
+											</xs:documentation>
 							</xs:annotation>
 						</xs:enumeration>
 						<xs:enumeration value="u">
@@ -3904,13 +4385,12 @@ u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostis
 			</xs:element>
 			<xs:element name="TNM_c_p_u_Praefix_M" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte 
-
-c oder (leer) = Kategorie wurde durch klinische Angaben festgestellt, bzw. erfüllt die Kriterien für p nicht 
-
-p = Feststellung der Kategorie erfolgte durch eine pathohistologische Untersuchung, mit der auch der höchste Grad der jeweiligen Kategorie hätte festgestellt werden können 
-
-u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostischer Relevanz, z.B. beim Rektumkarzinom)</xs:documentation>
+					<xs:documentation>
+						Gibt an, ob die Klassifikation klinisch oder pathologisch erfolgte 
+						c oder (leer) = Kategorie wurde durch klinische Angaben festgestellt, bzw. erfüllt die Kriterien für p nicht 
+						p = Feststellung der Kategorie erfolgte durch eine pathohistologische Untersuchung, mit der auch der höchste Grad der jeweiligen Kategorie hätte festgestellt werden können 
+						u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostischer Relevanz, z.B. beim Rektumkarzinom)
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3940,11 +4420,12 @@ u = Feststellung mit Ultraschall (Unterkategorie von c mit besonderer diagnostis
 			</xs:element>
 			<xs:element name="TNM_L" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Lymphgefäßinvasion 
-
-LX = Lymphgefäßinvasion kann nicht beurteilt werden 
-L0 = Keine Lymphgefäßinvasion 
-L1 = Lymphgefäßinvasion</xs:documentation>
+					<xs:documentation>
+						Lymphgefäßinvasion 
+						LX = Lymphgefäßinvasion kann nicht beurteilt werden 
+						L0 = Keine Lymphgefäßinvasion 
+						L1 = Lymphgefäßinvasion
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -3969,12 +4450,13 @@ L1 = Lymphgefäßinvasion</xs:documentation>
 			</xs:element>
 			<xs:element name="TNM_V" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Veneninvasion 
-
-VX = Veneninvasion kann nicht beurteilt werden 
-V0 = Keine Veneninvasion 
-V1 = Mikroskopische Veneninvasion 
-V2 = Makroskopische Veneninvasion</xs:documentation>
+					<xs:documentation>
+						Veneninvasion 
+						VX = Veneninvasion kann nicht beurteilt werden 
+						V0 = Keine Veneninvasion 
+						V1 = Mikroskopische Veneninvasion 
+						V2 = Makroskopische Veneninvasion
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -4004,11 +4486,12 @@ V2 = Makroskopische Veneninvasion</xs:documentation>
 			</xs:element>
 			<xs:element name="TNM_Pn" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Perineuralinvasion 
-
-PnX = Perineurale Invasion kann nicht beurteilt werden 
-Pn0 = Keine perineurale Invasion 
-Pn1 = Perineurale Invasion</xs:documentation>
+					<xs:documentation>
+						Perineuralinvasion 
+						PnX = Perineurale Invasion kann nicht beurteilt werden 
+						Pn0 = Keine perineurale Invasion 
+						Pn1 = Perineurale Invasion
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -4033,24 +4516,20 @@ Pn1 = Perineurale Invasion</xs:documentation>
 			</xs:element>
 			<xs:element name="TNM_S" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Serumtumormarker 
-
-SX = Werte der Serumtumormarker nicht verfügbar oder entsprechende Untersuchungen nicht vorgenommen 
-
-S0 = Serumtumormarker innerhalb der normalen Grenzen 
-
-S1–S3 = Wenigstens einer der Serumtumormarker erhöht 
-
-                LDH                     HCG                       AFP 
-
-S1      &lt; 1,5N   Und     &lt; 5000      Und    &lt; 1000 
-
-S2       1,5-10N   Oder     5000-50000  Oder  1000-10000 
-
-S3     &gt; 10 N  Oder     &gt; 50000   Oder   &gt; 10000 
-
-N = obere Grenze des Normalwertes 
- (Quelle: TNM-Klassifikation)</xs:documentation>
+					<xs:documentation>
+					<![CDATA[
+						Serumtumormarker 
+						SX = Werte der Serumtumormarker nicht verfügbar oder entsprechende Untersuchungen nicht vorgenommen 
+						S0 = Serumtumormarker innerhalb der normalen Grenzen 
+						S1–S3 = Wenigstens einer der Serumtumormarker erhöht 
+									LDH					HCG					AFP 
+						S1			< 1,5N		und		< 5000		und		< 1000 
+						S2			1,5-10N		oder	5000-50000  oder	1000-10000 
+						S3			> 10 N		oder	> 50000		oder	> 10000
+						N = obere Grenze des Normalwertes 
+						(Quelle: TNM-Klassifikation, 8. Auflage 2020, S.252)
+					]]>
+					</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
 					<xs:restriction base="xs:string">

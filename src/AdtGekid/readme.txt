@@ -4,6 +4,10 @@ This project is in german, since it covers purely data structures, that are nece
 
 Entitätsklassen für den onkologischen Basisdatensatz nach ADT/GEKID, wie er im neuen KFRG (Krebsfrüherkennungs- und -registergesetz) Anwendung findet (http://www.tumorzentren.de/onkol-basisdatensatz.html).
 
+version 2.2.1.1 !!without Module Malignant Melanoma!! (wo MM) (MadDogTannen)
+- XSD for ADT 2.2.1.1 included/implemented for tests
+- TopographieIcdOVersionTyp extended
+
 version 2.2.1.0 !!without Module Malignant Melanoma!! (wo MM) (MadDogTannen)
 - OPS version 2021/2022 added
 - ICD-10 versions 10 2021/2022 GM added

@@ -14,9 +14,8 @@ namespace AdtGekid.Tests
     using Module.Prostata;
 
     public class SerializerTests
-    {
-        //public const string SchemaFileName = @"ADT_GEKID_v2.0.0.xsd";
-        public const string SchemaFileName = @"ADT_GEKID_v2.1.1.xsd";
+    {        
+        public const string SchemaFileName = @"ADT_GEKID_v2.2.1.xsd";
 
 
         [Fact]    
