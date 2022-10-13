@@ -28,7 +28,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("AdtGekid")]
-[assembly: AssemblyDescription("German Project. Entitäten für den ADT_GEKID Basisdatensatz Version 2.1.1")]
+[assembly: AssemblyDescription("German Project. Entitäten für den ADT_GEKID Basisdatensatz Version 2.2.1")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Andreas Hübner")]
 [assembly: AssemblyProduct("AdtGekid")]
