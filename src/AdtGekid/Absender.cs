@@ -80,7 +80,7 @@ namespace AdtGekid
         public string InstallationsId
         {
             get { return _installationsId; }
-            set { _installationsId = value.ValidateAlphanumericalOrThrow(16, _typeName, nameof(this.InstallationsId)); }
+            set { _installationsId = value.ValidateMaxLength(64, _typeName, nameof(this.InstallationsId)); }
         }
 
         /// <summary>
